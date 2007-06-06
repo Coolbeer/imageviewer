@@ -1,0 +1,39 @@
+ImageViewer Changelog
+=====================
+
+v0.1.4_pre1
+    *Added some functonality in the pwan::dir class
+    
+v0.1.3
+    *Solved bug with moc'ing the headerfiles causing the program to be compiled twice(in "make" and "make install")
+    *Added readahead, will load next image in list and keep the last image in memory aswell
+    *Added picture centering code again, as the last one was horribly broken by myself :D
+    *Added moving to the beginning and end of imagelist by [home] and [end] keys
+    *Added commandline option --version
+    *Added commandline option --scale, for scaling image to fit screen
+    *Added short versions of the commandline options
+    *Broke zooming function...
+    *Moved the imageinformation/image into its own class
+    *Changed from eventFilter to keyPressEvent for reading keystrokes
+    *Changed keyPressEvent to using if/elseif/else instead of select/case for future custom keys
+    *Changed commandlineparser to std::string/list instead of the Qt equivalent
+    *Changed directory reader to using readdir instead of QDir
+    *Changed from QString/QList to std::string/std::vector
+    *Tweaked the directory reader some more(still needs alot of work)
+    *Fixed a segfault concerning a unitialized variable beeing accessed
+    
+v0.1.2
+    *Added a helptext when no --image option specified on commandline
+    *Added ./configure option --enable-debug, alot of debuginformation on console
+    *Added basic zooming of picture(still much work ahead)
+    *Tweaked drawing a bit(draw only what is visible)
+    *Solved a segfault caused by specifying a file either not there or not a image
+
+v0.1.1
+    *Got autotools to work(finally)
+    *General code improvement
+    *Some bugfixes when invoked with a image not in current directory
+
+
+v0.1.0
+    *initial version

@@ -1,0 +1,45 @@
+
+ ImageViewer
+=============
+    A Small imageviewer based on Qt4
+
+
+ FEATURES
+==========
+
+    *Loads all imageformats Qt has support for
+    *Fullscreen viewing(only fullscreen viewing for now actually)
+    *Scrolling by Arrowkeys
+    *Basic zooming(currently broken...)
+    *Imageloading in separate thread
+    *Image readahead
+
+
+ DEPENDENCIES
+==============
+
+    Required:
+	*Qt 4.2.0 (or higher)
+
+
+ USAGE
+=======
+
+    ImageViewer [OPTION]
+
+        Where [OPTION] is one of the following:
+        --image (filename)	Specifies the image you want to load
+        --scale			Scales the image to fit the screen
+        --version		Prints versionstring
+
+
+ KEYBOARD SHORTCUTS
+====================
+
+    PageUp	-	Previous Image
+    PageDown	-	Next Image
+    0		-	Zoom in
+    9		-	Zoom out
+    Arrowkeys	-	Scroll around the picture if it is bigger than the screen
+    Home	-	Move to first image in imagelist
+    End		-	Move to last image in imagelist
