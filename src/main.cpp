@@ -120,11 +120,11 @@ std::map<std::string, std::string> parsecommands(int argc, char *argv[])
 
 void showhelp(void)
 {
-	std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\
-Usage: " << PACKAGE_NAME << " [OPTION]\n\n\
-Where [OPTION] is one of the following:\n\
-  -i,   --image (filename)        Specifies the image you want to load\n\
-  -s,   --scale                   Scales the image to fit the screen\n\
-  -v,   --version                 Prints versionstring\n\
-  -h,   --help                    This helptext\n\n";
+    std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n" \
+    << "Usage: " << PACKAGE_NAME << " [OPTION]\n\n" \
+    << "Where [OPTION] is one of the following:\n" \
+    << "-i,   --image (filename)        Specifies the image you want to load\n" \
+    << "-s,   --scale                   Scales the image to fit the screen\n" \
+    << "-v,   --version                 Prints versionstring\n" \
+    << "-h,   --help                    This helptext\n\n";
 }
