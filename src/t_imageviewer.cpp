@@ -173,21 +173,11 @@ void t_imageviewer::paintEvent(QPaintEvent *)
 
 pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
 {
-	pwan::dir pwandir(path);
-// 	std::vector<pwan::fileinfo> filelistings = pwandir.readdirectory(path, imageformats);
-	pwan::fileinfovector filelistings = pwandir.entryInfoList(imageformats);
-
-/*	for (unsigned int i = 0; i != filelistings.size(); ++i)
-	{
-		std::cout << filelistings.at(i).fileName() << "\n";
-	}*/
-// 	exit(0);
-/*	QDir directory(QString().fromStdString(path), imageformats, QDir::Name, QDir::Files);
-	QFileInfoList filelist;
-	filelist = directory.entryInfoList();
-	return filelist;
-*/
-	return filelistings;
+    if(path == "")
+        path = "./";
+    pwan::dir pwandir(path);
+    pwan::fileinfovector filelistings = pwandir.entryInfoList(imageformats);
+    return filelistings;
 }
 
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, float Zoom)
