@@ -135,40 +135,54 @@ bool t_imageviewer::loadimage(pwan::fileinfovector::iterator file)
 
 void t_imageviewer::paintEvent(QPaintEvent *)
 {
-	int imagedims[2] = {0,0};
-	int displaydims[2] = {viewerwidth, viewerheight};
-	pwan::doubleint offsets;
-	offsets.x = offsets.y = 0;
-	QPainter painter(this);
-	QImage *imagepointer = &imagelist[index - fileList.begin()];
-	QString message = "Loading Image, please wait...";
-	
-	painter.fillRect(this->rect(), QColor(0,0,0));
-	if(imagepointer->isNull())
-	{
-		painter.setPen(Qt::white);
-		painter.drawText(this->rect(), Qt::AlignCenter, message);
-	}
-	else
-	{
-		imagedims[0] = imagepointer->width();
-		imagedims[1] = imagepointer->height();
-		if(scale)
-			zoom = pwan::calculatezoom(imagedims, displaydims);
-		if(zoom == 1.0)
-		{
-			offsets = pwan::calculateoffset(imagedims, displaydims);
-			painter.drawImage(QPointF(0,0), *imagepointer, QRectF(-offsets.x,-offsets.y,viewerwidth,viewerheight));
-		}
-		else
-		{
-			imagedims[0] = ((int)(imagedims[0]*zoom));
-			imagedims[1] = ((int)(imagedims[1]*zoom));
-			offsets = pwan::calculateoffset(imagedims, displaydims);
-			QImage imagecopy = imagepointer->scaled(imagedims[0], imagedims[1]);
-			painter.drawImage(QPointF(0,0), imagecopy, QRectF(-offsets.x,-offsets.y,viewerwidth,viewerheight));
-		}
-	}
+    QString imagefile;
+    QRect textbox;
+    QRect text;
+    int imagedims[2] = {0,0};
+    int displaydims[2] = {viewerwidth, viewerheight};
+    pwan::doubleint offsets;
+    offsets.x = offsets.y = 0;
+    QPainter painter(this);
+    QImage *imagepointer = &imagelist[index - fileList.begin()];
+    QString message = "Loading Image, please wait...";
+
+    painter.fillRect(this->rect(), QColor(0,0,0));
+    if(imagepointer->isNull())
+    {
+        painter.setPen(Qt::white);
+        painter.drawText(this->rect(), Qt::AlignCenter, message);
+    }
+    else
+    {
+        imagedims[0] = imagepointer->width();
+        imagedims[1] = imagepointer->height();
+        if(scale)
+            zoom = pwan::calculatezoom(imagedims, displaydims);
+        if(zoom == 1.0)
+        {
+            offsets = pwan::calculateoffset(imagedims, displaydims);
+            painter.drawImage(QPointF(0,0), *imagepointer, QRectF(-offsets.x,-offsets.y,viewerwidth,viewerheight));
+        }
+        else
+        {
+            imagedims[0] = ((int)(imagedims[0]*zoom));
+            imagedims[1] = ((int)(imagedims[1]*zoom));
+            offsets = pwan::calculateoffset(imagedims, displaydims);
+            QImage imagecopy = imagepointer->scaled(imagedims[0], imagedims[1]);
+            painter.drawImage(QPointF(0,0), imagecopy, QRectF(-offsets.x,-offsets.y,viewerwidth,viewerheight));
+        }
+        painter.setPen(Qt::black);
+        painter.setBrush(QColor(255, 255, 255, 190));
+        imagefile = QString::fromStdString(fileList.at(index - fileList.begin()).path() + "/" );
+        imagefile += QString::fromStdString(fileList.at(index - fileList.begin()).fileName());
+        textbox = painter.boundingRect(this->rect(), Qt::AlignBottom | Qt::AlignLeft, imagefile);
+        text = textbox;
+        textbox.setWidth(textbox.width() + 10);
+        text.setLeft(text.left() +5);
+        text.setRight(text.right() +5);
+        painter.drawRect(textbox);
+        painter.drawText(text, Qt::AlignBottom | Qt::AlignLeft, imagefile);
+    }
 }
 
 pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
