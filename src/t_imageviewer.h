@@ -51,6 +51,7 @@ class t_imageviewer : public QWidget
         int altFirstImageKey, lastImageKey, altLastImageKey, scrollDownImageKey, altScrollDownImageKey;
         int scrollUpImageKey, altScrollUpImageKey, scrollRightImageKey, altScrollRightImageKey, scrollLeftImageKey;
         int altScrollLeftImageKey, zoomOutImageKey, altZoomOutImageKey, zoomInImageKey, altZoomInImageKey;
+        int toggleScaleKey, altToggleScaleKey;
 
     signals:
         void exitprogram(void);

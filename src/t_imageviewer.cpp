@@ -49,7 +49,9 @@ void t_imageviewer::setupKeys(void)
 	scrollLeftImageKey = Qt::Key_Left;
 	zoomOutImageKey = Qt::Key_9;
 	zoomInImageKey = Qt::Key_0;
-	
+    toggleScaleKey = 0;
+
+    altToggleScaleKey = 0;
 	altPrevImageKey = 0;
 	altNextImageKey = 0;
 	altFirstImageKey = 0;
@@ -347,6 +349,11 @@ void t_imageviewer::keyPressEvent(QKeyEvent *keyevent)
 		update();
 		return;
 	}
+    else if (keycodefound == toggleScaleKey || keycodefound == altToggleScaleKey)
+    {
+        keyevent->ignore();
+        return();
+    }
 	else
 	{
 		keyevent->ignore();
