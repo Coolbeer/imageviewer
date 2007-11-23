@@ -4,6 +4,7 @@
 
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
+    extern std::map<std::string, std::string> arguments;
 	QDesktopWidget desk;
 	QImageReader imagereader;
 	QList<QByteArray> imgformats = imagereader.supportedImageFormats();
@@ -22,17 +23,18 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 	connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
 	connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, float)), this, SLOT(imagedone(QImage, std::string, float)));
 
-#ifdef PWANDEBUG
-	std::cout << "Qt Supported Image formats:\n=================================\n";
-	for(int teller = 0; teller != imgformats.size();teller++)
-	{
-		std::cout << qPrintable(QString(imgformats.at(teller))) << "; ";
-	}
-	std::cout << "\n\n";
-	std::cout << "Screen Dimentions:\n=================================\n";
-	std::cout << "viewerwidth = " << viewerwidth << "; viewerheight = " << viewerheight << "\n";
-	std::cout << "\n";
-#endif
+    if(arguments.find("verbose") != arguments.end())
+    {
+        std::cout << "Qt Supported Image formats:\n=================================\n";
+        for(int teller = 0; teller != imgformats.size();teller++)
+        {
+            std::cout << qPrintable(QString(imgformats.at(teller))) << "; ";
+        }
+        std::cout << "\n\n";
+        std::cout << "Screen Dimentions:\n=================================\n";
+        std::cout << "viewerwidth = " << viewerwidth << "; viewerheight = " << viewerheight << "\n";
+        std::cout << "\n";
+    }
 }
 
 void t_imageviewer::setupKeys(void)
