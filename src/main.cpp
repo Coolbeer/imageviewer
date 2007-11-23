@@ -3,6 +3,8 @@
 #include "main.h"
 #include "t_imageviewer.h"
 
+std::map<std::string, std::string> arguments;
+
 std::map<std::string, std::string> parsecommands(int argc, char *argv[]);
 void showhelp(void);
 
@@ -12,7 +14,6 @@ int main (int argc, char *argv[])
     for(int teller = 0; teller != argc; ++teller)
         args.push_back(std::string(argv[teller]));
 
-    std::map<std::string, std::string> arguments;
     QApplication app(argc, argv);
     arguments = parsecommands(argc, argv);
 
