@@ -8,28 +8,31 @@ void showhelp(void);
 
 int main (int argc, char *argv[])
 {
-#ifdef PWANDEBUG
-    std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
-    std::cout << "Raw Commandline:\n=================================\n";
+    std::vector<std::string> args;
     for(int teller = 0; teller != argc; ++teller)
-        std::cout << "argc = " << teller << "; " << argv[teller] << "\n";
-    std::cout << "\n";
-#endif
+        args.push_back(std::string(argv[teller]));
 
     std::map<std::string, std::string> arguments;
     QApplication app(argc, argv);
     arguments = parsecommands(argc, argv);
 
-#ifdef PWANDEBUG
-    std::cout << "Commandline Arguments parsed:\n=================================\n";
-    std::map<std::string, std::string>::iterator mapiter = arguments.begin();
-    while(mapiter != arguments.end())
+    if(arguments.find("verbose") != arguments.end())
     {
-        std::cout << (*mapiter).first << " : " << (*mapiter).second << "\n";
-        ++mapiter;
+        std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
+        std::cout << "Raw Commandline:\n=================================\n";
+        for(unsigned int teller = 0; teller != args.size(); ++teller)
+            std::cout << "argc = " << teller << "; " << args.at(teller).c_str() << "\n";
+        std::cout << "\n";
+
+        std::cout << "Commandline Arguments parsed:\n=================================\n";
+        std::map<std::string, std::string>::iterator mapiter = arguments.begin();
+        while(mapiter != arguments.end())
+        {
+            std::cout << (*mapiter).first << " : " << (*mapiter).second << "\n";
+            ++mapiter;
+        }
+        std::cout << "\n";
     }
-    std::cout << "\n";
-#endif
 
     t_imageviewer *imageviewer = new t_imageviewer;
     if(arguments.find("version") != arguments.end())
@@ -55,8 +58,8 @@ int main (int argc, char *argv[])
     else
     {
         std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n";
-        std::cout << "Missing option\nUsage: " << PACKAGE_NAME << " [OPTION]\n\n\
-Try: `" << PACKAGE_NAME << " --help` for more options.\n\n";
+        std::cout << "Missing option\nUsage: " << PACKAGE_NAME << " [OPTION]\n\n" \
+                  << "Try: `" << PACKAGE_NAME << " --help` for more options.\n\n";
         exit(0);
     }
 }
