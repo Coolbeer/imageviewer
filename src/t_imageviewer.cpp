@@ -5,23 +5,23 @@
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
     extern std::map<std::string, std::string> arguments;
-	QDesktopWidget desk;
-	QImageReader imagereader;
-	QList<QByteArray> imgformats = imagereader.supportedImageFormats();
-	QRect dims = desk.screenGeometry(desk.primaryScreen());
-	threadloadimage = new t_loadimage;
-	//imageformats = "";
-	for (int teller = 0; teller != imgformats.size(); ++teller)
-		imageformats.push_back(QString(imgformats.at(teller)).toStdString());
-		//imageformats += "*." + imgformats.at(teller) + " ";
-	zoom = 1.0;
-	fullscreen = 1;
-	viewerwidth = dims.width();
-	viewerheight = dims.height();
-	setupKeys();
-	qRegisterMetaType<std::string>("std::string");
-	connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
-	connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, float)), this, SLOT(imagedone(QImage, std::string, float)));
+    QDesktopWidget desk;
+    QImageReader imagereader;
+    QList<QByteArray> imgformats = imagereader.supportedImageFormats();
+    QRect dims = desk.screenGeometry(desk.primaryScreen());
+    threadloadimage = new t_loadimage;
+    //imageformats = "";
+    for (int teller = 0; teller != imgformats.size(); ++teller)
+        imageformats.push_back(QString(imgformats.at(teller)).toStdString());
+        //imageformats += "*." + imgformats.at(teller) + " ";
+    zoom = 1.0;
+    fullscreen = 1;
+    viewerwidth = dims.width();
+    viewerheight = dims.height();
+    setupKeys();
+    qRegisterMetaType<std::string>("std::string");
+    connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
+    connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, float)), this, SLOT(imagedone(QImage, std::string, float)));
 
     if(arguments.find("verbose") != arguments.end())
     {
@@ -39,102 +39,101 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 
 void t_imageviewer::setupKeys(void)
 {
-	nextImageKey = Qt::Key_PageDown;
-	this->quitImageKey = Qt::Key_Escape;
-	altQuitImageKey = Qt::Key_Return;
-	prevImageKey = Qt::Key_PageUp;
-	firstImageKey = Qt::Key_Home;
-	lastImageKey = Qt::Key_End;
-	scrollDownImageKey = Qt::Key_Down;
-	scrollUpImageKey = Qt::Key_Up;
-	scrollRightImageKey = Qt::Key_Right;
-	scrollLeftImageKey = Qt::Key_Left;
-	zoomOutImageKey = Qt::Key_9;
-	zoomInImageKey = Qt::Key_0;
+    nextImageKey = Qt::Key_PageDown;
+    this->quitImageKey = Qt::Key_Escape;
+    altQuitImageKey = Qt::Key_Return;
+    prevImageKey = Qt::Key_PageUp;
+    firstImageKey = Qt::Key_Home;
+    lastImageKey = Qt::Key_End;
+    scrollDownImageKey = Qt::Key_Down;
+    scrollUpImageKey = Qt::Key_Up;
+    scrollRightImageKey = Qt::Key_Right;
+    scrollLeftImageKey = Qt::Key_Left;
+    zoomOutImageKey = Qt::Key_9;
+    zoomInImageKey = Qt::Key_0;
     toggleScaleKey = 0;
 
     altToggleScaleKey = 0;
-	altPrevImageKey = 0;
-	altNextImageKey = 0;
-	altFirstImageKey = 0;
-	altLastImageKey = 0;
-	altScrollUpImageKey = 0;
-	altScrollDownImageKey = 0;
-	altScrollRightImageKey = 0;
-	altScrollLeftImageKey = 0;
-	altZoomInImageKey = 0;
-	altZoomOutImageKey = 0;
+    altPrevImageKey = 0;
+    altNextImageKey = 0;
+    altFirstImageKey = 0;
+    altLastImageKey = 0;
+    altScrollUpImageKey = 0;
+    altScrollDownImageKey = 0;
+    altScrollRightImageKey = 0;
+    altScrollLeftImageKey = 0;
+    altZoomInImageKey = 0;
+    altZoomOutImageKey = 0;
 }
 
 bool t_imageviewer::startimageviewer(std::map<std::string, std::string> options)
 {
-	pwan::fileinfovector::iterator filelistiter;
-	std::string filename = (*(options.find("image"))).second;
-	if(options.find("scale") != options.end())
-		scale = true;
-	else
-		scale = false;
-	std::string path = filename.substr(0, filename.find_last_of("/"));
-	if(path == filename)
-		path = "";
-	fileList = makeimagelist(path);
-	filelistiter = fileList.begin();
-	index = fileList.end();
-	while (filelistiter != fileList.end())
-	{
-		imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
-		if((*filelistiter).fileName() == filename.substr(filename.find_last_of("/")+1))
-		{
-			imageindex = filelistiter - fileList.begin();
-			index = filelistiter;
-		}
-		++filelistiter;
-	}
-	filelistiter = fileList.begin();
-	showFullScreen();
+    pwan::fileinfovector::iterator filelistiter;
+    std::string filename = (*(options.find("image"))).second;
+    if(options.find("scale") != options.end())
+        scale = true;
+    else
+        scale = false;
+    std::string path = filename.substr(0, filename.find_last_of("/"));
+    if(path == filename)
+        path = "";
+    fileList = makeimagelist(path);
+    filelistiter = fileList.begin();
+    index = fileList.end();
+    while (filelistiter != fileList.end())
+    {
+        imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
+        if((*filelistiter).fileName() == filename.substr(filename.find_last_of("/")+1))
+        {
+            imageindex = filelistiter - fileList.begin();
+            index = filelistiter;
+        }
+        ++filelistiter;
+    }
+    filelistiter = fileList.begin();
+    showFullScreen();
 
 #ifdef PWANDEBUG
-	std::cout << "StartImageviewer\n=================================\n";
-	std::cout << "filename = " << filename << "\n";
-	std::cout << "path = " << path << "\n";
-	std::cout << "\n";
-	std::cout << "List of images:\n=================================\n";
-	for (unsigned int i = 0; i != fileList.size(); ++i)
-		std::cout << fileList.at(i).path() << "/" << fileList.at(i).fileName() << "\n";
-	std::cout << "\n";
+    std::cout << "StartImageviewer\n=================================\n";
+    std::cout << "filename = " << filename << "\n";
+    std::cout << "path = " << path << "\n";
+    std::cout << "\n";
+    std::cout << "List of images:\n=================================\n";
+    for (unsigned int i = 0; i != fileList.size(); ++i)
+        std::cout << fileList.at(i).path() << "/" << fileList.at(i).fileName() << "\n";
+    std::cout << "\n";
 #endif
 
-	if(index != fileList.end())
-	{
+    if(index != fileList.end())
+    {
 #ifdef PWANDEBUG
-		std::cout << "found filename as index " << index - fileList.begin() << "; Total number of images: " << fileList.size() << "\n";
-		std::cout << "\nMain Program Running\n=================================\n";
+        std::cout << "found filename as index " << index - fileList.begin() << "; Total number of images: " << fileList.size() << "\n";
+        std::cout << "\nMain Program Running\n=================================\n";
 #endif
-		loadimage(index);
-		return true;
-	}
-	else
-	{
+        loadimage(index);
+        return true;
+    }
+    else
+    {
 #ifdef PWANDEBUG
-		std::cout << "Did not find filename in filelist...\n";
-		std::cout << "Quitting...\n\n";
+        std::cout << "Did not find filename in filelist...\n";
+        std::cout << "Quitting...\n\n";
 #endif
-		return false;
-	}
+        return false;
+    }
 }
 
 bool t_imageviewer::loadimage(pwan::fileinfovector::iterator file)
 {
 #ifdef PWANDEBUG
-	std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";
+    std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";
 #endif
-	if((imagelist[file - fileList.begin()].isNull()))
-	{
-		threadloadimage->readimage((*file).path()+ "/" + (*file).fileName());
-	}
-//	arnenake@start.no
-	update();
-	return true;
+    if((imagelist[file - fileList.begin()].isNull()))
+    {
+        threadloadimage->readimage((*file).path()+ "/" + (*file).fileName());
+    }
+    update();
+    return true;
 }
 
 void t_imageviewer::paintEvent(QPaintEvent *)
@@ -201,164 +200,164 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, float Zoom)
 {
 #ifdef PWANDEBUG
-	std::cout << "Finished loading image: " << filename << "\n";
+    std::cout << "Finished loading image: " << filename << "\n";
 #endif
-	pwan::fileinfovector::iterator filelistiter;
-	filelistiter = fileList.begin();
-	while(filelistiter != fileList.end())
-	{
-		if(filename == ((*filelistiter).path() + "/" + (*filelistiter).fileName()))
-		{
-			imagelist[filelistiter - fileList.begin()] = finishedimage;
-			//imagelist[filelistiter - fileList.begin()].calcfitwindowzoom(QPoint(viewerwidth, viewerheight));
-			break;
-		}
-		++filelistiter;
-	}
-	update();
+    pwan::fileinfovector::iterator filelistiter;
+    filelistiter = fileList.begin();
+    while(filelistiter != fileList.end())
+    {
+        if(filename == ((*filelistiter).path() + "/" + (*filelistiter).fileName()))
+        {
+            imagelist[filelistiter - fileList.begin()] = finishedimage;
+            //imagelist[filelistiter - fileList.begin()].calcfitwindowzoom(QPoint(viewerwidth, viewerheight));
+            break;
+        }
+        ++filelistiter;
+    }
+    update();
 }
 
 void t_imageviewer::keyPressEvent(QKeyEvent *keyevent)
 {
-	int keycodefound = keyevent->key();
-	
-	if(keycodefound == nextImageKey || keycodefound == altNextImageKey)
-	{
-		if(index+1 != fileList.end())
-		{
-			++index;
-			threadloadimage->abortload();
-			if((index-1) != fileList.begin())
-				imagelist[(index-2) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			loadimage(index);
-			if((index+1) != fileList.end())
-				loadimage(index+1);
-		}
-		return;
-	}
-	else if(keycodefound == quitImageKey || keycodefound == altQuitImageKey)
-	{
-		emit exitprogram();
-		return;
-	}
-	else if(keycodefound == prevImageKey || keycodefound == altPrevImageKey)
-	{
-		if(index != fileList.begin())
-		{
-			--index;
-			threadloadimage->abortload();
-			if((index+2) != fileList.end())
-				imagelist[(index+2) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			loadimage(index);
-			if(index != fileList.begin())
-				loadimage(index-1);
-		}
-		return;
-	}
-	else if (keycodefound == firstImageKey || keycodefound == altFirstImageKey)
-	{
-		if(index != (fileList.begin()))
-		{
-			imagelist[(index -1) -fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			imagelist[(index) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			if((index+1) != fileList.end())
-				imagelist[(index +1) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			index = (fileList.begin());
-			threadloadimage->abortload();
-			loadimage(index);
-			loadimage(index+1);
-		}
-		return;
-	}
-	else if(keycodefound == lastImageKey || keycodefound == altLastImageKey)
-	{
-		if(index != (fileList.end()-1))
-		{
-			if(index != fileList.begin())
-				imagelist[(index -1) -fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			imagelist[(index) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			if((index+1) != fileList.end())
-				imagelist[(index +1) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
-			index = (fileList.end()-1);
-			threadloadimage->abortload();
-			loadimage(index);
-			if(index != fileList.begin())
-				loadimage(index-1);
-		}
-		return;
-	}
-/*	else if (keycodefound == scrollDownImageKey || keycodefound == altScrollDownImageKey)
-	{
-		if(keyboardoffset.y <= 0)
-		{
-			keyboardoffset.y -= imagesize.y()/10;
-			if(offsety < (viewerheight - imagesize.y()))
-				offsety = viewerheight - imagesize.y();
-			update();
-		}
-		return;
-	}
-	else if (keycodefound == scrollUpImageKey || keycodefound == altScrollUpImageKey)
-	{
-		if(offsety <= 0)
-		{
-			offsety += imagesize.y()/10;
-			if(offsety > 0)
-				offsety = 0;
-			update();
-		}
-		return;
-	}
-	else if (keycodefound == scrollRightImageKey || keycodefound == altScrollRightImageKey)
-	{
-		if(offsetx <= 0)
-		{
-			offsetx -= imagesize.x()/10;
-			if(offsetx < (viewerwidth - imagesize.x()))
-				offsetx = viewerwidth - imagesize.x();
-			update();
-		}
-		return;
-	}
-	else if (keycodefound == scrollLeftImageKey || keycodefound == altScrollLeftImageKey)
-	{
-		if(offsetx <= 0)
-		{
-			offsetx += imagesize.x()/10;
-			if(offsetx > 0)
-				offsetx = 0;
-			update();
-		}
-		return;
-	}*/
-	else if (keycodefound == zoomOutImageKey || keycodefound == altZoomOutImageKey)
-	{
-		if(zoom > 0.05)
-		{
-			zoom -= 0.04;
-//				calculateoffset();
-		}
-		update();
-		return;
-	}
-	else if (keycodefound == zoomInImageKey || keycodefound == altZoomInImageKey)
-	{
-		if(zoom < 3.00)
-		{
-			zoom += 0.04;
-//				calculateoffset();
-		}
-		update();
-		return;
-	}
+    int keycodefound = keyevent->key();
+
+    if(keycodefound == nextImageKey || keycodefound == altNextImageKey)
+    {
+        if(index+1 != fileList.end())
+        {
+            ++index;
+            threadloadimage->abortload();
+            if((index-1) != fileList.begin())
+                imagelist[(index-2) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            loadimage(index);
+            if((index+1) != fileList.end())
+                loadimage(index+1);
+        }
+        return;
+    }
+    else if(keycodefound == quitImageKey || keycodefound == altQuitImageKey)
+    {
+        emit exitprogram();
+        return;
+    }
+    else if(keycodefound == prevImageKey || keycodefound == altPrevImageKey)
+    {
+        if(index != fileList.begin())
+        {
+            --index;
+            threadloadimage->abortload();
+            if((index+2) != fileList.end())
+                imagelist[(index+2) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            loadimage(index);
+            if(index != fileList.begin())
+                loadimage(index-1);
+        }
+        return;
+    }
+    else if (keycodefound == firstImageKey || keycodefound == altFirstImageKey)
+    {
+        if(index != (fileList.begin()))
+        {
+            imagelist[(index -1) -fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            imagelist[(index) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            if((index+1) != fileList.end())
+                imagelist[(index +1) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            index = (fileList.begin());
+            threadloadimage->abortload();
+            loadimage(index);
+            loadimage(index+1);
+        }
+        return;
+    }
+    else if(keycodefound == lastImageKey || keycodefound == altLastImageKey)
+    {
+        if(index != (fileList.end()-1))
+        {
+            if(index != fileList.begin())
+                imagelist[(index -1) -fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            imagelist[(index) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            if((index+1) != fileList.end())
+                imagelist[(index +1) - fileList.begin()] = QImage(0,0,QImage::Format_Invalid);
+            index = (fileList.end()-1);
+            threadloadimage->abortload();
+            loadimage(index);
+            if(index != fileList.begin())
+                loadimage(index-1);
+        }
+        return;
+    }
+/*  else if (keycodefound == scrollDownImageKey || keycodefound == altScrollDownImageKey)
+    {
+        if(keyboardoffset.y <= 0)
+        {
+            keyboardoffset.y -= imagesize.y()/10;
+            if(offsety < (viewerheight - imagesize.y()))
+                offsety = viewerheight - imagesize.y();
+            update();
+        }
+        return;
+    }
+    else if (keycodefound == scrollUpImageKey || keycodefound == altScrollUpImageKey)
+    {
+        if(offsety <= 0)
+        {
+            offsety += imagesize.y()/10;
+            if(offsety > 0)
+                offsety = 0;
+            update();
+        }
+        return;
+    }
+    else if (keycodefound == scrollRightImageKey || keycodefound == altScrollRightImageKey)
+    {
+        if(offsetx <= 0)
+        {
+            offsetx -= imagesize.x()/10;
+            if(offsetx < (viewerwidth - imagesize.x()))
+                offsetx = viewerwidth - imagesize.x();
+            update();
+        }
+        return;
+    }
+    else if (keycodefound == scrollLeftImageKey || keycodefound == altScrollLeftImageKey)
+    {
+        if(offsetx <= 0)
+        {
+            offsetx += imagesize.x()/10;
+            if(offsetx > 0)
+                offsetx = 0;
+            update();
+        }
+        return;
+    }*/
+    else if (keycodefound == zoomOutImageKey || keycodefound == altZoomOutImageKey)
+    {
+        if(zoom > 0.05)
+        {
+            zoom -= 0.04;
+//          calculateoffset();
+        }
+        update();
+        return;
+    }
+    else if (keycodefound == zoomInImageKey || keycodefound == altZoomInImageKey)
+    {
+        if(zoom < 3.00)
+        {
+            zoom += 0.04;
+//          calculateoffset();
+        }
+        update();
+        return;
+    }
     else if (keycodefound == toggleScaleKey || keycodefound == altToggleScaleKey)
     {
         keyevent->ignore();
         return;
     }
-	else
-	{
-		keyevent->ignore();
-		return;
-	}
+    else
+    {
+        keyevent->ignore();
+        return;
+    }
 }
