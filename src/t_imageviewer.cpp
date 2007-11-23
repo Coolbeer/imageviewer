@@ -68,6 +68,7 @@ void t_imageviewer::setupKeys(void)
 
 bool t_imageviewer::startimageviewer(std::map<std::string, std::string> options)
 {
+    extern std::map<std::string, std::string> arguments;
     pwan::fileinfovector::iterator filelistiter;
     std::string filename = (*(options.find("image"))).second;
     if(options.find("scale") != options.end())
@@ -93,41 +94,45 @@ bool t_imageviewer::startimageviewer(std::map<std::string, std::string> options)
     filelistiter = fileList.begin();
     showFullScreen();
 
-#ifdef PWANDEBUG
-    std::cout << "StartImageviewer\n=================================\n";
-    std::cout << "filename = " << filename << "\n";
-    std::cout << "path = " << path << "\n";
-    std::cout << "\n";
-    std::cout << "List of images:\n=================================\n";
-    for (unsigned int i = 0; i != fileList.size(); ++i)
-        std::cout << fileList.at(i).path() << "/" << fileList.at(i).fileName() << "\n";
-    std::cout << "\n";
-#endif
+    if(arguments.find("verbose") != arguments.end())
+    {
+        std::cout << "StartImageviewer\n=================================\n";
+        std::cout << "filename = " << filename << "\n";
+        std::cout << "path = " << path << "\n";
+        std::cout << "\n";
+        std::cout << "List of images:\n=================================\n";
+        for (unsigned int i = 0; i != fileList.size(); ++i)
+            std::cout << fileList.at(i).path() << "/" << fileList.at(i).fileName() << "\n";
+        std::cout << "\n";
+    }
 
     if(index != fileList.end())
     {
-#ifdef PWANDEBUG
-        std::cout << "found filename as index " << index - fileList.begin() << "; Total number of images: " << fileList.size() << "\n";
-        std::cout << "\nMain Program Running\n=================================\n";
-#endif
+        if(arguments.find("verbose") != arguments.end())
+        {
+            std::cout << "found filename as index " << index - fileList.begin() << "; Total number of images: " << fileList.size() << "\n";
+            std::cout << "\nMain Program Running\n=================================\n";
+        }
         loadimage(index);
         return true;
     }
     else
     {
-#ifdef PWANDEBUG
-        std::cout << "Did not find filename in filelist...\n";
-        std::cout << "Quitting...\n\n";
-#endif
+        if(arguments.find("verbose") != arguments.end())
+        {
+            std::cout << "Did not find filename in filelist...\n";
+            std::cout << "Quitting...\n\n";
+        }
         return false;
     }
 }
 
 bool t_imageviewer::loadimage(pwan::fileinfovector::iterator file)
 {
-#ifdef PWANDEBUG
-    std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";
-#endif
+    extern std::map<std::string, std::string> arguments;
+    if(arguments.find("verbose") != arguments.end())
+        std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";
+
     if((imagelist[file - fileList.begin()].isNull()))
     {
         threadloadimage->readimage((*file).path()+ "/" + (*file).fileName());
@@ -199,9 +204,10 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
 
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, float Zoom)
 {
-#ifdef PWANDEBUG
-    std::cout << "Finished loading image: " << filename << "\n";
-#endif
+    extern std::map<std::string, std::string> arguments;
+    if(arguments.find("verbose") != arguments.end())
+        std::cout << "Finished loading image: " << filename << "\n";
+
     pwan::fileinfovector::iterator filelistiter;
     filelistiter = fileList.begin();
     while(filelistiter != fileList.end())
