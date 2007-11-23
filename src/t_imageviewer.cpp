@@ -352,7 +352,7 @@ void t_imageviewer::keyPressEvent(QKeyEvent *keyevent)
     else if (keycodefound == toggleScaleKey || keycodefound == altToggleScaleKey)
     {
         keyevent->ignore();
-        return();
+        return;
     }
 	else
 	{
