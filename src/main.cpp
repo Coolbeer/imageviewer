@@ -48,7 +48,7 @@ int main (int argc, char *argv[])
     }
     if(arguments.find("image") != arguments.end())
     {
-        if(!imageviewer->startimageviewer(arguments))
+        if(!imageviewer->startimageviewer())
         {
             std::cout << "Could not load specified file...\n";
             exit(1);

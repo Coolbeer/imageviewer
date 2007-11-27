@@ -10,10 +10,8 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     QList<QByteArray> imgformats = imagereader.supportedImageFormats();
     QRect dims = desk.screenGeometry(desk.primaryScreen());
     threadloadimage = new t_loadimage;
-    //imageformats = "";
     for (int teller = 0; teller != imgformats.size(); ++teller)
         imageformats.push_back(QString(imgformats.at(teller)).toStdString());
-        //imageformats += "*." + imgformats.at(teller) + " ";
     zoom = 1.0;
     fullscreen = 1;
     viewerwidth = dims.width();
@@ -66,12 +64,12 @@ void t_imageviewer::setupKeys(void)
     altZoomOutImageKey = 0;
 }
 
-bool t_imageviewer::startimageviewer(std::map<std::string, std::string> options)
+bool t_imageviewer::startimageviewer()
 {
     extern std::map<std::string, std::string> arguments;
     pwan::fileinfovector::iterator filelistiter;
-    std::string filename = (*(options.find("image"))).second;
-    if(options.find("scale") != options.end())
+    std::string filename = (*(arguments.find("image"))).second;
+    if(arguments.find("scale") != arguments.end())
         scale = true;
     else
         scale = false;
