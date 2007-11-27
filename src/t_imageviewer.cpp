@@ -95,8 +95,8 @@ bool t_imageviewer::startimageviewer()
         std::cout << "path = " << path << "\n";
         std::cout << "\n";
         std::cout << "List of images:\n=================================\n";
-        for (unsigned int i = 0; i != fileList.size(); ++i)
-            std::cout << fileList.at(i).path() << "/    /" << fileList.at(i).fileName() << "\n";
+        for (pwan::fileinfovector::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
+            std::cout << (*fileListIter).path() << "/" << (*fileListIter).fileName() << "\n";
         std::cout << "\n";
     }
 
