@@ -91,7 +91,7 @@ std::map<std::string, std::string> parsecommands(int argc, char *argv[])
         {
             retvalue["scale"] = "true";
         }
-        else if((*iter) == "--version" || (*iter) == "-v")
+        else if((*iter) == "--version" || (*iter) == "-V")
         {
             retvalue["version"] = "true";
         }
@@ -99,7 +99,7 @@ std::map<std::string, std::string> parsecommands(int argc, char *argv[])
         {
             retvalue["help"] = "true";	
         }
-        else if((*iter) == "--verbose" || (*iter) == "-V")
+        else if((*iter) == "--verbose" || (*iter) == "-v")
         {
             retvalue["verbose"] = "true";
         }
@@ -133,7 +133,7 @@ void showhelp(void)
     << "Where [OPTION] is one of the following:\n" \
     << "-i,   --image (filename)        Specifies the image you want to load\n" \
     << "-s,   --scale                   Scales the image to fit the screen\n" \
-    << "-v,   --version                 Prints versionstring\n" \
+    << "-V,   --version                 Prints versionstring\n" \
     << "-h,   --help                    This helptext\n" \
-    << "-V    --verbose                 Verbose output\n";
+    << "-v    --verbose                 Verbose output\n";
 }
