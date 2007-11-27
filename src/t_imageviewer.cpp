@@ -67,7 +67,6 @@ void t_imageviewer::setupKeys(void)
 bool t_imageviewer::startimageviewer()
 {
     extern std::map<std::string, std::string> arguments;
-    pwan::fileinfovector::iterator filelistiter;
     std::string filename = (*(arguments.find("image"))).second;
     if(arguments.find("scale") != arguments.end())
         scale = true;
@@ -77,19 +76,16 @@ bool t_imageviewer::startimageviewer()
     if(path == filename)
         path = "";
     fileList = makeimagelist(path);
-    filelistiter = fileList.begin();
     index = fileList.end();
-    while (filelistiter != fileList.end())
+    for(pwan::fileinfovector::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
     {
         imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
-        if((*filelistiter).fileName() == filename.substr(filename.find_last_of("/")+1))
+        if((*fileListIter).fileName() == filename.substr(filename.find_last_of("/")+1))
         {
-            imageindex = filelistiter - fileList.begin();
-            index = filelistiter;
+            imageindex = fileListIter - fileList.begin();
+            index = fileListIter;
         }
-        ++filelistiter;
     }
-    filelistiter = fileList.begin();
     showFullScreen();
 
     if(arguments.find("verbose") != arguments.end())
@@ -100,7 +96,7 @@ bool t_imageviewer::startimageviewer()
         std::cout << "\n";
         std::cout << "List of images:\n=================================\n";
         for (unsigned int i = 0; i != fileList.size(); ++i)
-            std::cout << fileList.at(i).path() << "/" << fileList.at(i).fileName() << "\n";
+            std::cout << fileList.at(i).path() << "/    /" << fileList.at(i).fileName() << "\n";
         std::cout << "\n";
     }
 
