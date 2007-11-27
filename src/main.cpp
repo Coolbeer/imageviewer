@@ -76,7 +76,6 @@ std::map<std::string, std::string> parsecommands(int argc, char *argv[])
         arguments.push_back(argv[i]);
     }
 
-    //iter = arguments.begin();
     for(iter = arguments.begin(); iter != arguments.end(); ++iter)
     {
         if((*iter) == "--image" || (*iter) == "-i")
@@ -104,25 +103,6 @@ std::map<std::string, std::string> parsecommands(int argc, char *argv[])
             retvalue["verbose"] = "true";
         }
     }
-/*
-    }
-    while (iter != arguments.end())
-    {
-        if((*iter) == "--image" && iter +1 != arguments.end())
-        {
-            retvalue["image"] = *++iter;
-        }
-        if((*iter) == "--scale")
-        {
-            retvalue["scale"] = "true";
-        }
-        if((*iter) == "--version")
-        {
-            retvalue["version"] = "true";
-        }
-        ++iter;
-    }
-*/
     return retvalue;
 }
 
