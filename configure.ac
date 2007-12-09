@@ -20,8 +20,8 @@ fi
 AC_PROG_CXX
 AC_PROG_CC
 
-CFLAGS="$CFLAGS -Wall -Werror"
-CXXFLAGS="$CXXFLAGS -Wall -Werror"
+CFLAGS="$CFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
+CXXFLAGS="$CXXFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
 
 # Checks for libraries.
 
