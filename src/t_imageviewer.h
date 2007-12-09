@@ -57,6 +57,6 @@ class t_imageviewer : public QWidget
         void exitprogram(void);
 
     private slots:
-        void imagedone(QImage finishedimage, std::string filename, float Zoom);
+        void imagedone(QImage finishedimage, std::string filename);
 };
 #endif

@@ -196,7 +196,7 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
     return filelistings;
 }
 
-void t_imageviewer::imagedone(QImage finishedimage, std::string filename, float Zoom)
+void t_imageviewer::imagedone(QImage finishedimage, std::string filename)
 {
     extern std::map<std::string, std::string> arguments;
     if(arguments.find("verbose") != arguments.end())

@@ -59,7 +59,7 @@ void t_loadimage::run()
 			image.load(QString().fromStdString(fileName.at(0)));
 			if (zoom != 1.0)
 				image = image.scaled((int)(float)(image.width()*zoom), (int)((float)image.height()*zoom), Qt::IgnoreAspectRatio, Qt::FastTransformation);
-			emit imagePassDone(image, fileName.at(0), zoom);
+			emit imagePassDone(image, fileName.at(0));
 			mutex.lock();
 			fileName.erase(fileName.begin());
 			mutex.unlock();
