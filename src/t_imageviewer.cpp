@@ -19,7 +19,7 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     setupKeys();
     qRegisterMetaType<std::string>("std::string");
     connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
-    connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, float)), this, SLOT(imagedone(QImage, std::string, float)));
+    connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int)), this, SLOT(imagedone(QImage, std::string, int)));
 
     if(arguments.find("verbose") != arguments.end())
     {
@@ -196,12 +196,14 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
     return filelistings;
 }
 
-void t_imageviewer::imagedone(QImage finishedimage, std::string filename)
+void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot)
 {
     extern std::map<std::string, std::string> arguments;
     if(arguments.find("verbose") != arguments.end())
         std::cout << "Finished loading image: " << filename << "\n";
 
+    if(imageslot)
+        imageslot++;                                                                                //Just to stop compiler complaining, will be used later
     pwan::fileinfovector::iterator filelistiter;
     filelistiter = fileList.begin();
     while(filelistiter != fileList.end())

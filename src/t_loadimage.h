@@ -21,7 +21,7 @@ class t_loadimage : public QThread
 		void abortload(void);
 
 	signals:
-		void imagePassDone(const QImage &image, std::string fname);
+		void imagePassDone(const QImage &image, std::string fname, int imageslot = -1);
 
 	protected:
 		void run();
