@@ -19,14 +19,14 @@ t_loadimage::~t_loadimage(void)
 
 //void t_loadimage::initialize(void);
 //{
-void t_loadimage::readimage(std::string filename, float zoom)
+void t_loadimage::readimage(std::string filename)
 {
 	QMutexLocker locker(&mutex);
 	fileName.push_back(filename);
 #ifdef PWANDEBUG
 	std::cout << "Threadimageloader: " << filename << "; Zoom: " << zoom << "\n";
 #endif
-	Zoom = zoom;
+
 	if (!isRunning())
 		start(LowPriority);
 	else
@@ -49,16 +49,12 @@ void t_loadimage::run()
 	forever
 	{
 // 		QStringList filename;
-		float zoom;
 		mutex.lock();
 		//filename = fileName;
-		zoom = Zoom;
 		mutex.unlock();
 		while (!fileName.empty())
 		{
 			image.load(QString().fromStdString(fileName.at(0)));
-			if (zoom != 1.0)
-				image = image.scaled((int)(float)(image.width()*zoom), (int)((float)image.height()*zoom), Qt::IgnoreAspectRatio, Qt::FastTransformation);
 			emit imagePassDone(image, fileName.at(0));
 			mutex.lock();
 			fileName.erase(fileName.begin());
