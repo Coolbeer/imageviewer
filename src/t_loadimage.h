@@ -17,7 +17,7 @@ class t_loadimage : public QThread
 	public:
 		t_loadimage(QObject *parent = 0);
 		~t_loadimage(void);
-		void readimage(std::string filename);
+		void readimage(std::string filename, int imageslot = -1);
 		void abortload(void);
 
 	signals:
@@ -32,6 +32,7 @@ class t_loadimage : public QThread
 		QImage image;
 		std::vector<std::string> fileName;
 		bool restart, abort;
+        std::vector<int> imageslots;
 		//int Width, Height;
 		float Zoom;
 };

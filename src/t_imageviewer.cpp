@@ -129,7 +129,7 @@ bool t_imageviewer::loadimage(pwan::fileinfovector::iterator file)
 
     if((imagelist[file - fileList.begin()].isNull()))
     {
-        threadloadimage->readimage((*file).path()+ "/" + (*file).fileName());
+        threadloadimage->readimage((*file).path()+ "/" + (*file).fileName(), file - fileList.begin());
     }
     update();
     return true;
@@ -201,21 +201,7 @@ void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int im
     extern std::map<std::string, std::string> arguments;
     if(arguments.find("verbose") != arguments.end())
         std::cout << "Finished loading image: " << filename << "\n";
-
-    if(imageslot)
-        imageslot++;                                                                                //Just to stop compiler complaining, will be used later
-    pwan::fileinfovector::iterator filelistiter;
-    filelistiter = fileList.begin();
-    while(filelistiter != fileList.end())
-    {
-        if(filename == ((*filelistiter).path() + "/" + (*filelistiter).fileName()))
-        {
-            imagelist[filelistiter - fileList.begin()] = finishedimage;
-            //imagelist[filelistiter - fileList.begin()].calcfitwindowzoom(QPoint(viewerwidth, viewerheight));
-            break;
-        }
-        ++filelistiter;
-    }
+    imagelist[imageslot] = finishedimage;
     update();
 }
 
