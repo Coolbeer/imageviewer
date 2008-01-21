@@ -56,6 +56,7 @@ void t_loadimage::run()
 		mutex.unlock();
 		while (!fileName.empty())
 		{
+            image = QImage(0,0,QImage::Format_Invalid);
             image.load(QString().fromStdString(fileName.at(0)));
 			emit imagePassDone(image, fileName.at(0), imageslots.at(0));
 			mutex.lock();
