@@ -5,6 +5,7 @@
 #include <QMutex>
 #include <QImage>
 #include <QWaitCondition>
+#include <QPainter>
 // #include <QStringList>
 #include <vector>
 #include <string>
@@ -21,7 +22,7 @@ class t_loadimage : public QThread
 		void abortload(void);
 
 	signals:
-		void imagePassDone(const QImage &image, std::string fname, int imageslot = -1);
+		void imagePassDone(const QImage &image, std::string fname, int imageslot, int imagestatus = 1);
 
 	protected:
 		void run();

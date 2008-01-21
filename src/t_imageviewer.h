@@ -31,6 +31,7 @@ class t_imageviewer : public QWidget
 
     private:
         std::vector<QImage> imagelist;
+        std::vector<int> imagestatuslist;                                               // 0 = not loaded, 1 = loaded, -1 = some error
         void paintEvent(QPaintEvent *);
         bool loadimage(pwan::fileinfovector::iterator file);
         pwan::fileinfovector makeimagelist(std::string path = ".");
@@ -57,6 +58,6 @@ class t_imageviewer : public QWidget
         void exitprogram(void);
 
     private slots:
-        void imagedone(QImage finishedimage, std::string filename, int imageslot);
+        void imagedone(QImage finishedimage, std::string filename, int imageslot, int imagestatus);
 };
 #endif

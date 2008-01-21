@@ -19,7 +19,7 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     setupKeys();
     qRegisterMetaType<std::string>("std::string");
     connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
-    connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int)), this, SLOT(imagedone(QImage, std::string, int)));
+    connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int, int)), this, SLOT(imagedone(QImage, std::string, int, int)));
 
     if(arguments.find("verbose") != arguments.end())
     {
@@ -80,6 +80,7 @@ bool t_imageviewer::startimageviewer()
     for(pwan::fileinfovector::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
     {
         imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
+        imagestatuslist.push_back(0);
         if((*fileListIter).fileName() == filename.substr(filename.find_last_of("/")+1))
         {
             imageindex = fileListIter - fileList.begin();
@@ -147,8 +148,9 @@ void t_imageviewer::paintEvent(QPaintEvent *)
     QPainter painter(this);
     QImage *imagepointer = &imagelist[index - fileList.begin()];
     QString message = "Loading Image, please wait...";
-
     painter.fillRect(this->rect(), QColor(0,0,0));
+    if(imagestatuslist.at(index - fileList.begin()) == -1)
+        message = QString::fromStdString(std::string("Unable to load image " + index->fileName() + "..."));
     if(imagepointer->isNull())
     {
         painter.setPen(Qt::white);
@@ -196,12 +198,13 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
     return filelistings;
 }
 
-void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot)
+void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot, int imagestatus)
 {
     extern std::map<std::string, std::string> arguments;
     if(arguments.find("verbose") != arguments.end())
         std::cout << "Finished loading image: " << filename << "\n";
     imagelist[imageslot] = finishedimage;
+    imagestatuslist[imageslot] = imagestatus;
     update();
 }
 

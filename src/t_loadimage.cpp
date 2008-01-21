@@ -58,7 +58,10 @@ void t_loadimage::run()
 		{
             image = QImage(0,0,QImage::Format_Invalid);
             image.load(QString().fromStdString(fileName.at(0)));
-			emit imagePassDone(image, fileName.at(0), imageslots.at(0));
+            if(image.isNull())
+                emit imagePassDone(image, fileName.at(0), imageslots.at(0), -1);
+            else
+                emit imagePassDone(image, fileName.at(0), imageslots.at(0));
 			mutex.lock();
 			fileName.erase(fileName.begin());
             imageslots.erase(imageslots.begin());
