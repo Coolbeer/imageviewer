@@ -105,3 +105,14 @@ std::string pwan::options::get(std::string name)
     else
         return "";
 }
+
+std::list<std::string> pwan::options::dump(void)
+{
+    std::list<std::string> returnvalue;
+    for(std::map<std::string, std::string>::iterator iter = internalData.begin(); iter != internalData.end(); ++iter)
+    {
+        returnvalue.push_back((*iter).first);
+        returnvalue.push_back((*iter).second);
+    }
+    return returnvalue;
+}
