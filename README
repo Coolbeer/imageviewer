@@ -9,8 +9,8 @@
 
     *Loads all imageformats Qt has support for
     *Fullscreen viewing(only fullscreen viewing for now actually)
-    *Scrolling by Arrowkeys
-    *Basic zooming(currently broken...)
+    *Scrolling by Arrowkeys(broken)
+    *Basic zooming(works somewhat now, still needs overhawl)
     *Imageloading in separate thread
     *Image readahead
 
@@ -28,9 +28,11 @@
     ImageViewer [OPTION]
 
         Where [OPTION] is one of the following:
-        --image (filename)	Specifies the image you want to load
-        --scale			Scales the image to fit the screen
-        --version		Prints versionstring
+	-i,   --image (filename)        Specifies the image you want to load
+	-s,   --scale                   Scales the image to fit the screen
+	-V,   --version                 Prints versionstring
+	-h,   --help                    This helptext
+	-v    --verbose                 Verbose output
 
 
  KEYBOARD SHORTCUTS
@@ -40,6 +42,7 @@
     PageDown	-	Next Image
     0		-	Zoom in
     9		-	Zoom out
-    Arrowkeys	-	Scroll around the picture if it is bigger than the screen
+    8		-	Toggle scale to fit screen
+    Arrowkeys	-	Scroll around the picture if it is bigger than the screen(broken)
     Home	-	Move to first image in imagelist
     End		-	Move to last image in imagelist

@@ -1,4 +1,142 @@
-Release 0.1.4
+Release 0.1.5
+
+commit c8c6fc7ba5bde30e0420fd365636714706d527b7
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 08:28:36 2008 +0100
+
+    main: Fixed the verbose argument printing using the new dump function in options
+
+commit b56cb7dba83830a63db7bec2ac618c42ce13c505
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 08:22:46 2008 +0100
+
+    pwanutils/options: Added a dump function, to dump all the options to a list
+
+commit 09625651af5df9dbf0e7c1dd49b773d32e0f813e
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 07:59:17 2008 +0100
+
+    main/showhelp: Added a extra newline at the end of help text
+
+commit f28029446465b29e7c201b522690efd2d8e7aff7
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 07:57:56 2008 +0100
+
+    imageviewer: Removed the old std::map global variable, exchanged for the options class
+
+commit ad21ecd5dc51b8a6c240ff03bccbf1d7caef3c9d
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 07:27:14 2008 +0100
+
+    pwanutils/options: Added set and get public functions(untested, but hey, not in use atm :P)
+
+commit 1cf72f99182e24a7195641f23dd3954d6a8b8e7b
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 07:11:40 2008 +0100
+
+    pwanutils/options: Added internal map variable
+
+commit 26d65b6615a0d1228805316245ca80a85c0639a3
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 07:03:58 2008 +0100
+
+    Added .gitignore files to keep git-status happy after building
+
+commit 66dfadeaf4a29f4c57962dfaad2291cdfe419d2e
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 06:48:08 2008 +0100
+
+    pwanutils: Beginning of a global options class
+
+commit b931c2eac717666bb8a65464e1fa6000fde349b9
+Author: Kolbjørn Fredheim <coolbeer1980@gmail.com>
+Date:   Sat Feb 23 06:39:17 2008 +0100
+
+    pwanutils.h: Removed tabs and put in 4 spaces instead
+
+commit fdfc820b8bf8a266b4cd2783101a8cdb4120a3d7
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Mon Jan 21 02:09:33 2008 +0100
+
+    imageviewer/loadimage: Added a imagestatus return value for better control on whether image was loaded or not
+
+commit c49c0564fc4b867c4bf4dd4ddaa1fe747174eca6
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Mon Jan 21 01:22:59 2008 +0100
+
+    loadimage: Set the image to Format_Invalid before trying to load a new image
+
+commit 8b0ca9ef134513d703045e4274ddc1740469ca17
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Mon Jan 21 01:17:59 2008 +0100
+
+    imageviewer/loadimage: Use slots for loading images into vector
+
+commit 6f846bdbde949e91d495c03866953d3993caeb70
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Sun Dec 23 08:22:32 2007 +0100
+
+    t_loadimage: Removed zoom variables
+
+commit fe1af225767243265770a9efd94af804b727a55d
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Mon Dec 17 20:15:44 2007 +0100
+
+    Added a new slot on the imageloader/receiver, also fixed up a bug where slot was float
+
+commit 26a6c380efa7efc12c2fe2fa96a0af52d763af24
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Sun Dec 9 09:20:21 2007 +0100
+
+    configure: Added -Wextra -pedantic -Wno-long-long to the compiler options
+
+commit a0f67c91e085be5044599dd62c9766fd47d247f4
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Sun Dec 9 09:17:49 2007 +0100
+
+    imageviewer: Removed variable zoom from loadimage call
+
+commit 50ebd3be9f2b11bf318a2f78b88e73b66fc64c76
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Tue Nov 27 11:41:05 2007 +0100
+
+    t_imageviewer: Added code for toggle scalemode
+
+commit 396b147e432060c4a4441128f59806df07e6e3fd
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Tue Nov 27 11:29:52 2007 +0100
+
+    imageviewer: Minor cleanup of some --verbose code
+
+commit ad049e77e9a01b130828966d0d31d09f20c588f3
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Tue Nov 27 11:22:02 2007 +0100
+
+    t_imageviewer: Cleaned up some code in startimageviewer()
+
+commit 2b56294e14124283e8fcd591a4e026717153634f
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Tue Nov 27 10:54:54 2007 +0100
+
+    main.cpp: Cleanup some old commented code away
+
+commit 9c05afd3374768a8e842488f7c817952c2b0383d
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Tue Nov 27 10:53:36 2007 +0100
+
+    Change --verbose short to -v and --version short to -V
+
+commit fc8a19816bd725ae3d3d39c55855c20c0f0cee96
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Tue Nov 27 10:51:52 2007 +0100
+
+    Removed function variable options, as it has turned into a global variable
+
+commit d258451bc792151ecebdb97ce893a6a17c168e13
+Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
+Date:   Fri Nov 23 20:51:54 2007 +0100
+
+    Release 0.1.4
 
 commit 13bba77d1f495847ca618ab1046874cda066d371
 Author: Kolbjørn Fredheim <coolbeer1980@yahoo.com>
