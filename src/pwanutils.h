@@ -15,6 +15,13 @@ namespace pwan
             int x;
             int y;
     };
+    
+    class options
+    {
+        public:
+            options(void);
+    };
+    
     std::string inttostring(long long int number, int padding = 0, int base = 10);
     stringvector explodestring(std::string inputstring, std::string explodeby = " ");
     std::string getextention(std::string filename);

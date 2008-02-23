@@ -87,3 +87,7 @@ pwan::doubleint pwan::calculateoffset(int imagedims[2], int displaydims[2])
 	return returnvalue;
 }
 
+pwan::options::options(void)
+{
+
+}
