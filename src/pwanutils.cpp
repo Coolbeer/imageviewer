@@ -91,3 +91,17 @@ pwan::options::options(void)
 {
 
 }
+
+int pwan::options::set(std::string name, std::string value)
+{
+    internalData[name] = value;
+    return 0;
+}
+
+std::string pwan::options::get(std::string name)
+{
+    if(internalData.find(name) != internalData.end())
+        return (*(internalData.find(name))).second;
+    else
+        return "";
+}

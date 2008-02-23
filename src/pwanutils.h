@@ -21,6 +21,8 @@ namespace pwan
     {
         public:
             options(void);
+            int set(std::string name, std::string value);
+            std::string get(std::string name);
 
         private:
             std::map<std::string, std::string> internalData;
