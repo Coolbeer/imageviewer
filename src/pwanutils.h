@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include <iostream>
 
 typedef std::vector<std::string> stringvector;
@@ -20,6 +21,9 @@ namespace pwan
     {
         public:
             options(void);
+
+        private:
+            std::map<std::string, std::string> internalData;
     };
     
     std::string inttostring(long long int number, int padding = 0, int base = 10);
