@@ -26,13 +26,15 @@ int main (int argc, char *argv[])
         std::cout << "\n";
 
         std::cout << "Commandline Arguments parsed:\n=================================\n";
-/*        while(mapiter != arguments.end())
+        std::list<std::string> hepp = options.dump();
+        std::list<std::string>::iterator mapiter = hepp.begin();
+        while(mapiter != hepp.end())
         {
-            std::cout << (*mapiter).first << " : " << (*mapiter).second << "\n";
+            std::cout << (*mapiter);
+            ++mapiter;
+            std::cout << " : " << (*mapiter) << "\n";
             ++mapiter;
         }
-        To be fixed, need a dump command in the options class to dump a list or something
-*/
         std::cout << "\n";
     }
 
