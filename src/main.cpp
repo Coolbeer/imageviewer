@@ -3,9 +3,9 @@
 #include "main.h"
 #include "t_imageviewer.h"
 
-std::map<std::string, std::string> arguments;
+pwan::options options;
 
-std::map<std::string, std::string> parsecommands(int argc, char *argv[]);
+int parsecommands(int argc, char *argv[]);
 void showhelp(void);
 
 int main (int argc, char *argv[])
@@ -15,9 +15,9 @@ int main (int argc, char *argv[])
         args.push_back(std::string(argv[teller]));
 
     QApplication app(argc, argv);
-    arguments = parsecommands(argc, argv);
+    parsecommands(argc, argv);
 
-    if(arguments.find("verbose") != arguments.end())
+    if(options.get("verbose") == "true")
     {
         std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
         std::cout << "Raw Commandline:\n=================================\n";
@@ -26,27 +26,28 @@ int main (int argc, char *argv[])
         std::cout << "\n";
 
         std::cout << "Commandline Arguments parsed:\n=================================\n";
-        std::map<std::string, std::string>::iterator mapiter = arguments.begin();
-        while(mapiter != arguments.end())
+/*        while(mapiter != arguments.end())
         {
             std::cout << (*mapiter).first << " : " << (*mapiter).second << "\n";
             ++mapiter;
         }
+        To be fixed, need a dump command in the options class to dump a list or something
+*/
         std::cout << "\n";
     }
 
     t_imageviewer *imageviewer = new t_imageviewer;
-    if(arguments.find("version") != arguments.end())
+    if(options.get("request") == "version")
     {
         std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
         exit(0);
     }
-    if(arguments.find("help") != arguments.end())
+    else if(options.get("request") == "help")
     {
         showhelp();
         exit(0);
     }
-    if(arguments.find("image") != arguments.end())
+    if(options.get("image") != "")
     {
         if(!imageviewer->startimageviewer())
         {
@@ -65,16 +66,13 @@ int main (int argc, char *argv[])
     }
 }
 
-std::map<std::string, std::string> parsecommands(int argc, char *argv[])
+int parsecommands(int argc, char *argv[])
 {
-    std::map<std::string, std::string> retvalue;
     std::list<std::string> arguments;
     std::list<std::string>::iterator iter;
 
     for (int i = 1; i != argc; i++)
-    {
         arguments.push_back(argv[i]);
-    }
 
     for(iter = arguments.begin(); iter != arguments.end(); ++iter)
     {
@@ -82,28 +80,30 @@ std::map<std::string, std::string> parsecommands(int argc, char *argv[])
         {
             ++iter;
             if(iter != arguments.end())
-                retvalue["image"] = *iter;
+            {
+                options.set("image", *iter);
+            }
             else
                 --iter;
         }
         else if((*iter) == "--scale" || (*iter) == "-s")
         {
-            retvalue["scale"] = "true";
+            options.set("scale", "true");
         }
         else if((*iter) == "--version" || (*iter) == "-V")
         {
-            retvalue["version"] = "true";
+            options.set("request", "version");
         }
         else if((*iter) == "--help" || (*iter) == "-h")
         {
-            retvalue["help"] = "true";	
+            options.set("request", "help");
         }
         else if((*iter) == "--verbose" || (*iter) == "-v")
         {
-            retvalue["verbose"] = "true";
+            options.set("verbose", "true");
         }
     }
-    return retvalue;
+    return 0;
 }
 
 void showhelp(void)

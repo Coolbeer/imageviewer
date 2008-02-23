@@ -2,9 +2,10 @@
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
 
+extern pwan::options options;
+
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
-    extern std::map<std::string, std::string> arguments;
     QDesktopWidget desk;
     QImageReader imagereader;
     QList<QByteArray> imgformats = imagereader.supportedImageFormats();
@@ -21,7 +22,7 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
     connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int, int)), this, SLOT(imagedone(QImage, std::string, int, int)));
 
-    if(arguments.find("verbose") != arguments.end())
+    if(options.get("verbose") == "true")
     {
         std::cout << "Qt Supported Image formats:\n=================================\n";
         for(int teller = 0; teller != imgformats.size();teller++)
@@ -66,9 +67,8 @@ void t_imageviewer::setupKeys(void)
 
 bool t_imageviewer::startimageviewer()
 {
-    extern std::map<std::string, std::string> arguments;
-    std::string filename = (*(arguments.find("image"))).second;
-    if(arguments.find("scale") != arguments.end())
+    std::string filename = options.get("image");
+    if(options.get("scale") == "true")
         scale = true;
     else
         scale = false;
@@ -89,7 +89,7 @@ bool t_imageviewer::startimageviewer()
     }
     showFullScreen();
 
-    if(arguments.find("verbose") != arguments.end())
+    if(options.get("verbose") == "true")
     {
         std::cout << "StartImageviewer\n=================================\n";
         std::cout << "filename = " << filename << "\n";
@@ -103,7 +103,7 @@ bool t_imageviewer::startimageviewer()
 
     if(index != fileList.end())
     {
-        if(arguments.find("verbose") != arguments.end())
+        if(options.get("verbose") == "true")
         {
             std::cout << "found filename as index " << index - fileList.begin() << "; Total number of images: " << fileList.size() << "\n";
             std::cout << "\nMain Program Running\n=================================\n";
@@ -113,7 +113,7 @@ bool t_imageviewer::startimageviewer()
     }
     else
     {
-        if(arguments.find("verbose") != arguments.end())
+        if(options.get("verbose") == "true")
         {
             std::cout << "Did not find filename in filelist...\n";
             std::cout << "Quitting...\n\n";
@@ -124,8 +124,7 @@ bool t_imageviewer::startimageviewer()
 
 bool t_imageviewer::loadimage(pwan::fileinfovector::iterator file)
 {
-    extern std::map<std::string, std::string> arguments;
-    if(arguments.find("verbose") != arguments.end())
+    if(options.get("verbose") == "true")
         std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";
 
     if((imagelist[file - fileList.begin()].isNull()))
@@ -200,8 +199,7 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
 
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot, int imagestatus)
 {
-    extern std::map<std::string, std::string> arguments;
-    if(arguments.find("verbose") != arguments.end())
+    if(options.get("verbose") == "true")
         std::cout << "Finished loading image: " << filename << "\n";
     imagelist[imageslot] = finishedimage;
     imagestatuslist[imageslot] = imagestatus;
