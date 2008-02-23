@@ -115,5 +115,6 @@ void showhelp(void)
     << "-s,   --scale                   Scales the image to fit the screen\n" \
     << "-V,   --version                 Prints versionstring\n" \
     << "-h,   --help                    This helptext\n" \
-    << "-v    --verbose                 Verbose output\n";
+    << "-v    --verbose                 Verbose output\n" \
+    << "\n";
 }
