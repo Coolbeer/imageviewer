@@ -7,6 +7,7 @@
 #include <QWaitCondition>
 #include <QPainter>
 // #include <QStringList>
+#include <QTextCodec>
 #include <vector>
 #include <string>
 #include <iostream>

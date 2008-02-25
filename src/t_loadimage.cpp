@@ -57,6 +57,8 @@ void t_loadimage::run()
 		while (!fileName.empty())
 		{
             image = QImage(0,0,QImage::Format_Invalid);
+            QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+            QTextCodec::setCodecForCStrings (codec);
             image.load(QString().fromStdString(fileName.at(0)));
             if(image.isNull())
                 emit imagePassDone(image, fileName.at(0), imageslots.at(0), -1);
