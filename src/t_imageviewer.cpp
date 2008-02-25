@@ -199,8 +199,10 @@ pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
 
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot, int imagestatus)
 {
-    if(options.get("verbose") == "true")
+    if(options.get("verbose") == "true" && imagestatus != -1)
         std::cout << "Finished loading image: " << filename << "\n";
+    else if (options.get("verbose") == "true" && imagestatus == -1)
+        std::cout << "Error loading image: " << filename << "\n";
     imagelist[imageslot] = finishedimage;
     imagestatuslist[imageslot] = imagestatus;
     update();
