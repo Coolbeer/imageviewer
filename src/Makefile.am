@@ -13,7 +13,11 @@ ImageViewer_SOURCES = \
 	t_loadimage.h \
 	pwandir.h \
 	pwanutils.h \
-	pwanfileinfo.h
+	pwanfileinfo.h \
+	pwanstrings.cpp \
+	pwanstrings.h \
+	pwanoptions.cpp \
+	pwanoptions.h
 
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc

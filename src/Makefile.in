@@ -45,7 +45,8 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_ImageViewer_OBJECTS = main.$(OBJEXT) t_imageviewer.$(OBJEXT) \
 	t_loadimage.$(OBJEXT) pwandir.$(OBJEXT) pwanutils.$(OBJEXT) \
-	pwanfileinfo.$(OBJEXT)
+	pwanfileinfo.$(OBJEXT) pwanstrings.$(OBJEXT) \
+	pwanoptions.$(OBJEXT)
 ImageViewer_OBJECTS = $(am_ImageViewer_OBJECTS)
 ImageViewer_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)@am__isrc@
@@ -169,7 +170,11 @@ ImageViewer_SOURCES = \
 	t_loadimage.h \
 	pwandir.h \
 	pwanutils.h \
-	pwanfileinfo.h
+	pwanfileinfo.h \
+	pwanstrings.cpp \
+	pwanstrings.h \
+	pwanoptions.cpp \
+	pwanoptions.h
 
 
 #t_imageviewer.cpp: moc_timageviewer
@@ -250,6 +255,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwandir.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwanfileinfo.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwanoptions.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwanstrings.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwanutils.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_imageviewer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_loadimage.Po@am__quote@

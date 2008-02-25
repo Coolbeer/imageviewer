@@ -23,7 +23,7 @@ pwan::fileinfovector pwan::dir::entryInfoList(stringvector filter)
             {
                 if(filter.size() != 0)
                 {
-                    ext = pwan::stringtolower(pwan::getextention(tmpfilename));
+                    ext = pwan::strings::toLower(pwan::getextention(tmpfilename));
                     for(unsigned int i = 0; i != filter.size(); ++i)
                         if(ext == filter.at(i))
                         {

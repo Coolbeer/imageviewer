@@ -70,7 +70,7 @@ std::string pwan::fileInfo::absolutePath(std::string path)
 		delete(tmpcwd);
 		path = cwd + "/" + path;
 	}
-	stringvector expath = pwan::explodestring(path, "/");
+	stringvector expath = pwan::strings::explode(path, "/");
 	stringvector tmpretvalue;
 	for(stringvector::iterator iter = expath.begin(); iter != expath.end(); ++iter)
 	{
