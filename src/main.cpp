@@ -2,8 +2,10 @@
 #include <QApplication>
 #include "main.h"
 #include "t_imageviewer.h"
+#include "pwandebug.h"
 
 pwan::options options;
+pwan::debug debugz;
 
 int parsecommands(int argc, char *argv[]);
 void showhelp(void);

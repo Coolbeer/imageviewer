@@ -17,6 +17,7 @@ namespace pwan
 
         private:
             std::map<std::string, std::string>      internalData;
+            std::string className;
     };
 }
 
