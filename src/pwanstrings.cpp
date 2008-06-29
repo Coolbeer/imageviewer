@@ -3,6 +3,12 @@
 std::string pwan::strings::fromInt(long long int number, int padding, int base)
 {
     std::string::size_type returnvaluelength;
+    bool negative = false;
+    if(number < 0)
+    {
+        number = -number;
+        negative = true;
+    }
     if(base < 2 && base > 36)
     {
         std::cout << "pwan::inttostring: base not in range\n\n";
@@ -19,8 +25,12 @@ std::string pwan::strings::fromInt(long long int number, int padding, int base)
             break;
     }
     returnvaluelength = returnvalue.size();
+    if(negative && padding)
+        padding = padding -1;
     for (int i = 0; i < (int)((padding - (int)returnvaluelength)); ++i)
         returnvalue = "0" + returnvalue;
+    if(negative)
+        returnvalue = "-" + returnvalue;
     return returnvalue;
 }
 
