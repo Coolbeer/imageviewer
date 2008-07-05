@@ -8,6 +8,7 @@ pwan::options options;
 pwan::debug debug;
 
 int parsecommands(int argc, char *argv[]);
+void setOptions(void);
 void showhelp(void);
 
 int main (int argc, char *argv[])
@@ -17,6 +18,7 @@ int main (int argc, char *argv[])
         args.push_back(std::string(argv[teller]));
 
     QApplication app(argc, argv);
+    setOptions();
     parsecommands(argc, argv);
 
     if(options.get("verbose") == "true")
@@ -121,4 +123,14 @@ void showhelp(void)
     << "-h,   --help                    This helptext\n" \
     << "-v    --verbose                 Verbose output\n" \
     << "\n";
+}
+
+void setOptions(void)
+{
+    options.setOption("v", "verbose", "Verbose output", "!");
+    options.setOption("h", "help", "This helptext", "!");
+    options.setOption("V", "version", "Prints versionstring", "!");
+    options.setOption("d", "debug", "Be extra verbose on output", "!");
+    options.setOption("s", "scale", "Auto scale the image to fit the screen", "!");
+    options.setOption("i", "image", "Specifies the image you want to load", "*");
 }
