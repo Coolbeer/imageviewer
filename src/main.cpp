@@ -17,6 +17,7 @@ int main (int argc, char *argv[])
 
     QApplication app(argc, argv);
     setOptions();
+    options.checkIniFile("setup.ini");
     options.checkCmdLine(argc, argv);
     if(options.get("debug") == "true")
         debug.setDebugLevel(3);
