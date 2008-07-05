@@ -8,7 +8,6 @@ pwan::options options;
 pwan::debug debug;
 
 void setOptions(void);
-void showhelp(void);
 
 int main (int argc, char *argv[])
 {
@@ -49,7 +48,7 @@ int main (int argc, char *argv[])
     }
     else if(options.get("help") == "true")
     {
-        showhelp();
+        std::cout << options.makeHelp();
         exit(0);
     }
     if(options.get("image") != "")
@@ -69,19 +68,6 @@ int main (int argc, char *argv[])
                   << "Try: `" << PACKAGE_NAME << " --help` for more options.\n\n";
         exit(0);
     }
-}
-
-void showhelp(void)
-{
-    std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n" \
-    << "Usage: " << PACKAGE_NAME << " [OPTION]\n\n" \
-    << "Where [OPTION] is one of the following:\n" \
-    << "-i,   --image (filename)        Specifies the image you want to load\n" \
-    << "-s,   --scale                   Scales the image to fit the screen\n" \
-    << "-V,   --version                 Prints versionstring\n" \
-    << "-h,   --help                    This helptext\n" \
-    << "-v    --verbose                 Verbose output\n" \
-    << "\n";
 }
 
 void setOptions(void)
