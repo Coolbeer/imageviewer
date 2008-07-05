@@ -7,7 +7,6 @@
 pwan::options options;
 pwan::debug debug;
 
-int parsecommands(int argc, char *argv[]);
 void setOptions(void);
 void showhelp(void);
 
@@ -70,46 +69,6 @@ int main (int argc, char *argv[])
                   << "Try: `" << PACKAGE_NAME << " --help` for more options.\n\n";
         exit(0);
     }
-}
-
-int parsecommands(int argc, char *argv[])
-{
-    std::list<std::string> arguments;
-    std::list<std::string>::iterator iter;
-
-    for (int i = 1; i != argc; i++)
-        arguments.push_back(argv[i]);
-
-    for(iter = arguments.begin(); iter != arguments.end(); ++iter)
-    {
-        if((*iter) == "--image" || (*iter) == "-i")
-        {
-            ++iter;
-            if(iter != arguments.end())
-            {
-                options.set("image", *iter);
-            }
-            else
-                --iter;
-        }
-        else if((*iter) == "--scale" || (*iter) == "-s")
-        {
-            options.set("scale", "true");
-        }
-        else if((*iter) == "--version" || (*iter) == "-V")
-        {
-            options.set("request", "version");
-        }
-        else if((*iter) == "--help" || (*iter) == "-h")
-        {
-            options.set("request", "help");
-        }
-        else if((*iter) == "--verbose" || (*iter) == "-v")
-        {
-            options.set("verbose", "true");
-        }
-    }
-    return 0;
 }
 
 void showhelp(void)
