@@ -5,7 +5,7 @@
 #include "pwandebug.h"
 
 pwan::options options;
-pwan::debug debugz;
+pwan::debug debug;
 
 int parsecommands(int argc, char *argv[]);
 void showhelp(void);

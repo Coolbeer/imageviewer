@@ -2,14 +2,14 @@
 #define PWANDEBUG_H
 
 #include <string>
-#include <iostream>
 #include <vector>
 
 /*
     Debuglevels:
         1  -  Normal output for user
         2  -  Normal verbose
-        3  -  Very verbose(currently used for debugging
+        3  -  Very verbose(currently used for debugging)
+        4  -  The extreme verbose debugging(lots of spam)
 */
 
 namespace pwan
@@ -24,8 +24,8 @@ namespace pwan
     {
         public:
             debug(void);
-            void print(std::string from, std::string message, int debugLevel = 1);
-            void print(std::string message);
+            void print(const std::string& from, const std::string& message, int debugLevel = 1);
+            void print(const std::string& message);
             void setDebugLevel(int debugLevel);
             int getDebugLevel(void);
 

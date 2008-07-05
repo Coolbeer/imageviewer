@@ -1,78 +1,80 @@
+#include <stdexcept>
 #include "pwanstrings.h"
 
-std::string pwan::strings::fromInt(long long int number, int padding, int base)
+std::string pwan::strings::fromInt(long long int number, unsigned int padding, unsigned int base)
 {
     std::string::size_type returnvaluelength;
+    const std::string numbers = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    std::string returnvalue;
     bool negative = false;
+
     if(number < 0)
     {
         number = -number;
         negative = true;
     }
-    if(base < 2 && base > 36)
-    {
-        std::cout << "pwan::inttostring: base not in range\n\n";
-        exit(1);
-    }
-    std::string numbers = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    std::string returnvalue = "";
-    while(1)
+    if(base < 2 || base > 36)
+        throw std::out_of_range("Base not in range");
+    do
     {
         long long int remainder = number % base;
         returnvalue = numbers.at(remainder) + returnvalue;
         number = number / base;
-        if(!number)
-            break;
-    }
+    } while(number);
+
     returnvaluelength = returnvalue.size();
     if(negative && padding)
         padding = padding -1;
-    for (int i = 0; i < (int)((padding - (int)returnvaluelength)); ++i)
-        returnvalue = "0" + returnvalue;
+    if(padding > returnvaluelength)
+        returnvalue = std::string(padding - returnvaluelength, '0') + returnvalue;
     if(negative)
         returnvalue = "-" + returnvalue;
     return returnvalue;
 }
 
-std::vector<std::string> pwan::strings::explode(std::string inputstring, std::string explodeby)
+std::vector<std::string> pwan::strings::explode(const std::string& inputstring, std::string explodeby)
 {
     std::vector<std::string> returnvalue;
     std::string::size_type start = 0;
-    std::string::size_type end = 0;
-
-    while(1)
+    std::string::size_type end;
+    if(inputstring.size() != 0)
     {
-        end = inputstring.find_first_of(explodeby, start);
-        if(end == std::string::npos)
+        while(start != inputstring.size() && isspace(inputstring[start]))
+            ++start;
+        for(; start != std::string::npos; start++)
         {
-            returnvalue.push_back(inputstring.substr(start));
-            return returnvalue;
+            end = inputstring.find_first_of(explodeby, start);
+            if(end == std::string::npos)
+            {
+                returnvalue.push_back(inputstring.substr(start));
+                return returnvalue;
+            }
+            returnvalue.push_back(inputstring.substr(start, end-start));
+            start = end;
         }
-        returnvalue.push_back(inputstring.substr(start, end-start));
-        start = end +1 ;
     }
     return returnvalue;
 }
 
 std::string pwan::strings::toLower(std::string inputstring)
 {
-    for(unsigned int i=0; i!=inputstring.size(); ++i)
+    for(std::string::size_type i = 0; i != inputstring.size(); ++i)
     {
         inputstring[i] = std::tolower(inputstring[i]);
     }
     return inputstring;
 }
 
-std::string pwan::strings::base64Encode(const std::string text)
+std::string pwan::strings::base64Encode(const std::string &text)
 {
-    std::string base64list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const std::string base64list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     std::string buffer;
+    std::string::size_type teller;
     char *temptext64;
-    temptext64 = new char[text.size() * 2 + 5];
-    int teller;
     div_t q = div(text.length(), 3);
-//    cout << q.quot << " " << q.rem << endl;
-    for (teller = 0; teller < q.quot; teller++)
+
+    temptext64 = new char[text.size() * 2 + 5];
+    for (teller = 0; teller < (unsigned int)q.quot; teller++)
     {
         buffer[0] = text[teller*3];
         buffer[1] = text[(teller*3)+1];
@@ -100,13 +102,12 @@ std::string pwan::strings::base64Encode(const std::string text)
     }
     temptext64[(teller*4)+4] = '\0';
     std::string text64 = temptext64;
-//    cout << text64 << endl;
+    delete(temptext64);
     return (text64);
 }
 
 std::vector<char> pwan::strings::dupechar(const char character, unsigned int times)
 {
-    std::cout << "times: " << times << "\n";
     std::vector<char> returnValue;
     for (unsigned int i = 0; i != times; ++i)
     {
