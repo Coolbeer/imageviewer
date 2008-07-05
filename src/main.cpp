@@ -18,7 +18,8 @@ int main (int argc, char *argv[])
     QApplication app(argc, argv);
     setOptions();
     options.checkCmdLine(argc, argv);
-
+    if(options.get("debug") == "true")
+        debug.setDebugLevel(3);
     if(options.get("verbose") == "true")
     {
         std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
