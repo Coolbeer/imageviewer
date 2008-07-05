@@ -19,7 +19,7 @@ int main (int argc, char *argv[])
 
     QApplication app(argc, argv);
     setOptions();
-    parsecommands(argc, argv);
+    options.checkCmdLine(argc, argv);
 
     if(options.get("verbose") == "true")
     {
@@ -43,12 +43,12 @@ int main (int argc, char *argv[])
     }
 
     t_imageviewer *imageviewer = new t_imageviewer;
-    if(options.get("request") == "version")
+    if(options.get("version") == "true")
     {
         std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
         exit(0);
     }
-    else if(options.get("request") == "help")
+    else if(options.get("help") == "true")
     {
         showhelp();
         exit(0);
