@@ -17,6 +17,7 @@ void setOptions(void);
 int main (int argc, char *argv[])
 {
     std::string functionName("main");
+    std::string imageFileName;
 
     QApplication app(argc, argv);
 
@@ -68,9 +69,10 @@ int main (int argc, char *argv[])
     }
 
     t_imageviewer *imageviewer = new t_imageviewer;
-    if(options.get("image") != "")
+    imageFileName = options.get("image");
+    if(imageFileName != "")
     {
-        if(!imageviewer->startimageviewer())
+        if(!imageviewer->startimageviewer(imageFileName))
         {
             debug.print("Could not load specified file...");
             exit(1);

@@ -19,7 +19,7 @@ extern pwan::debug debug;
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
     std::string functionName("t_imageviewer");
-    std::string className("t_imageviewer");
+    className = "t_imageviewer";
     std::string supportedImgFormats;
     QDesktopWidget desk;
     QImageReader imagereader;
@@ -78,16 +78,16 @@ void t_imageviewer::setupKeys(void)
     altZoomOutImageKey = Qt::Key_Minus;
 }
 
-bool t_imageviewer::startimageviewer()
+bool t_imageviewer::startimageviewer(const std::string& fileName)
 {
     std::string functionName("startimageviewer");
-    std::string filename = options.get("image");
+    ::debug.print(className + "::" + functionName, "fileName = " + fileName);
     if(options.get("scale") == "true")
         scale = true;
     else
         scale = false;
-    std::string path = filename.substr(0, filename.find_last_of("/"));
-    if(path == filename)
+    std::string path = fileName.substr(0, fileName.find_last_of("/"));
+    if(path == fileName)
         path = "";
     fileList = makeimagelist(path);
     index = fileList.end();
@@ -95,7 +95,7 @@ bool t_imageviewer::startimageviewer()
     {
         imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
         imagestatuslist.push_back(0);
-        if((*fileListIter).fileName() == filename.substr(filename.find_last_of("/")+1))
+        if((*fileListIter).fileName() == fileName.substr(fileName.find_last_of("/")+1))
         {
             imageindex = fileListIter - fileList.begin();
             index = fileListIter;
@@ -106,7 +106,7 @@ bool t_imageviewer::startimageviewer()
     if(options.get("verbose") == "true")
     {
         std::cout << "StartImageviewer\n=================================\n";
-        std::cout << "filename = " << filename << "\n";
+        std::cout << "filename = " << fileName << "\n";
         std::cout << "path = " << path << "\n";
         std::cout << "\n";
         std::cout << "List of images:\n=================================\n";

@@ -15,7 +15,7 @@ class t_imageviewer : public QWidget
 
     public:
         t_imageviewer(QWidget *parent = 0);
-        bool startimageviewer();
+        bool startimageviewer(const std::string& fileName);
 
     private:
         std::vector<QImage> imagelist;
