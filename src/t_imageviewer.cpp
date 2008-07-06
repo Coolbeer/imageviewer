@@ -10,11 +10,17 @@
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
 #include "pwanoptions.h"
+#include "pwandebug.h"
+#include "pwanstrings.h"
 
 extern pwan::options options;
+extern pwan::debug debug;
 
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
+    std::string functionName("t_imageviewer");
+    std::string className("t_imageviewer");
+    std::string supportedImgFormats;
     QDesktopWidget desk;
     QImageReader imagereader;
     QList<QByteArray> imgformats = imagereader.supportedImageFormats();
@@ -31,18 +37,16 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
     connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int, int)), this, SLOT(imagedone(QImage, std::string, int, int)));
 
-    if(options.get("verbose") == "true")
+    ::debug.print(className + "::" + functionName, "Qt Supported Image formats:", 3);
+    ::debug.print(className + "::" + functionName, "=================================", 3);
+    for(int teller = 0; teller != imgformats.size();teller++)
     {
-        std::cout << "Qt Supported Image formats:\n=================================\n";
-        for(int teller = 0; teller != imgformats.size();teller++)
-        {
-            std::cout << qPrintable(QString(imgformats.at(teller))) << "; ";
-        }
-        std::cout << "\n\n";
-        std::cout << "Screen Dimentions:\n=================================\n";
-        std::cout << "viewerwidth = " << viewerwidth << "; viewerheight = " << viewerheight << "\n";
-        std::cout << "\n";
+        supportedImgFormats += qPrintable(QString(imgformats.at(teller)));
+        supportedImgFormats += "; ";
     }
+    ::debug.print(className + "::" + functionName, supportedImgFormats, 3);
+    ::debug.print(className + "::" + functionName, "", 3);
+    ::debug.print(className + "::" + functionName, "Screen Dimentions: " + pwan::strings::fromInt(viewerwidth) + " x " + pwan::strings::fromInt(viewerheight), 3);
 }
 
 void t_imageviewer::setupKeys(void)

@@ -31,6 +31,7 @@ class t_imageviewer : public QWidget
         std::vector<std::string> imageformats;
         std::vector<pwan::fileInfo> fileList;
         std::vector<pwan::fileInfo>::iterator index;
+        std::string className;
         QPoint imagesize;
         float zoom;
         int imageindex, viewerwidth, viewerheight;
