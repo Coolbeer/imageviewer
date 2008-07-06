@@ -81,7 +81,7 @@ void t_imageviewer::setupKeys(void)
 bool t_imageviewer::startimageviewer(const std::string& fileName)
 {
     std::string functionName("startimageviewer");
-    ::debug.print(className + "::" + functionName, "fileName = " + fileName);
+    ::debug.print(className + "::" + functionName, "fileName = \"" + fileName + "\"", 3);
     if(options.get("scale") == "true")
         scale = true;
     else
@@ -112,11 +112,7 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
     }
     else
     {
-        if(options.get("verbose") == "true")
-        {
-            std::cout << "Did not find filename in filelist...\n";
-            std::cout << "Quitting...\n\n";
-        }
+        ::debug.print(className + "::" + functionName, "fileName not found in filelist...", 3);
         return false;
     }
 }
@@ -189,10 +185,13 @@ void t_imageviewer::paintEvent(QPaintEvent *)
 
 std::vector<pwan::fileInfo> t_imageviewer::makeimagelist(std::string path)
 {
+    const std::string functionName("makeimagelist");
+    ::debug.print(className + "::" + functionName, "path = \"" + path + "\"", 3);
     if(path == "")
         path = "./";
     pwan::dir pwandir(path);
     std::vector<pwan::fileInfo> filelistings = pwandir.entryInfoList(imageformats);
+    ::debug.print(className + "::" + functionName, "Returning a vector of " + pwan::strings::fromInt(filelistings.size()) + " elements", 3);
     return filelistings;
 }
 
