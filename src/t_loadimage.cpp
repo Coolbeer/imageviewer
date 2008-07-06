@@ -24,9 +24,6 @@ void t_loadimage::readimage(std::string filename, int imageslot)
 	QMutexLocker locker(&mutex);
 	fileName.push_back(filename);
     imageslots.push_back(imageslot);
-#ifdef PWANDEBUG
-	std::cout << "Threadimageloader: " << filename << "; Zoom: " << zoom << "\n";
-#endif
 
 	if (!isRunning())
 		start(LowPriority);
