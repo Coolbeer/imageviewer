@@ -80,6 +80,7 @@ void t_imageviewer::setupKeys(void)
 
 bool t_imageviewer::startimageviewer()
 {
+    std::string functionName("startimageviewer");
     std::string filename = options.get("image");
     if(options.get("scale") == "true")
         scale = true;
