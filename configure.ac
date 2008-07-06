@@ -10,6 +10,8 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+AC_PROG_CXXCPP
+AC_PROG_INSTALL
 
 CFLAGS="$CFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
 CXXFLAGS="$CXXFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
@@ -25,6 +27,21 @@ AC_SUBST(QtGui_CFLAGS)
 AC_SUBST(QtGui_LIBS)
 
 # Checks for header files.
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS(netdb.h sys/socket.h arpa/inet.h errno.h sys/time.h dirent.h,,
+    AC_MSG_ERROR(You need the glibc header files installed))
+
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+AC_CHECK_HEADERS(stdexcept,,
+    AC_MSG_ERROR(You need the standard <stdexcept> header file))
+
+AC_CHECK_HEADERS(vector string iostream list map fstream sstream,,
+    AC_MSG_ERROR(You need to have the libstdc++ headers installed))
+
+AC_LANG_RESTORE
+
 
 # Checks for typedefs, structures, and compiler characteristics.
 
