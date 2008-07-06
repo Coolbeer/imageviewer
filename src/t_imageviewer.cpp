@@ -103,25 +103,10 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
     }
     showFullScreen();
 
-    if(options.get("verbose") == "true")
-    {
-        std::cout << "StartImageviewer\n=================================\n";
-        std::cout << "filename = " << fileName << "\n";
-        std::cout << "path = " << path << "\n";
-        std::cout << "\n";
-        std::cout << "List of images:\n=================================\n";
-        for (std::vector<pwan::fileInfo>::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
-            std::cout << (*fileListIter).path() << "/" << (*fileListIter).fileName() << "\n";
-        std::cout << "\n";
-    }
-
     if(index != fileList.end())
     {
-        if(options.get("verbose") == "true")
-        {
-            std::cout << "found filename as index " << index - fileList.begin() << "; Total number of images: " << fileList.size() << "\n";
-            std::cout << "\nMain Program Running\n=================================\n";
-        }
+        ::debug.print(className + "::" + functionName, "found fileName as index " + pwan::strings::fromInt(index - fileList.begin())
+                                                     + "; Total number of images: " + pwan::strings::fromInt(fileList.size()), 3);
         loadimage(index);
         return true;
     }
