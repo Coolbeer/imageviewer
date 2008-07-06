@@ -2,15 +2,10 @@
 #define T_LOADIMAGE_H
 
 #include <QThread>
+#include <QWaitCondition>
 #include <QMutex>
 #include <QImage>
-#include <QWaitCondition>
-#include <QPainter>
-// #include <QStringList>
 #include <QTextCodec>
-#include <vector>
-#include <string>
-#include <iostream>
 
 class t_loadimage : public QThread
 {

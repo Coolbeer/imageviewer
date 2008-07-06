@@ -1,5 +1,7 @@
 #include <QDesktopWidget>
 #include <QImageReader>
+#include <QPainter>
+
 #include "pwandir.h"
 #include "pwanutils.h"
 
