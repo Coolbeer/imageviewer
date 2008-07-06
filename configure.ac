@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.50)
+AC_PREREQ(2.61)
 AC_INIT([ImageViewer], 0.1.5)
 AC_CONFIG_SRCDIR([src/main.h])
 AC_CONFIG_HEADER([config.h])
