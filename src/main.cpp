@@ -1,5 +1,12 @@
-#include "../config.h"
+#include <map>
+#include <list>
+#include <vector>
+#include <string>
+#include <iostream>
 #include <QApplication>
+
+#include "../config.h"
+
 #include "main.h"
 #include "t_imageviewer.h"
 #include "pwandebug.h"
