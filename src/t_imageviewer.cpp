@@ -120,7 +120,7 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
 bool t_imageviewer::loadimage(const std::vector<pwan::fileInfo>::iterator& file)
 {
     const std::string functionName("loadimage");
-    ::debug.print(className + "::" + functionName, "Trying to load fine: " + (*file).path() + "/" + (*file).fileName(), 3);
+    ::debug.print(className + "::" + functionName, "Trying to load file: " + (*file).path() + "/" + (*file).fileName(), 3);
     if((imagelist[file - fileList.begin()].isNull()))
     {
         threadloadimage->readimage((*file).path()+ "/" + (*file).fileName(), file - fileList.begin());
