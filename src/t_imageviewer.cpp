@@ -197,10 +197,11 @@ std::vector<pwan::fileInfo> t_imageviewer::makeimagelist(std::string path)
 
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot, int imagestatus)
 {
-    if(options.get("verbose") == "true" && imagestatus != -1)
-        std::cout << "Finished loading image: " << filename << "\n";
-    else if (options.get("verbose") == "true" && imagestatus == -1)
-        std::cout << "Error loading image: " << filename << "\n";
+    const std::string functionName("imagedone");
+    if(imagestatus != -1)
+        ::debug.print(className + "::" + functionName, "Finished loading image: \"" + filename + "\"", 3);
+    else
+        ::debug.print(className + "::" + functionName, "Error loading image: \"" + filename + "\"", 3);
     imagelist[imageslot] = finishedimage;
     imagestatuslist[imageslot] = imagestatus;
     update();
