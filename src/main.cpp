@@ -1,6 +1,3 @@
-#include <map>
-#include <list>
-#include <vector>
 #include <string>
 #include <QApplication>
 
@@ -20,9 +17,6 @@ void setOptions(void);
 int main (int argc, char *argv[])
 {
     std::string functionName("main");
-    std::vector<std::string> args;
-    for(int teller = 0; teller != argc; ++teller)
-        args.push_back(std::string(argv[teller]));
 
     QApplication app(argc, argv);
 
@@ -44,7 +38,7 @@ int main (int argc, char *argv[])
     debug.print(functionName, "", 3);
     debug.print(functionName, "Raw Commandline:", 3);
     debug.print(functionName, "=================================", 3);
-    for(unsigned int teller = 0; teller != args.size(); ++teller)
+    for(int teller = 0; teller != argc; ++teller)
         debug.print(functionName, std::string("argc = ") + pwan::strings::fromInt(teller) + "; " + argv[teller], 3);
     debug.print(functionName, "", 3);
     debug.print(functionName, "All Options Parsed:", 3);
