@@ -3,6 +3,7 @@
 #include "main.h"
 #include "t_imageviewer.h"
 #include "pwandebug.h"
+#include "pwanoptions.h"
 
 pwan::options options;
 pwan::debug debug;

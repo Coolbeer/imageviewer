@@ -1,5 +1,6 @@
 #include "pwanfileinfo.h"
 #include "pwanutils.h"
+#include "pwanstrings.h"
 
 pwan::fileInfo::fileInfo()
 {

@@ -1,6 +1,7 @@
 #include "t_imageviewer.moc"
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
+#include "pwanoptions.h"
 
 extern pwan::options options;
 

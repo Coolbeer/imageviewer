@@ -1,4 +1,5 @@
 #include "pwandir.h"
+#include "pwanstrings.h"
 
 pwan::dir::dir(const std::string path)
 {
