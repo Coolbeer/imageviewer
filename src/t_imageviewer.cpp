@@ -1,6 +1,7 @@
 #include <QDesktopWidget>
 #include <QImageReader>
 #include <QPainter>
+#include <iostream>
 
 #include "pwandir.h"
 #include "pwanutils.h"
@@ -201,7 +202,7 @@ std::vector<pwan::fileInfo> t_imageviewer::makeimagelist(std::string path)
     if(path == "")
         path = "./";
     pwan::dir pwandir(path);
-    pwan::fileinfovector filelistings = pwandir.entryInfoList(imageformats);
+    std::vector<pwan::fileInfo> filelistings = pwandir.entryInfoList(imageformats);
     return filelistings;
 }
 

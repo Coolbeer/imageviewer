@@ -3,25 +3,16 @@
 
 #include <string>
 #include <vector>
-#include <iostream>
-#include <dirent.h>
-#include "pwanutils.h"
-#include "pwanfileinfo.h"
 
-typedef std::vector<std::string> stringvector;
+#include "pwanfileinfo.h"
 
 namespace pwan
 {
-    class dir;
-
-    typedef std::vector<pwan::fileInfo> fileinfovector;
-
     class dir
     {
         public:
-            dir(const std::string path = ".");
-//          fileinfovector readdirectory(std::string path, stringvector filter);
-            fileinfovector entryInfoList(stringvector filter);
+            dir(const std::string& path = ".");
+            std::vector<pwan::fileInfo> entryInfoList(const std::vector<std::string>& filter);
 
         private:
             std::string currentpath;
