@@ -2,7 +2,6 @@
 #include <list>
 #include <vector>
 #include <string>
-#include <iostream>
 #include <QApplication>
 
 #include "../config.h"
@@ -11,6 +10,7 @@
 #include "t_imageviewer.h"
 #include "pwandebug.h"
 #include "pwanoptions.h"
+#include "pwanstrings.h"
 
 pwan::options options;
 pwan::debug debug;
@@ -19,53 +19,66 @@ void setOptions(void);
 
 int main (int argc, char *argv[])
 {
+    std::string functionName("main");
     std::vector<std::string> args;
     for(int teller = 0; teller != argc; ++teller)
         args.push_back(std::string(argv[teller]));
 
     QApplication app(argc, argv);
+
+    //set the commandline/inifile allowed options
     setOptions();
+
+    //Check the inifile
     options.checkIniFile("setup.ini");
+
+    //Check the commandline
     options.checkCmdLine(argc, argv);
+
+    if(options.get("verbose") == "true")
+        debug.setDebugLevel(2);
     if(options.get("debug") == "true")
         debug.setDebugLevel(3);
-    if(options.get("verbose") == "true")
+
+    debug.print(functionName, std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION, 3);
+    debug.print(functionName, "", 3);
+    debug.print(functionName, "Raw Commandline:", 3);
+    debug.print(functionName, "=================================", 3);
+    for(unsigned int teller = 0; teller != args.size(); ++teller)
+        debug.print(functionName, std::string("argc = ") + pwan::strings::fromInt(teller) + "; " + argv[teller], 3);
+    debug.print(functionName, "", 3);
+    debug.print(functionName, "All Options Parsed:", 3);
+    debug.print(functionName, "=================================", 3);
+    std::list<std::string> hepp = options.dump();
+    std::list<std::string>::iterator mapiter = hepp.begin();
+    while(mapiter != hepp.end())
     {
-        std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
-        std::cout << "Raw Commandline:\n=================================\n";
-        for(unsigned int teller = 0; teller != args.size(); ++teller)
-            std::cout << "argc = " << teller << "; " << args.at(teller).c_str() << "\n";
-        std::cout << "\n";
-
-        std::cout << "Commandline Arguments parsed:\n=================================\n";
-        std::list<std::string> hepp = options.dump();
-        std::list<std::string>::iterator mapiter = hepp.begin();
-        while(mapiter != hepp.end())
-        {
-            std::cout << (*mapiter);
-            ++mapiter;
-            std::cout << " : " << (*mapiter) << "\n";
-            ++mapiter;
-        }
-        std::cout << "\n";
+        std::string output;
+        output = (*mapiter);
+        ++mapiter;
+        output += " : " + (*mapiter);;
+        debug.print(functionName, output, 3);
+        ++mapiter;
     }
+    debug.print(functionName, "", 3);
 
-    t_imageviewer *imageviewer = new t_imageviewer;
     if(options.get("version") == "true")
     {
-        std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n\n";
+        debug.print(std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION + "\n");;
         exit(0);
     }
     else if(options.get("help") == "true")
     {
-        std::cout << options.makeHelp();
+        debug.print(options.makeHelp());
         exit(0);
     }
+
+    t_imageviewer *imageviewer = new t_imageviewer;
     if(options.get("image") != "")
     {
         if(!imageviewer->startimageviewer())
         {
-            std::cout << "Could not load specified file...\n";
+            debug.print("Could not load specified file...");
             exit(1);
         }
         imageviewer->show();
@@ -73,9 +86,10 @@ int main (int argc, char *argv[])
     }
     else
     {
-        std::cout << PACKAGE_NAME << " v" << PACKAGE_VERSION << "\n";
-        std::cout << "Missing option\nUsage: " << PACKAGE_NAME << " [OPTION]\n\n" \
-                  << "Try: `" << PACKAGE_NAME << " --help` for more options.\n\n";
+        debug.print(std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION);
+        debug.print("Missing option");
+        debug.print(std::string("Usage: ") + PACKAGE_NAME + " [OPTION]");
+        debug.print(std::string("Try: `" ) + PACKAGE_NAME + " --help` for more options.");
         exit(0);
     }
 }
