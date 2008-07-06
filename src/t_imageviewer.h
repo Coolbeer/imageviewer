@@ -1,23 +1,11 @@
 #ifndef T_IMAGEVIEWER_H
 #define T_IMAGEVIEWER_H
 
-#include "../config.h"
-
+#include <QPaintEvent>
 #include <QWidget>
-#include <QObject>
-#include <QPainter>
-// #include <QFileInfoList>
-//#include <QDir>
-#include <QDesktopWidget>
-#include <QImageReader>
-#include <QX11Info>
-#include <QKeyEvent>
-#include <map>
-#include <string>
-#include <vector>
-#include <iostream>
-#include "pwandir.h"
-#include "pwanutils.h"
+
+#include "../config.h"
+#include "pwanfileinfo.h"
 
 class t_loadimage;
 
@@ -33,16 +21,16 @@ class t_imageviewer : public QWidget
         std::vector<QImage> imagelist;
         std::vector<int> imagestatuslist;                                               // 0 = not loaded, 1 = loaded, -1 = some error
         void paintEvent(QPaintEvent *);
-        bool loadimage(pwan::fileinfovector::iterator file);
-        pwan::fileinfovector makeimagelist(std::string path = ".");
+        bool loadimage(std::vector<pwan::fileInfo>::iterator file);
+        std::vector<pwan::fileInfo> makeimagelist(std::string path = ".");
         void keyPressEvent(QKeyEvent *keyevent);
         void setupKeys(void);
 
         t_loadimage *threadloadimage;
 
         stringvector imageformats;
-        pwan::fileinfovector fileList;
-        pwan::fileinfovector::iterator index;
+        std::vector<pwan::fileInfo> fileList;
+        std::vector<pwan::fileInfo>::iterator index;
         QPoint imagesize;
         float zoom;
         int imageindex, viewerwidth, viewerheight;

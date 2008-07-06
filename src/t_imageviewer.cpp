@@ -1,3 +1,8 @@
+#include <QDesktopWidget>
+#include <QImageReader>
+#include "pwandir.h"
+#include "pwanutils.h"
+
 #include "t_imageviewer.moc"
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
@@ -78,7 +83,7 @@ bool t_imageviewer::startimageviewer()
         path = "";
     fileList = makeimagelist(path);
     index = fileList.end();
-    for(pwan::fileinfovector::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
+    for(std::vector<pwan::fileInfo>::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
     {
         imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
         imagestatuslist.push_back(0);
@@ -97,7 +102,7 @@ bool t_imageviewer::startimageviewer()
         std::cout << "path = " << path << "\n";
         std::cout << "\n";
         std::cout << "List of images:\n=================================\n";
-        for (pwan::fileinfovector::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
+        for (std::vector<pwan::fileInfo>::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
             std::cout << (*fileListIter).path() << "/" << (*fileListIter).fileName() << "\n";
         std::cout << "\n";
     }
@@ -123,7 +128,7 @@ bool t_imageviewer::startimageviewer()
     }
 }
 
-bool t_imageviewer::loadimage(pwan::fileinfovector::iterator file)
+bool t_imageviewer::loadimage(std::vector<pwan::fileInfo>::iterator file)
 {
     if(options.get("verbose") == "true")
         std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";
@@ -189,7 +194,7 @@ void t_imageviewer::paintEvent(QPaintEvent *)
     }
 }
 
-pwan::fileinfovector t_imageviewer::makeimagelist(std::string path)
+std::vector<pwan::fileInfo> t_imageviewer::makeimagelist(std::string path)
 {
     if(path == "")
         path = "./";
