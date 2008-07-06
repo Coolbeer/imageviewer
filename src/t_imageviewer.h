@@ -46,7 +46,6 @@ class t_imageviewer : public QWidget
         QPoint imagesize;
         float zoom;
         int imageindex, viewerwidth, viewerheight;
-        pwan::doubleint keyboardoffset;
         bool fullscreen, scale;
         int nextImageKey, altNextImageKey, quitImageKey, altQuitImageKey, prevImageKey, altPrevImageKey, firstImageKey;
         int altFirstImageKey, lastImageKey, altLastImageKey, scrollDownImageKey, altScrollDownImageKey;
