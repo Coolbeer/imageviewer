@@ -636,8 +636,6 @@ am__leading_dot
 AMTAR
 am__tar
 am__untar
-PWANDEBUG_TRUE
-PWANDEBUG_FALSE
 CXX
 CXXFLAGS
 LDFLAGS
@@ -1259,7 +1257,6 @@ if test -n "$ac_init_help"; then
 Optional Features:
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
-  --enable-debug	Turn on debugging
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
 
@@ -2197,34 +2194,6 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 
 
-
-
-# Check whether --enable-debug was given.
-if test "${enable_debug+set}" = set; then
-  enableval=$enable_debug; case "${enableval}" in yes) debug=true ;; no)  debug=false ;;
-    *) { { echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-debug" >&5
-echo "$as_me: error: bad value ${enableval} for --enable-debug" >&2;}
-   { (exit 1); exit 1; }; } ;; esac
-else
-  debug=false
-fi
-
- if test x$debug = xtrue; then
-  PWANDEBUG_TRUE=
-  PWANDEBUG_FALSE='#'
-else
-  PWANDEBUG_TRUE='#'
-  PWANDEBUG_FALSE=
-fi
-
-
-if test x$debug = xtrue; then
-
-cat >>confdefs.h <<\_ACEOF
-#define PWANDEBUG 1
-_ACEOF
-
-fi
 
 # Checks for programs.
 ac_ext=cpp
@@ -4246,13 +4215,6 @@ LIBOBJS=$ac_libobjs
 LTLIBOBJS=$ac_ltlibobjs
 
 
-if test -z "${PWANDEBUG_TRUE}" && test -z "${PWANDEBUG_FALSE}"; then
-  { { echo "$as_me:$LINENO: error: conditional \"PWANDEBUG\" was never defined.
-Usually this means the macro was only invoked conditionally." >&5
-echo "$as_me: error: conditional \"PWANDEBUG\" was never defined.
-Usually this means the macro was only invoked conditionally." >&2;}
-   { (exit 1); exit 1; }; }
-fi
 if test -z "${AMDEP_TRUE}" && test -z "${AMDEP_FALSE}"; then
   { { echo "$as_me:$LINENO: error: conditional \"AMDEP\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
@@ -4866,8 +4828,6 @@ am__leading_dot!$am__leading_dot$ac_delim
 AMTAR!$AMTAR$ac_delim
 am__tar!$am__tar$ac_delim
 am__untar!$am__untar$ac_delim
-PWANDEBUG_TRUE!$PWANDEBUG_TRUE$ac_delim
-PWANDEBUG_FALSE!$PWANDEBUG_FALSE$ac_delim
 CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
 LDFLAGS!$LDFLAGS$ac_delim
@@ -4899,7 +4859,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 90; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 88; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

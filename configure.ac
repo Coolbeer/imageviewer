@@ -7,15 +7,6 @@ AC_CONFIG_SRCDIR([src/main.h])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 
-
-AC_ARG_ENABLE(debug,[  --enable-debug	Turn on debugging], [case "${enableval}" in yes) debug=true ;; no)  debug=false ;;
-    *) AC_MSG_ERROR(bad value ${enableval} for --enable-debug) ;; esac],[debug=false])
-AM_CONDITIONAL(PWANDEBUG, test x$debug = xtrue)
-
-if test x$debug = xtrue; then
-AC_DEFINE(PWANDEBUG, 1, [Turn on debugging])
-fi
-
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
