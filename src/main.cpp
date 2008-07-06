@@ -41,9 +41,9 @@ int main (int argc, char *argv[])
     for(int teller = 0; teller != argc; ++teller)
         debug.print(functionName, std::string("argc = ") + pwan::strings::fromInt(teller) + "; " + argv[teller], 3);
     debug.print(functionName, "", 3);
+    std::list<std::string> hepp = options.dump();
     debug.print(functionName, "All Options Parsed:", 3);
     debug.print(functionName, "=================================", 3);
-    std::list<std::string> hepp = options.dump();
     std::list<std::string>::iterator mapiter = hepp.begin();
     while(mapiter != hepp.end())
     {
