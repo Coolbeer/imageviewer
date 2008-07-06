@@ -131,7 +131,7 @@ bool t_imageviewer::startimageviewer()
     }
 }
 
-bool t_imageviewer::loadimage(std::vector<pwan::fileInfo>::iterator file)
+bool t_imageviewer::loadimage(const std::vector<pwan::fileInfo>::iterator& file)
 {
     if(options.get("verbose") == "true")
         std::cout << "LOADIMAGE: Trying to load file: " << (*file).path() << "/" << (*file).fileName() << "\n";

@@ -21,7 +21,7 @@ class t_imageviewer : public QWidget
         std::vector<QImage> imagelist;
         std::vector<int> imagestatuslist;                                               // 0 = not loaded, 1 = loaded, -1 = some error
         void paintEvent(QPaintEvent *);
-        bool loadimage(std::vector<pwan::fileInfo>::iterator file);
+        bool loadimage(const std::vector<pwan::fileInfo>::iterator& file);
         std::vector<pwan::fileInfo> makeimagelist(std::string path = ".");
         void keyPressEvent(QKeyEvent *keyevent);
         void setupKeys(void);
