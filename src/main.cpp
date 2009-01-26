@@ -9,6 +9,7 @@
 #include "pwanoptions.h"
 #include "pwanstrings.h"
 #include "pwancmdlineparser.h"
+#include "imageviewer_frontend_qt.h"
 
 pwan::options options;
 pwan::debug debug;
