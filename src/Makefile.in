@@ -46,7 +46,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_ImageViewer_OBJECTS = main.$(OBJEXT) t_imageviewer.$(OBJEXT) \
 	t_loadimage.$(OBJEXT) pwandir.$(OBJEXT) pwanutils.$(OBJEXT) \
 	pwanfileinfo.$(OBJEXT) pwanstrings.$(OBJEXT) \
-	pwanoptions.$(OBJEXT) pwandebug.$(OBJEXT)
+	pwanoptions.$(OBJEXT) pwandebug.$(OBJEXT) \
+	pwancmdlineparser.$(OBJEXT)
 ImageViewer_OBJECTS = $(am_ImageViewer_OBJECTS)
 ImageViewer_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -168,7 +169,8 @@ ImageViewer_SOURCES = \
 	pwanfileinfo.cpp \
 	pwanstrings.cpp \
 	pwanoptions.cpp \
-	pwandebug.cpp
+	pwandebug.cpp \
+	pwancmdlineparser.cpp
 
 
 #t_imageviewer.cpp: moc_timageviewer
@@ -247,6 +249,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwancmdlineparser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwandebug.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwandir.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwanfileinfo.Po@am__quote@

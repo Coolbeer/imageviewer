@@ -8,28 +8,40 @@
 #include "pwandebug.h"
 #include "pwanoptions.h"
 #include "pwanstrings.h"
+#include "pwancmdlineparser.h"
 
 pwan::options options;
 pwan::debug debug;
-
-void setOptions(void);
 
 int main (int argc, char *argv[])
 {
     std::string functionName("main");
     std::string imageFileName;
-
+    std::vector<pwan::optionsReturn> parsedOpts;
     QApplication app(argc, argv);
+    pwan::t_cmdlineParser cmdlineParser;
 
     //set the commandline/inifile allowed options
-    setOptions();
-
-    //Check the inifile
-    options.checkIniFile("setup.ini");
+    cmdlineParser.setAllowedOption("v", "verbose", "Verbose output", pwan::NO_PARAMETER);
+    cmdlineParser.setAllowedOption("h", "help", "This helptext", pwan::NO_PARAMETER);
+    cmdlineParser.setAllowedOption("V", "version", "Prints versionstring", pwan::NO_PARAMETER);
+    cmdlineParser.setAllowedOption("d", "debug", "Be extra verbose on output", pwan::NO_PARAMETER);
+    cmdlineParser.setAllowedOption("s", "scale", "Auto scale the image to fit the screen", pwan::NO_PARAMETER);
+    cmdlineParser.setAllowedOption("i", "image", "Specifies the image you want to load", pwan::DEFAULT_PARAMETER);
 
     //Check the commandline
-    options.checkCmdLine(argc, argv);
-
+    if(cmdlineParser.checkCmdLine(argc, argv) != pwan::P_OK)
+    {
+        debug.print("humm\n");
+    }
+    parsedOpts = cmdlineParser.returnFoundOptions();
+    for(unsigned int i=0; i != parsedOpts.size(); ++i)
+    {
+        if(parsedOpts.at(i).parameter == "")
+            options.set(parsedOpts.at(i).option, "true");
+        else
+            options.set(parsedOpts.at(i).option, parsedOpts.at(i).parameter);
+    }
     if(options.get("verbose") == "true")
         debug.setDebugLevel(2);
     if(options.get("debug") == "true")
@@ -64,7 +76,7 @@ int main (int argc, char *argv[])
     }
     else if(options.get("help") == "true")
     {
-        debug.print(options.makeHelp());
+        debug.print(cmdlineParser.makeHelp());
         exit(0);
     }
 
@@ -88,14 +100,4 @@ int main (int argc, char *argv[])
         debug.print(std::string("Try: `" ) + PACKAGE_NAME + " --help` for more options.");
         exit(0);
     }
-}
-
-void setOptions(void)
-{
-    options.setOption("v", "verbose", "Verbose output", "!");
-    options.setOption("h", "help", "This helptext", "!");
-    options.setOption("V", "version", "Prints versionstring", "!");
-    options.setOption("d", "debug", "Be extra verbose on output", "!");
-    options.setOption("s", "scale", "Auto scale the image to fit the screen", "!");
-    options.setOption("i", "image", "Specifies the image you want to load", "*");
 }

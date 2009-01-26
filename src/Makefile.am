@@ -10,7 +10,8 @@ ImageViewer_SOURCES = \
 	pwanfileinfo.cpp \
 	pwanstrings.cpp \
 	pwanoptions.cpp \
-	pwandebug.cpp
+	pwandebug.cpp \
+	pwancmdlineparser.cpp
 
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
