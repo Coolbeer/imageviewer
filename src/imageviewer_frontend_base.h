@@ -6,7 +6,7 @@ namespace pwan
     class imageviewer_frontend_base
     {
         public:
-            virtual void show = 0;
+            virtual void show(void) = 0;
         private:
     };
 }
