@@ -222,7 +222,7 @@ std::vector<std::string> pwan::options::checkCmdLine(const std::vector<std::stri
             lastValParms.clear();
             continue;
         }
-        while(vsIter->at(i) == '-' || vsIter->at(i) == '/')
+        while(vsIter->at(i) == '-')
             ++i;
         parsedOpt = pwan::strings::explode(vsIter->substr(i), ":");
         for(opBlobIter = allowedOptions.begin(); opBlobIter != allowedOptions.end(); ++opBlobIter)
@@ -277,7 +277,7 @@ std::vector<std::string> pwan::options::checkCmdLine(const std::vector<std::stri
         }
         if(added == 0)
         {
-            if(!defaultOpt.empty() && !((*vsIter).at(0) == '-' || (*vsIter).at(0) == '/'))
+            if(!defaultOpt.empty() && !((*vsIter).at(0) == '-'))
             {
                 lastOpt = get(defaultOpt);
                 if(!lastOpt.empty())
