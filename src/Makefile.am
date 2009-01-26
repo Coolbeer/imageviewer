@@ -8,18 +8,9 @@ ImageViewer_SOURCES = \
 	pwandir.cpp \
 	pwanutils.cpp \
 	pwanfileinfo.cpp \
-	main.h \
-	t_imageviewer.h \
-	t_loadimage.h \
-	pwandir.h \
-	pwanutils.h \
-	pwanfileinfo.h \
 	pwanstrings.cpp \
-	pwanstrings.h \
 	pwanoptions.cpp \
-	pwanoptions.h \
-	pwandebug.cpp \
-	pwandebug.h
+	pwandebug.cpp
 
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
