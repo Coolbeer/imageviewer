@@ -1,5 +1,6 @@
 #include <iostream>
 #include <dirent.h>
+#include <stdlib.h>
 
 #include "pwandir.h"
 #include "pwanstrings.h"

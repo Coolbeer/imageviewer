@@ -1,6 +1,7 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "pwanutils.h"
 #include "pwanstrings.h"

@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <stdlib.h>
 
 #include "pwanfileinfo.h"
 #include "pwanutils.h"
@@ -38,7 +39,7 @@ std::string pwan::fileInfo::path(void)
     return internalpath;
 }
 
-unsigned long long int pwan::fileInfo::size(void)
+uint64_t pwan::fileInfo::size(void)
 {
     return internalsize;
 }
@@ -53,7 +54,7 @@ void pwan::fileInfo::setPath(const std::string& newPath)
     internalpath = newPath;
 }
 
-void pwan::fileInfo::setSize(long long int newSize)
+void pwan::fileInfo::setSize(uint64_t newSize)
 {
     internalsize = newSize;
 }

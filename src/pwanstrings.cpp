@@ -1,7 +1,9 @@
 #include <stdexcept>
+#include <stdlib.h>
+
 #include "pwanstrings.h"
 
-std::string pwan::strings::fromInt(long long int number, unsigned int padding, unsigned int base)
+std::string pwan::strings::fromInt(int64_t number, unsigned int padding, unsigned int base)
 {
     std::string::size_type returnvaluelength;
     const std::string numbers = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -17,7 +19,7 @@ std::string pwan::strings::fromInt(long long int number, unsigned int padding, u
         throw std::out_of_range("Base not in range");
     do
     {
-        long long int remainder = number % base;
+        uint64_t remainder = number % base;
         returnvalue = numbers.at(remainder) + returnvalue;
         number = number / base;
     } while(number);

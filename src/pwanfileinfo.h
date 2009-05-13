@@ -13,18 +13,18 @@ namespace pwan
             fileInfo(const std::string& file);
             std::string fileName(void);
             std::string path(void);
-            unsigned long long int size(void);
+            uint64_t size(void);
 
         private:
             void setFileName(const std::string& newFileName);
             void setPath(const std::string& newPath);
-            void setSize(long long int newSize);
+            void setSize(uint64_t newSize);
 
             std::string absolutePath(std::string path);
 
             std::string internalfilename;
             std::string internalpath;
-            unsigned long long int internalsize;
+            uint64_t internalsize;
         friend class dir;
     };
 }
