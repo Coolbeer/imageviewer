@@ -15,6 +15,7 @@ ImageViewer_SOURCES = \
 	imageviewer_frontend_qt.cpp \
 	imageviewer_frontend_base.cpp
 
+
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
 
@@ -34,5 +35,5 @@ t_loadimage.moc:
 
 CLEANFILES = *moc *~
 
-AM_CPPFLAGS = $(QtCore_CFLAGS) $(QtGui_CFLAGS)
-LIBS = $(QtCore_LIBS) $(QtGui_LIBS)
+AM_CPPFLAGS = $(QtCore_CFLAGS) $(QtGui_CFLAGS) $(BOOST_CPPFLAGS)
+LIBS = $(QtCore_LIBS) $(QtGui_LIBS) $(BOOST_THREAD_LIB) $(BOOST_LDFLAGS) 
