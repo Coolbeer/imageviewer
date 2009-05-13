@@ -4,10 +4,11 @@
 #include <string>
 #include <vector>
 
+#include "pwantools_enums.h"
+
 namespace pwan
 {
     enum e_clpFlag { NO_PARAMETER, ANY_PARAMETER, RESTRICTED_PARAMETER, DEFAULT_PARAMETER };
-    enum p_returnValue { P_OK, P_ERROR, P_NO_ARGUMENTS };
 
     struct optionsReturn
     {
