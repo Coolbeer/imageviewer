@@ -10,6 +10,8 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+AX_BOOST_BASE([1.33.1])
+AX_BOOST_THREAD
 AC_PROG_CXXCPP
 AC_PROG_INSTALL
 
@@ -26,6 +28,7 @@ PKG_CHECK_MODULES(QtGui, QtGui >= 4.2.0)
 AC_SUBST(QtGui_CFLAGS)
 AC_SUBST(QtGui_LIBS)
 
+
 # Checks for header files.
 
 AC_HEADER_STDC
@@ -41,7 +44,6 @@ AC_CHECK_HEADERS(vector string iostream list map fstream sstream,,
     AC_MSG_ERROR(You need to have the libstdc++ headers installed))
 
 AC_LANG_RESTORE
-
 
 # Checks for typedefs, structures, and compiler characteristics.
 
