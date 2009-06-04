@@ -2,10 +2,11 @@
 #include "../config.h"
 
 #include "pwanstrings.h"
+#include <iostream>
 
 pwan::t_cmdlineParser::t_cmdlineParser(void)
 {
-    defaultOpt = 0;
+    defaultOpt = -1;
 }
 
 void pwan::t_cmdlineParser::setAllowedOption(const std::string &shortOpt, const std::string &longOpt, const std::string &description, e_clpFlag flag)
@@ -84,11 +85,12 @@ pwan::p_returnValue pwan::t_cmdlineParser::checkCmdLine(int argc, char **argv)
 {
     std::vector<std::string> args;
     std::vector<std::string>::iterator vecStrIter;
+    optionsReturn opRetList;
 
     if(argc == 1)
         return P_NO_ARGUMENTS;
 
-    for(int i = 0; i != argc; ++i)
+    for(int i = 0; i != argc; ++i)                                                  //put the argv in a vector<string>
     {
         std::string tmpS = argv[i];
         args.push_back(tmpS);
@@ -97,55 +99,82 @@ pwan::p_returnValue pwan::t_cmdlineParser::checkCmdLine(int argc, char **argv)
     vecStrIter = args.begin()+1;
     while(vecStrIter != args.end())
     {
-        for(std::vector<optBlob>::iterator optIter = allowedOptions.begin(); optIter != allowedOptions.end(); ++optIter)
+        if(vecStrIter->size() > 1)                                                  //Avoid a exception
         {
-            optionsReturn opRetList;
-            if((*vecStrIter) == "-" + optIter->shortOpt || (*vecStrIter) == "--" + optIter->longOpt)
+            if((vecStrIter->at(0) == '-' && vecStrIter->at(1) != '-') || (vecStrIter->at(0) == '-' && vecStrIter->at(1) == '-'))
             {
-                if(optIter->flag == NO_PARAMETER)
+                for(std::vector<optBlob>::iterator optIter = allowedOptions.begin(); optIter != allowedOptions.end(); ++optIter)
                 {
-                    opRetList.option = optIter->longOpt;
-                    setOptions.push_back(opRetList);
-                    break;
-                }
-                else if(optIter->flag == ANY_PARAMETER)
-                {
-                    opRetList.option = optIter->longOpt;
-                    ++vecStrIter;
-                    opRetList.parameter = (*vecStrIter);
-                    setOptions.push_back(opRetList);
-                    break;
-                }
-                else if(optIter->flag == RESTRICTED_PARAMETER)
-                {
-                    bool isFound = false;
-                    opRetList.option = optIter->longOpt;
-                    ++vecStrIter;
-                    std::vector<std::string> expValids;
-                    expValids = pwan::strings::explode(optIter->validParams, ":");
-                    for(std::vector<std::string>::iterator expIter = expValids.begin(); expIter != expValids.end(); ++expIter)
+                    if((*vecStrIter) == "-" + optIter->shortOpt || (*vecStrIter) == "--" + optIter->longOpt)
                     {
-                        if((*expIter) == (*vecStrIter))
+                        if(optIter->flag == NO_PARAMETER)
                         {
-                            opRetList.parameter = (*vecStrIter);
-                            isFound = true;
+                            opRetList.option = optIter->longOpt;
+                            opRetList.parameter.erase();
+                            setOptions.push_back(opRetList);
                             break;
                         }
+                        else if(optIter->flag == ANY_PARAMETER)
+                        {
+                            opRetList.option = optIter->longOpt;
+                            ++vecStrIter;
+                            opRetList.parameter = (*vecStrIter);
+                            setOptions.push_back(opRetList);
+                            break;
+                        }
+                        else if(optIter->flag == RESTRICTED_PARAMETER)
+                        {
+                            bool isFound = false;
+                            opRetList.option = optIter->longOpt;
+                            ++vecStrIter;
+                            std::vector<std::string> expValids;
+                            expValids = pwan::strings::explode(optIter->validParams, ":");
+                            for(std::vector<std::string>::iterator expIter = expValids.begin(); expIter != expValids.end(); ++expIter)
+                            {
+                                if((*expIter) == (*vecStrIter))
+                                {
+                                    opRetList.parameter = (*vecStrIter);
+                                    isFound = true;
+                                    break;
+                                }
+                            }
+                            if(isFound)
+                                setOptions.push_back(opRetList);
+                            else
+                                return P_ERROR;
+                            break;
+                        }
+                        else if(optIter->flag == DEFAULT_PARAMETER)
+                        {
+                            opRetList.option = optIter->longOpt;
+                            ++vecStrIter;
+                            opRetList.parameter = (*vecStrIter);
+                            setOptions.push_back(opRetList);
+                            break;
+                        }
+
                     }
-                    if(isFound)
-                        setOptions.push_back(opRetList);
-                    else
-                        return P_ERROR;
-                    break;
                 }
-                else if(optIter->flag == DEFAULT_PARAMETER)
+            }
+            else if(defaultOpt != -1 && vecStrIter->at(0) != '-')
+            {
+                std::vector<optionsReturn>::iterator opIter = setOptions.begin();
+                for(opIter = setOptions.begin(); opIter != setOptions.end(); ++opIter)
                 {
-                    opRetList.option = optIter->longOpt;
-                    ++vecStrIter;
+                    if(opIter->option == allowedOptions.at(defaultOpt).longOpt)
+                    {
+                        opIter->parameter += ' ';
+                        opIter->parameter += (*vecStrIter);
+                        break;
+                    }
+                }
+                if(opIter == setOptions.end())
+                {
+                    opRetList.option = allowedOptions.at(defaultOpt).longOpt;
                     opRetList.parameter = (*vecStrIter);
                     setOptions.push_back(opRetList);
-                    break;
                 }
+
             }
         }
         ++vecStrIter;
