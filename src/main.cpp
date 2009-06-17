@@ -1,5 +1,5 @@
 #include <string>
-#include <QApplication>
+#include <QtGui/QApplication>
 
 #include "../config.h"
 

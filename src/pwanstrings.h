@@ -3,12 +3,13 @@
 
 #include <string>
 #include <vector>
+#include <boost/cstdint.hpp>
 
 namespace pwan
 {
     namespace strings
     {
-        std::string                     fromInt(int64_t number, unsigned int padding = 0, unsigned int base = 10);
+		std::string                     fromInt(boost::int64_t number, size_t padding = 0, size_t base = 10);
         std::vector<std::string>        explode(const std::string& inputstring, std::string explodeby = " ");
         std::string                     toLower(std::string inputstring);
         std::string                     base64Encode(const std::string &text);

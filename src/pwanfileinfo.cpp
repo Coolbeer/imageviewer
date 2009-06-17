@@ -2,6 +2,10 @@
 #include <iostream>
 #include <stdlib.h>
 
+#ifdef _WIN32
+#include <direct.h>
+#endif
+
 #include "pwanfileinfo.h"
 #include "pwanutils.h"
 #include "pwanstrings.h"
@@ -39,7 +43,7 @@ std::string pwan::fileInfo::path(void)
     return internalpath;
 }
 
-uint64_t pwan::fileInfo::size(void)
+boost::uint64_t pwan::fileInfo::size(void)
 {
     return internalsize;
 }
@@ -54,7 +58,7 @@ void pwan::fileInfo::setPath(const std::string& newPath)
     internalpath = newPath;
 }
 
-void pwan::fileInfo::setSize(uint64_t newSize)
+void pwan::fileInfo::setSize(boost::uint64_t newSize)
 {
     internalsize = newSize;
 }
@@ -66,7 +70,12 @@ std::string pwan::fileInfo::absolutePath(std::string path)
     {
         char *tmpcwd = new char[4096];
         std::string cwd;
-        if(getcwd(tmpcwd, 4096) == NULL)
+#ifdef linux
+		if(getcwd(tmpcwd, 4096) == NULL)
+#endif
+#ifdef _WIN32
+		if(_getcwd(tmpcwd, 4096) == NULL)
+#endif
         {
             std::cout << "absolutepath failed \n\n";
             exit(1);

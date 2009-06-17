@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <boost/cstdint.hpp>
 
 namespace pwan
 {
@@ -13,18 +14,18 @@ namespace pwan
             fileInfo(const std::string& file);
             std::string fileName(void);
             std::string path(void);
-            uint64_t size(void);
+			boost::uint64_t size(void);
 
         private:
             void setFileName(const std::string& newFileName);
             void setPath(const std::string& newPath);
-            void setSize(uint64_t newSize);
+			void setSize(boost::uint64_t newSize);
 
             std::string absolutePath(std::string path);
 
             std::string internalfilename;
             std::string internalpath;
-            uint64_t internalsize;
+			boost::uint64_t internalsize;
         friend class dir;
     };
 }

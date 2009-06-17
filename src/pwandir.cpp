@@ -51,11 +51,16 @@ std::vector<pwan::fileInfo> pwan::dir::entryInfoList(const std::vector<std::stri
                                     inserted = false;
                             }
                             else
+                            {
                                 returnvalue.push_back(pwan::fileInfo(currentpath+"/"+tmpfilename));
+                            }
                         }
                 }
                 else
+                {
                     returnvalue.push_back(pwan::fileInfo(currentpath+"/"+tmpfilename));
+                }
+
             }
         }
         closedir(dirpointer);

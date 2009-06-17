@@ -68,8 +68,8 @@ std::string pwan::options::makeHelp(void)
     std::string returnValue;
     std::vector<optionBlob>::iterator opBlobIter;
     bool hasOpt = false;
-    unsigned int longestShort = 0;
-    unsigned int longestLong = 0;
+    size_t longestShort = 0;
+    size_t longestLong = 0;
 
     returnValue = "Usage: ";
     if(!programName.empty())

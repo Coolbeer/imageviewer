@@ -1,6 +1,6 @@
-#include <QDesktopWidget>
-#include <QImageReader>
-#include <QPainter>
+#include <QtGui/QDesktopWidget>
+#include <QtGui/QImageReader>
+#include <QtGui/QPainter>
 #include <iostream>
 
 #include "pwandir.h"

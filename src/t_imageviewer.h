@@ -1,8 +1,8 @@
 #ifndef T_IMAGEVIEWER_H
 #define T_IMAGEVIEWER_H
 
-#include <QPaintEvent>
-#include <QWidget>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QWidget>
 
 #include "../config.h"
 #include "pwanfileinfo.h"

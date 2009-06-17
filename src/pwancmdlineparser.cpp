@@ -1,5 +1,12 @@
 #include "pwancmdlineparser.h"
+
+#ifdef linux
 #include "../config.h"
+#endif
+
+#ifdef _WIN32
+#define PACKAGE_NAME "pwantools"
+#endif
 
 #include "pwanstrings.h"
 #include <iostream>
@@ -18,7 +25,7 @@ void pwan::t_cmdlineParser::setAllowedOption(const std::string &shortOpt, const 
     newOption.flag = flag;
     allowedOptions.push_back(newOption);
     if(flag == DEFAULT_PARAMETER)
-        defaultOpt = allowedOptions.size()-1;
+        defaultOpt = (int)allowedOptions.size()-1;
 }
 
 pwan::p_returnValue pwan::t_cmdlineParser::setValidParameter(const std::string &longOpt, const std::string &validParams)
@@ -40,8 +47,8 @@ std::string pwan::t_cmdlineParser::makeHelp(void)
     std::string returnValue;
     std::vector<optBlob>::iterator opBlobIter;
     bool hasOpt = false;
-    unsigned int longestShort = 0;
-    unsigned int longestLong = 0;
+    size_t longestShort = 0;
+    size_t longestLong = 0;
 
     returnValue = "Usage: ";
     returnValue += PACKAGE_NAME;

@@ -1,11 +1,11 @@
 #ifndef T_LOADIMAGE_H
 #define T_LOADIMAGE_H
 
-#include <QThread>
-#include <QWaitCondition>
-#include <QMutex>
-#include <QImage>
-#include <QTextCodec>
+#include <QtCore/QThread>
+#include <QtCore/QWaitCondition>
+#include <QtCore/QMutex>
+#include <QtGui/QImage>
+#include <QtCore/QTextCodec>
 
 class t_loadimage : public QThread
 {

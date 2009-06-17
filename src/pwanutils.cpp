@@ -3,6 +3,10 @@
 #include <iostream>
 #include <stdlib.h>
 
+#ifdef _WIN32
+#include <direct.h>
+#endif
+
 #include "pwanutils.h"
 #include "pwanstrings.h"
 
@@ -60,7 +64,7 @@ std::string pwan::readFile(const std::string filename)
 std::vector<std::string> pwan::parsebrackets(const std::string url)
 {
     static std::vector<std::string> returnvalue;
-    int startnumber, endnumber, noDigits;
+    size_t startnumber, endnumber, noDigits;
     std::string::size_type startbracket, endbracket, separator;
     std::string parsedNumber, newUrl;
 
@@ -79,7 +83,7 @@ std::vector<std::string> pwan::parsebrackets(const std::string url)
                 parsedNumber = url.substr(separator + 1, endbracket - separator - 1);
                 endnumber = atoi(parsedNumber.c_str());
 
-                for (int teller = startnumber; teller != endnumber +1; ++teller)
+                for (size_t teller = startnumber; teller != endnumber +1; ++teller)
                 {
                     parsedNumber = pwan::strings::fromInt(teller, noDigits);
                     newUrl = url.substr(0, startbracket) + parsedNumber + url.substr(endbracket +1, url.size());
@@ -103,8 +107,14 @@ int pwan::writefile(const std::string filename, const char data[], const int dat
         if (dataPosition == std::string::npos)
             break;
         dataPosition++;
+#ifdef linux
         mkdir(filename.substr(0, dataPosition).c_str(), 0755);
-    }
+#endif
+#ifdef _WIN32
+        _mkdir(filename.substr(0, dataPosition).c_str());
+#endif
+
+	}
     if (writemode == 0)
         outputfile.open(filename.c_str(), std::ios::out | std::ios::binary);
     else
