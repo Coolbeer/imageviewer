@@ -21,16 +21,16 @@ class t_imageviewer : public QWidget
         std::vector<QImage> imagelist;
         std::vector<int> imagestatuslist;                                               // 0 = not loaded, 1 = loaded, -1 = some error
         void paintEvent(QPaintEvent *);
-        bool loadimage(const std::vector<pwan::fileInfo>::iterator& file);
-        std::vector<pwan::fileInfo> makeimagelist(std::string path = ".");
+        bool loadimage(const std::vector<std::string>::iterator& file);
+        std::vector<std::string> makeimagelist(std::string path = ".");
         void keyPressEvent(QKeyEvent *keyevent);
         void setupKeys(void);
 
         t_loadimage *threadloadimage;
 
         std::vector<std::string> imageformats;
-        std::vector<pwan::fileInfo> fileList;
-        std::vector<pwan::fileInfo>::iterator index;
+        std::vector<std::string> fileList;
+        std::vector<std::string>::iterator index;
         std::string className;
         QPoint imagesize;
         float zoom;

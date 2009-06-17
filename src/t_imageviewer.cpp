@@ -1,11 +1,10 @@
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QImageReader>
 #include <QtGui/QPainter>
+#include <boost/filesystem.hpp>
 #include <iostream>
 
-#include "pwandir.h"
 #include "pwanutils.h"
-
 #include "t_imageviewer.moc"
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
@@ -27,7 +26,7 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     QRect dims = desk.screenGeometry(desk.primaryScreen());
     threadloadimage = new t_loadimage;
     for (int teller = 0; teller != imgformats.size(); ++teller)
-        imageformats.push_back(QString(imgformats.at(teller)).toStdString());
+        imageformats.push_back("." + QString(imgformats.at(teller)).toStdString());
     zoom = 1.0;
     fullscreen = 1;
     viewerwidth = dims.width();
@@ -82,20 +81,20 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
 {
     std::string functionName("startimageviewer");
     ::debug.print(className + "::" + functionName, "fileName = \"" + fileName + "\"", 3);
+    namespace fs = boost::filesystem;
     if(options.get("scale") == "true")
         scale = true;
     else
         scale = false;
-    std::string path = fileName.substr(0, fileName.find_last_of("/"));
-    if(path == fileName)
-        path = "";
-    fileList = makeimagelist(path);
+    fileList = makeimagelist(fileName);
+    if (fileList.empty())
+        return false;
     index = fileList.end();
-    for(std::vector<pwan::fileInfo>::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
+    for(std::vector<std::string>::iterator fileListIter = fileList.begin(); fileListIter != fileList.end(); ++fileListIter)
     {
         imagelist.push_back(QImage(0,0,QImage::Format_Invalid));
         imagestatuslist.push_back(0);
-        if((*fileListIter).fileName() == fileName.substr(fileName.find_last_of("/")+1))
+        if(fs::basename((*fileListIter)) == fs::basename(fileName))
         {
             imageindex = fileListIter - fileList.begin();
             index = fileListIter;
@@ -117,13 +116,13 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
     }
 }
 
-bool t_imageviewer::loadimage(const std::vector<pwan::fileInfo>::iterator& file)
+bool t_imageviewer::loadimage(const std::vector<std::string>::iterator& file)
 {
     const std::string functionName("loadimage");
-    ::debug.print(className + "::" + functionName, "Trying to load file: " + (*file).path() + "/" + (*file).fileName(), 3);
+    ::debug.print(className + "::" + functionName, "Trying to load file: " + (*file), 3);
     if((imagelist[file - fileList.begin()].isNull()))
     {
-        threadloadimage->readimage((*file).path()+ "/" + (*file).fileName(), file - fileList.begin());
+        threadloadimage->readimage((*file), file - fileList.begin());
     }
     update();
     return true;
@@ -143,7 +142,7 @@ void t_imageviewer::paintEvent(QPaintEvent *)
     QString message = "Loading Image, please wait...";
     painter.fillRect(this->rect(), QColor(0,0,0));
     if(imagestatuslist.at(index - fileList.begin()) == -1)
-        message = QString::fromStdString(std::string("Unable to load image " + index->fileName() + "..."));
+        message = QString::fromStdString(std::string("Unable to load image " + (*index) + "..."));
     if(imagepointer->isNull())
     {
         painter.setPen(Qt::white);
@@ -170,8 +169,7 @@ void t_imageviewer::paintEvent(QPaintEvent *)
         }
         painter.setPen(Qt::black);
         painter.setBrush(QColor(255, 255, 255, 190));
-        imagefile = QString::fromStdString(fileList.at(index - fileList.begin()).path() + "/" );
-        imagefile += QString::fromStdString(fileList.at(index - fileList.begin()).fileName());
+        imagefile = QString::fromStdString(fileList.at(index - fileList.begin()));
         textbox = painter.boundingRect(this->rect(), Qt::AlignBottom | Qt::AlignLeft, imagefile);
         text = textbox;
         textbox.setWidth(textbox.width() + 10);
@@ -182,16 +180,32 @@ void t_imageviewer::paintEvent(QPaintEvent *)
     }
 }
 
-std::vector<pwan::fileInfo> t_imageviewer::makeimagelist(std::string path)
+std::vector<std::string> t_imageviewer::makeimagelist(std::string path)
 {
     const std::string functionName("makeimagelist");
     ::debug.print(className + "::" + functionName, "path = \"" + path + "\"", 3);
-    if(path == "")
-        path = "./";
-    pwan::dir pwandir(path);
-    std::vector<pwan::fileInfo> filelistings = pwandir.entryInfoList(imageformats);
-    ::debug.print(className + "::" + functionName, "Returning a vector of " + pwan::strings::fromInt(filelistings.size()) + " elements", 3);
-    return filelistings;
+    std::vector<std::string> returnValue;
+    namespace fs = boost::filesystem;
+    fs::path fsp = fs::system_complete(path);
+    if(!fs::exists(path))
+    {
+        return returnValue;
+    }
+    if(!fs::is_directory(fsp))
+    {
+        fsp = fsp.remove_filename();
+    }
+    fs::directory_iterator dir_itr(fsp), dir_end;
+    for(;dir_itr != dir_end; ++dir_itr)
+    {
+        for(std::vector<std::string>::iterator it = imageformats.begin(); it != imageformats.end(); ++it)
+        {
+            if(dir_itr->path().extension() == (*it))
+                returnValue.push_back(dir_itr->string());
+        }
+    }
+    ::debug.print(className + "::" + functionName, "Returning a vector of " + pwan::strings::fromInt(returnValue.size()) + " elements", 3);
+    return returnValue;
 }
 
 void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int imageslot, int imagestatus)
