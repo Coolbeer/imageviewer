@@ -5,7 +5,6 @@
 #include <QtGui/QWidget>
 
 #include "../config.h"
-#include "pwanfileinfo.h"
 
 class t_loadimage;
 

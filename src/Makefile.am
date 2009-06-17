@@ -5,9 +5,7 @@ ImageViewer_SOURCES = \
 	main.cpp \
 	t_imageviewer.cpp \
 	t_loadimage.cpp \
-	pwandir.cpp \
 	pwanutils.cpp \
-	pwanfileinfo.cpp \
 	pwanstrings.cpp \
 	pwanoptions.cpp \
 	pwandebug.cpp \
