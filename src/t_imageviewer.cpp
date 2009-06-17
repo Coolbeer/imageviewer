@@ -200,7 +200,7 @@ std::vector<std::string> t_imageviewer::makeimagelist(std::string path)
     {
         for(std::vector<std::string>::iterator it = imageformats.begin(); it != imageformats.end(); ++it)
         {
-            if(dir_itr->path().extension() == (*it))
+            if(pwan::strings::toLower(dir_itr->path().extension()) == (*it))
                 returnValue.push_back(dir_itr->string());
         }
     }
