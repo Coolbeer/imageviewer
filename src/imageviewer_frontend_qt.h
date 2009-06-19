@@ -7,16 +7,16 @@
 
 namespace pwan
 {
-    class imageviewer_frontend_qt : public imageviewer_frontend_base
+    class imageviewer_frontend_qt : public imageviewer_frontend_base, public QApplication
     {
         public:
-            imageviewer_frontend_qt(void);
-            void init(int argc, char **argv);
+            imageviewer_frontend_qt(int argc, char **argv);
+            void init(void);
             int startup(void);
             int startimageviewer(std::string filename);
             void setScaled(bool onoff);
         private:
-            QApplication *app;
+//            QApplication *app;
             t_imageviewer *imageviewer;
     };
 }

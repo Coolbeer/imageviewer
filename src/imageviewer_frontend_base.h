@@ -9,7 +9,6 @@ namespace pwan
     {
         public:
             virtual ~imageviewer_frontend_base();
-            virtual void init(int argc, char **argv) = 0;
             virtual int startup(void) = 0;
         private:
     };

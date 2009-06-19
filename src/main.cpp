@@ -11,14 +11,12 @@ int main (int argc, char *argv[])
 {
     pwan::debug debug;
     pwan::t_cmdlineParser cmdlineParser;
-    pwan::imageviewer_frontend_qt * imageviewer = new pwan::imageviewer_frontend_qt;
+    pwan::imageviewer_frontend_qt * imageviewer = new pwan::imageviewer_frontend_qt(argc, argv);
     std::string imageFileName;
     std::string functionName("main");
     std::vector<pwan::optionsReturn> parsedOpts;
 
-    //Init the viewer
-    imageviewer->init(argc, argv);
-
+    imageviewer->init();
     //set the commandline/inifile allowed options
     cmdlineParser.setAllowedOption("v", "verbose", "Verbose output", pwan::NO_PARAMETER);
     cmdlineParser.setAllowedOption("h", "help", "This helptext", pwan::NO_PARAMETER);

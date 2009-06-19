@@ -1,20 +1,18 @@
 #include "imageviewer_frontend_qt.h"
 
-pwan::imageviewer_frontend_qt::imageviewer_frontend_qt(void)
+pwan::imageviewer_frontend_qt::imageviewer_frontend_qt(int argc, char **argv): QApplication(argc, argv)
 {
-
 }
 
-void pwan::imageviewer_frontend_qt::init(int argc, char **argv)
+void pwan::imageviewer_frontend_qt::init(void)
 {
-    app = new QApplication(argc, argv);
     imageviewer = new t_imageviewer;
 }
 
 int pwan::imageviewer_frontend_qt::startup(void)
 {
     imageviewer->show();
-    return app->exec();
+    return qApp->exec();
 }
 
 int pwan::imageviewer_frontend_qt::startimageviewer(std::string filename)
