@@ -11,8 +11,8 @@
 #include "pwancmdlineparser.h"
 #include "imageviewer_frontend_qt.h"
 
-pwan::options options;
-pwan::debug debug;
+//pwan::options options;
+unsigned int debugLevel = 1;
 
 int main (int argc, char *argv[])
 {
@@ -21,6 +21,8 @@ int main (int argc, char *argv[])
     std::vector<pwan::optionsReturn> parsedOpts;
     QApplication app(argc, argv);
     pwan::t_cmdlineParser cmdlineParser;
+    pwan::debug debug;
+    t_imageviewer *imageviewer = new t_imageviewer;
 
     //set the commandline/inifile allowed options
     cmdlineParser.setAllowedOption("v", "verbose", "Verbose output", pwan::NO_PARAMETER);
@@ -31,63 +33,54 @@ int main (int argc, char *argv[])
     cmdlineParser.setAllowedOption("i", "image", "Specifies the image you want to load", pwan::DEFAULT_PARAMETER);
 
     //Check the commandline
-    if(cmdlineParser.checkCmdLine(argc, argv) != pwan::P_OK)
-    {
-        debug.print("humm\n");
-    }
+    cmdlineParser.checkCmdLine(argc, argv);
     parsedOpts = cmdlineParser.returnFoundOptions();
-    for(unsigned int i=0; i != parsedOpts.size(); ++i)
+    for(std::vector<pwan::optionsReturn>::iterator it = parsedOpts.begin(); it != parsedOpts.end(); ++it)
     {
-        if(parsedOpts.at(i).parameter == "")
-            options.set(parsedOpts.at(i).option, "true");
-        else
-            options.set(parsedOpts.at(i).option, parsedOpts.at(i).parameter);
+        if(it->option == "verbose")
+        {   if(debugLevel <= 2)
+            {   debug.setDebugLevel(2);}}
+        else if(it->option == "debug")
+            debug.setDebugLevel(3);
+        else if(it->option == "version")
+        {
+            debug.dprint(std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION + "\n");;
+            return 0;
+        }
+        else if(it->option == "help")
+        {
+            debug.dprint(cmdlineParser.makeHelp());
+            return 0;
+        }
+        else if(it->option == "image")
+        {
+            imageFileName = it->parameter;
+        }
+        else if(it->option == "scale")
+        {
+            imageviewer->setScaled(true);
+        }
     }
-    if(options.get("verbose") == "true")
-        debug.setDebugLevel(2);
-    if(options.get("debug") == "true")
-        debug.setDebugLevel(3);
-
-    debug.print(functionName, std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION, 3);
-    debug.print(functionName, "", 3);
-    debug.print(functionName, "Raw Commandline:", 3);
-    debug.print(functionName, "=================================", 3);
+    debug.dprint(functionName, std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION, 3);
+    debug.dprint(functionName, "", 3);
+    debug.dprint(functionName, "Raw Commandline:", 3);
+    debug.dprint(functionName, "=================================", 3);
     for(int teller = 0; teller != argc; ++teller)
-        debug.print(functionName, std::string("argc = ") + pwan::strings::fromInt(teller) + "; " + argv[teller], 3);
-    debug.print(functionName, "", 3);
-    std::list<std::string> hepp = options.dump();
-    debug.print(functionName, "All Options Parsed:", 3);
-    debug.print(functionName, "=================================", 3);
-    std::list<std::string>::iterator mapiter = hepp.begin();
-    while(mapiter != hepp.end())
+        debug.dprint(functionName, std::string("argc = ") + pwan::strings::fromInt(teller) + "; " + argv[teller], 3);
+    debug.dprint(functionName, "", 3);
+    debug.dprint(functionName, "All Options Parsed:", 3);
+    debug.dprint(functionName, "=================================", 3);
+    for(std::vector<pwan::optionsReturn>::iterator it = parsedOpts.begin(); it != parsedOpts.end(); ++it)
     {
-        std::string output;
-        output = (*mapiter);
-        ++mapiter;
-        output += " : " + (*mapiter);;
-        debug.print(functionName, output, 3);
-        ++mapiter;
+        debug.dprint(functionName, it->option + " : " + it->parameter, 3);
     }
-    debug.print(functionName, "", 3);
+    debug.dprint(functionName, "", 3);
 
-    if(options.get("version") == "true")
-    {
-        debug.print(std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION + "\n");;
-        exit(0);
-    }
-    else if(options.get("help") == "true")
-    {
-        debug.print(cmdlineParser.makeHelp());
-        exit(0);
-    }
-
-    t_imageviewer *imageviewer = new t_imageviewer;
-    imageFileName = options.get("image");
     if(imageFileName != "")
     {
         if(!imageviewer->startimageviewer(imageFileName))
         {
-            debug.print("Could not load specified file...");
+            debug.dprint("Could not load specified file...");
             exit(1);
         }
         imageviewer->show();
@@ -95,10 +88,10 @@ int main (int argc, char *argv[])
     }
     else
     {
-        debug.print(std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION);
-        debug.print("Missing option");
-        debug.print(std::string("Usage: ") + PACKAGE_NAME + " [OPTION]");
-        debug.print(std::string("Try: `" ) + PACKAGE_NAME + " --help` for more options.");
+        debug.dprint(std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION);
+        debug.dprint("Missing option");
+        debug.dprint(std::string("Usage: ") + PACKAGE_NAME + " [OPTION]");
+        debug.dprint(std::string("Try: `" ) + PACKAGE_NAME + " --help` for more options.");
         exit(0);
     }
 }

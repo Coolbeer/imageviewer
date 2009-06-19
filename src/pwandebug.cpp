@@ -3,48 +3,49 @@
 #include "pwandebug.h"
 #include "pwanstrings.h"
 
+extern unsigned int debugLevel;
+
 pwan::debug::debug(void)
 {
     className = "debug";
-    curDebugLevel = 1;
     maxSavedLog = 20;
 }
 
-void pwan::debug::print(const std::string& from, const std::string& message, int debugLevel)
+void pwan::debug::dprint(const std::string& from, const std::string& message, unsigned int p_debugLevel)
 {
     std::string completeMessage;
     completeMessage = from + ": " + message;
-    if(curDebugLevel >= debugLevel)
-        print(completeMessage);
+    if(debugLevel >= p_debugLevel)
+        dprint(completeMessage);
     else
     {
         t_savedMessage newMessage;
         newMessage.Message = completeMessage;
-        newMessage.debugLevel = debugLevel;
+        newMessage.debugLevel = p_debugLevel;
         savedMessages.push_back(newMessage);
         if(savedMessages.size() > maxSavedLog)
             savedMessages.erase(savedMessages.begin());
     }
 }
 
-void pwan::debug::print(const std::string& message)
+void pwan::debug::dprint(const std::string& message)
 {
     std::cout << message << "\n";
 }
 
-void pwan::debug::setDebugLevel(int debugLevel)
+void pwan::debug::setDebugLevel(unsigned int NewdebugLevel)
 {
     std::string functionName("setDebugLevel");
     std::vector<t_savedMessage>::iterator iter;
-    curDebugLevel = debugLevel;
-    print(className + "::" + functionName, "Setting debug level " + pwan::strings::fromInt(debugLevel), 3);
-    print(className + "::" + functionName, "Printing out saved messages(if any) from lower debuglevels", 3);
+    debugLevel = NewdebugLevel;
+    dprint(className + "::" + functionName, "Setting debug level " + pwan::strings::fromInt(debugLevel), 3);
+    dprint(className + "::" + functionName, "Printing out saved messages(if any) from lower debuglevels", 3);
     iter = savedMessages.begin();
     while(iter != savedMessages.end())
     {
-        if((*iter).debugLevel <= curDebugLevel)
+        if((*iter).debugLevel <= debugLevel)
         {
-            print((*iter).Message);
+            dprint((*iter).Message);
             savedMessages.erase(iter);
         }
         else
@@ -54,5 +55,5 @@ void pwan::debug::setDebugLevel(int debugLevel)
 
 int pwan::debug::getDebugLevel(void)
 {
-    return curDebugLevel;
+    return debugLevel;
 }

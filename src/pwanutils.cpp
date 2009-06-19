@@ -64,7 +64,8 @@ std::string pwan::readFile(const std::string filename)
 std::vector<std::string> pwan::parsebrackets(const std::string url)
 {
     static std::vector<std::string> returnvalue;
-    size_t startnumber, endnumber, noDigits;
+    size_t startnumber, endnumber;
+    boost::uint8_t noDigits;
     std::string::size_type startbracket, endbracket, separator;
     std::string parsedNumber, newUrl;
 
@@ -78,7 +79,7 @@ std::vector<std::string> pwan::parsebrackets(const std::string url)
             if (separator != std::string::npos && separator < endbracket)
             {
                 parsedNumber = url.substr(startbracket +1, separator - startbracket -1);
-                noDigits = parsedNumber.size();
+                noDigits = (boost::uint8_t)parsedNumber.size();
                 startnumber = atoi(parsedNumber.c_str());
                 parsedNumber = url.substr(separator + 1, endbracket - separator - 1);
                 endnumber = atoi(parsedNumber.c_str());
@@ -101,20 +102,16 @@ int pwan::writefile(const std::string filename, const char data[], const int dat
 {
     std::ofstream outputfile;
     std::string::size_type dataPosition = 0;
-    while(1)
+    while((dataPosition = filename.find("/", dataPosition)) != std::string::npos)
     {
-        dataPosition = filename.find("/", dataPosition);
-        if (dataPosition == std::string::npos)
-            break;
-        dataPosition++;
+
 #ifdef linux
         mkdir(filename.substr(0, dataPosition).c_str(), 0755);
 #endif
 #ifdef _WIN32
         _mkdir(filename.substr(0, dataPosition).c_str());
 #endif
-
-	}
+    }
     if (writemode == 0)
         outputfile.open(filename.c_str(), std::ios::out | std::ios::binary);
     else
@@ -142,12 +139,8 @@ std::vector<std::string> pwan::html::getImageLinks(std::string filename)
         if(data.empty())
             return returnvalue;
         dataLower = pwan::strings::toLower(data);
-        while(1)
+        while((index = dataLower.find("<img ", index)) != std::string::npos)
         {
-            index = dataLower.find("<img ", index);
-            if (index == std::string::npos)
-                break;
-
             index = dataLower.find("src=\"", index);
             if (index != std::string::npos)
             {
@@ -161,6 +154,7 @@ std::vector<std::string> pwan::html::getImageLinks(std::string filename)
                         returnvalue.push_back(url);
                 }
             }
+            
         }
     }
     return returnvalue;
@@ -179,12 +173,8 @@ std::vector<std::string> pwan::html::getLinks(std::string filename)
         if(data.empty())
             return returnvalue;
         dataLower = pwan::strings::toLower(data);
-        while(1)
+        while((index = dataLower.find("<a href=", index)) != std::string::npos)
         {
-            index = dataLower.find("<a href=", index);
-            if (index == std::string::npos)
-                break;
-
             index += 9;
             endurl = dataLower.find("\"", index);
             if (endurl != std::string::npos)

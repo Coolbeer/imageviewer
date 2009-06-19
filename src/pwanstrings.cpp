@@ -3,7 +3,7 @@
 
 #include "pwanstrings.h"
 
-std::string pwan::strings::fromInt(boost::int64_t number, size_t padding, size_t base)
+std::string pwan::strings::fromInt(boost::int64_t number, boost::uint8_t padding, boost::uint8_t base)
 {
     std::string::size_type returnvaluelength;
     const std::string numbers = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -19,7 +19,7 @@ std::string pwan::strings::fromInt(boost::int64_t number, size_t padding, size_t
         throw std::out_of_range("Base not in range");
     do
     {
-		boost::uint64_t remainder = number % base;
+		boost::uint8_t remainder = number % base;
         returnvalue = numbers.at(remainder) + returnvalue;
         number = number / base;
     } while(number);
@@ -62,7 +62,7 @@ std::string pwan::strings::toLower(std::string inputstring)
 {
     for(std::string::size_type i = 0; i != inputstring.size(); ++i)
     {
-        inputstring[i] = std::tolower(inputstring[i]);
+        inputstring[i] = (char)std::tolower(inputstring[i]);
     }
     return inputstring;
 }

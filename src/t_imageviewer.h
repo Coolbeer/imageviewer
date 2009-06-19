@@ -4,18 +4,19 @@
 #include <QtGui/QPaintEvent>
 #include <QtGui/QWidget>
 
+#include "pwandebug.h"
 #include "../config.h"
 
 class t_loadimage;
 
-class t_imageviewer : public QWidget
+class t_imageviewer : public QWidget, public pwan::debug
 {
     Q_OBJECT
 
     public:
         t_imageviewer(QWidget *parent = 0);
         bool startimageviewer(const std::string& fileName);
-
+        void setScaled(bool nScale);
     private:
         std::vector<QImage> imagelist;
         std::vector<int> imagestatuslist;                                               // 0 = not loaded, 1 = loaded, -1 = some error

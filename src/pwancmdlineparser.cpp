@@ -1,14 +1,7 @@
 #include "pwancmdlineparser.h"
-
-#ifdef linux
 #include "../config.h"
-#endif
-
-#ifdef _WIN32
-#define PACKAGE_NAME "pwantools"
-#endif
-
 #include "pwanstrings.h"
+
 #include <iostream>
 
 pwan::t_cmdlineParser::t_cmdlineParser(void)

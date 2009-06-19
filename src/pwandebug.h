@@ -18,20 +18,19 @@ namespace pwan
     {
         public:
             std::string Message;
-            int debugLevel;
+            unsigned int debugLevel;
     };
     class debug
     {
         public:
             debug(void);
-            void print(const std::string& from, const std::string& message, int debugLevel = 1);
-            void print(const std::string& message);
-            void setDebugLevel(int debugLevel);
+            void dprint(const std::string& from, const std::string& message, unsigned int p_debugLevel = 1);
+            void dprint(const std::string& message);
+            void setDebugLevel(unsigned int debugLevel);
             int getDebugLevel(void);
 
         private:
             std::string className;
-            int curDebugLevel;
             std::vector<t_savedMessage> savedMessages;
             unsigned int maxSavedLog;
     };

@@ -12,8 +12,7 @@
 #include "pwandebug.h"
 #include "pwanstrings.h"
 
-extern pwan::options options;
-extern pwan::debug debug;
+extern unsigned int debugLevel;
 
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
@@ -36,16 +35,16 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
     connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int, int)), this, SLOT(imagedone(QImage, std::string, int, int)));
 
-    ::debug.print(className + "::" + functionName, "Qt Supported Image formats:", 3);
-    ::debug.print(className + "::" + functionName, "=================================", 3);
+    dprint(className + "::" + functionName, "Qt Supported Image formats:", 3);
+    dprint(className + "::" + functionName, "=================================", 3);
     for(int teller = 0; teller != imgformats.size();teller++)
     {
         supportedImgFormats += qPrintable(QString(imgformats.at(teller)));
         supportedImgFormats += "; ";
     }
-    ::debug.print(className + "::" + functionName, supportedImgFormats, 3);
-    ::debug.print(className + "::" + functionName, "", 3);
-    ::debug.print(className + "::" + functionName, "Screen Dimentions: " + pwan::strings::fromInt(viewerwidth) + " x " + pwan::strings::fromInt(viewerheight), 3);
+    dprint(className + "::" + functionName, supportedImgFormats, 3);
+    dprint(className + "::" + functionName, "", 3);
+    dprint(className + "::" + functionName, "Screen Dimentions: " + pwan::strings::fromInt(viewerwidth) + " x " + pwan::strings::fromInt(viewerheight), 3);
 }
 
 void t_imageviewer::setupKeys(void)
@@ -80,12 +79,9 @@ void t_imageviewer::setupKeys(void)
 bool t_imageviewer::startimageviewer(const std::string& fileName)
 {
     std::string functionName("startimageviewer");
-    ::debug.print(className + "::" + functionName, "fileName = \"" + fileName + "\"", 3);
+    dprint(className + "::" + functionName, "fileName = \"" + fileName + "\"", 3);
     namespace fs = boost::filesystem;
-    if(options.get("scale") == "true")
-        scale = true;
-    else
-        scale = false;
+
     fileList = makeimagelist(fileName);
     if (fileList.empty())
         return false;
@@ -104,14 +100,14 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
 
     if(index != fileList.end())
     {
-        ::debug.print(className + "::" + functionName, "found fileName as index " + pwan::strings::fromInt(index - fileList.begin())
+        dprint(className + "::" + functionName, "found fileName as index " + pwan::strings::fromInt(index - fileList.begin())
                                                      + "; Total number of images: " + pwan::strings::fromInt(fileList.size()), 3);
         loadimage(index);
         return true;
     }
     else
     {
-        ::debug.print(className + "::" + functionName, "fileName not found in filelist...", 3);
+        dprint(className + "::" + functionName, "fileName not found in filelist...", 3);
         return false;
     }
 }
@@ -119,7 +115,7 @@ bool t_imageviewer::startimageviewer(const std::string& fileName)
 bool t_imageviewer::loadimage(const std::vector<std::string>::iterator& file)
 {
     const std::string functionName("loadimage");
-    ::debug.print(className + "::" + functionName, "Trying to load file: " + (*file), 3);
+    dprint(className + "::" + functionName, "Trying to load file: " + (*file), 3);
     if((imagelist[file - fileList.begin()].isNull()))
     {
         threadloadimage->readimage((*file), file - fileList.begin());
@@ -183,7 +179,7 @@ void t_imageviewer::paintEvent(QPaintEvent *)
 std::vector<std::string> t_imageviewer::makeimagelist(std::string path)
 {
     const std::string functionName("makeimagelist");
-    ::debug.print(className + "::" + functionName, "path = \"" + path + "\"", 3);
+    dprint(className + "::" + functionName, "path = \"" + path + "\"", 3);
     std::vector<std::string> returnValue;
     namespace fs = boost::filesystem;
     fs::path fsp = fs::system_complete(path);
@@ -204,7 +200,7 @@ std::vector<std::string> t_imageviewer::makeimagelist(std::string path)
                 returnValue.push_back(dir_itr->string());
         }
     }
-    ::debug.print(className + "::" + functionName, "Returning a vector of " + pwan::strings::fromInt(returnValue.size()) + " elements", 3);
+    dprint(className + "::" + functionName, "Returning a vector of " + pwan::strings::fromInt(returnValue.size()) + " elements", 3);
     return returnValue;
 }
 
@@ -212,9 +208,9 @@ void t_imageviewer::imagedone(QImage finishedimage, std::string filename, int im
 {
     const std::string functionName("imagedone");
     if(imagestatus != -1)
-        ::debug.print(className + "::" + functionName, "Finished loading image: \"" + filename + "\"", 3);
+        dprint(className + "::" + functionName, "Finished loading image: \"" + filename + "\"", 3);
     else
-        ::debug.print(className + "::" + functionName, "Error loading image: \"" + filename + "\"", 3);
+        dprint(className + "::" + functionName, "Error loading image: \"" + filename + "\"", 3);
     imagelist[imageslot] = finishedimage;
     imagestatuslist[imageslot] = imagestatus;
     update();
@@ -365,4 +361,9 @@ void t_imageviewer::keyPressEvent(QKeyEvent *keyevent)
         keyevent->ignore();
         return;
     }
+}
+
+void t_imageviewer::setScaled(bool nScale)
+{
+    scale = nScale;
 }
