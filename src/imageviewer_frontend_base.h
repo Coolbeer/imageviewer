@@ -3,20 +3,15 @@
 
 #include "pwantools_enums.h"
 
-#include <boost/shared_ptr.hpp>
-#include <boost/thread/thread.hpp>
-
 namespace pwan
 {
     class imageviewer_frontend_base
     {
         public:
             virtual ~imageviewer_frontend_base();
-            virtual void show(void) = 0;
-            virtual p_returnValue run(void);
+            virtual void init(int argc, char **argv) = 0;
+            virtual int startup(void) = 0;
         private:
-            virtual void do_work(void) = 0;
-            boost::shared_ptr<boost::thread> this_thread;
     };
 }
 

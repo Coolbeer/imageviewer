@@ -1,25 +1,24 @@
 #include <string>
-#include <QtGui/QApplication>
-
-#include "../config.h"
 
 #include "main.h"
-#include "t_imageviewer.h"
 #include "pwandebug.h"
 #include "pwanoptions.h"
 #include "pwanstrings.h"
 #include "pwancmdlineparser.h"
 #include "imageviewer_frontend_qt.h"
+#include "../config.h"
 
 int main (int argc, char *argv[])
 {
-    std::string functionName("main");
-    std::string imageFileName;
-    std::vector<pwan::optionsReturn> parsedOpts;
-    QApplication app(argc, argv);
-    pwan::t_cmdlineParser cmdlineParser;
     pwan::debug debug;
-    t_imageviewer *imageviewer = new t_imageviewer;
+    pwan::t_cmdlineParser cmdlineParser;
+    pwan::imageviewer_frontend_qt * imageviewer = new pwan::imageviewer_frontend_qt;
+    std::string imageFileName;
+    std::string functionName("main");
+    std::vector<pwan::optionsReturn> parsedOpts;
+
+    //Init the viewer
+    imageviewer->init(argc, argv);
 
     //set the commandline/inifile allowed options
     cmdlineParser.setAllowedOption("v", "verbose", "Verbose output", pwan::NO_PARAMETER);
@@ -80,8 +79,7 @@ int main (int argc, char *argv[])
             debug.dprint("Could not load specified file...");
             exit(1);
         }
-        imageviewer->show();
-        return app.exec();
+        return imageviewer->startup();
     }
     else
     {

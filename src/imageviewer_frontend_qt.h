@@ -1,20 +1,23 @@
 #ifndef IMAGEVIEWER_FRONTEND_QT_H
 #define IMAGEVIEWER_FRONTEND_QT_H
 
+#include <QtGui/QApplication>
 #include "imageviewer_frontend_base.h"
-#include <boost/thread/thread.hpp>
+#include "t_imageviewer.h"
 
 namespace pwan
 {
     class imageviewer_frontend_qt : public imageviewer_frontend_base
     {
         public:
-            virtual void show(void);
-            virtual p_returnValue run(void);
+            imageviewer_frontend_qt(void);
+            void init(int argc, char **argv);
+            int startup(void);
+            int startimageviewer(std::string filename);
+            void setScaled(bool onoff);
         private:
-            static void intRun(void);
-            boost::thread uber;
+            QApplication *app;
+            t_imageviewer *imageviewer;
     };
 }
-
 #endif

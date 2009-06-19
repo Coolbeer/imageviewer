@@ -1,38 +1,28 @@
 #include "imageviewer_frontend_qt.h"
 
-#include <iostream>
-#ifdef linux
-#include <unistd.h>
-#endif
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#include <boost/bind.hpp>
-
-void pwan::imageviewer_frontend_qt::show(void)
+pwan::imageviewer_frontend_qt::imageviewer_frontend_qt(void)
 {
-    return;
+
 }
 
-void pwan::imageviewer_frontend_qt::intRun(void)
+void pwan::imageviewer_frontend_qt::init(int argc, char **argv)
 {
-    while(1)
-    {
-        std::cout << "B";
-#ifdef linux
-        usleep(100000);
-#endif
-#ifdef _WIN32
-        Sleep(1000000);
-#endif
-    }
+    app = new QApplication(argc, argv);
+    imageviewer = new t_imageviewer;
 }
 
-pwan::p_returnValue pwan::imageviewer_frontend_qt::run(void)
+int pwan::imageviewer_frontend_qt::startup(void)
 {
-//    uber = boost::thread(&pwan::imageviewer_frontend_qt::intRun);
-    //uber = boost::thread (&intRun);
-    //uber = boost::thread(&pwan::imageviewer_frontend_qt::intRun);
-    return P_OK;
+    imageviewer->show();
+    return app->exec();
+}
 
+int pwan::imageviewer_frontend_qt::startimageviewer(std::string filename)
+{
+    return imageviewer->startimageviewer(filename);  
+}
+
+void pwan::imageviewer_frontend_qt::setScaled(bool onoff)
+{
+    imageviewer->setScaled(onoff);
 }
