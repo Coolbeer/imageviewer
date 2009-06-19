@@ -8,7 +8,6 @@
 #include "t_imageviewer.moc"
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
-#include "pwanoptions.h"
 #include "pwandebug.h"
 #include "pwanstrings.h"
 

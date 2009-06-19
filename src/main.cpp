@@ -2,7 +2,6 @@
 
 #include "main.h"
 #include "pwandebug.h"
-#include "pwanoptions.h"
 #include "pwanstrings.h"
 #include "pwancmdlineparser.h"
 #include "imageviewer_frontend_qt.h"
