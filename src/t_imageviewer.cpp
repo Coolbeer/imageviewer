@@ -12,8 +12,6 @@
 #include "pwandebug.h"
 #include "pwanstrings.h"
 
-extern unsigned int debugLevel;
-
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
     std::string functionName("t_imageviewer");

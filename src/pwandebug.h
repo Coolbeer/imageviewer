@@ -14,25 +14,25 @@
 
 namespace pwan
 {
-    class t_savedMessage
+    struct t_savedMessage
     {
-        public:
-            std::string Message;
-            unsigned int debugLevel;
+            std::string                             Message;
+            unsigned int                            debugLevel;
     };
+
     class debug
     {
         public:
-            debug(void);
-            void dprint(const std::string& from, const std::string& message, unsigned int p_debugLevel = 1);
-            void dprint(const std::string& message);
-            void setDebugLevel(unsigned int debugLevel);
-            int getDebugLevel(void);
-
+                                                    debug(void);
+            void                                    dprint(const std::string& from, const std::string& message, unsigned int p_debugLevel = 1);
+            void                                    dprint(const std::string& message);
+            void                                    setDebugLevel(unsigned int debugLevel);
+            int                                     getDebugLevel(void);
         private:
-            std::string className;
-            std::vector<t_savedMessage> savedMessages;
-            unsigned int maxSavedLog;
+            std::string                             className;
+            static std::vector<t_savedMessage>      savedMessages;
+            static unsigned int                     debugLevel;
+            unsigned int                            maxSavedLog;
     };
 }
 #endif

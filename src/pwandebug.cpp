@@ -3,7 +3,9 @@
 #include "pwandebug.h"
 #include "pwanstrings.h"
 
-extern unsigned int debugLevel;
+
+unsigned int pwan::debug::debugLevel;
+std::vector<pwan::t_savedMessage> pwan::debug::savedMessages;
 
 pwan::debug::debug(void)
 {

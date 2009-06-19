@@ -11,9 +11,6 @@
 #include "pwancmdlineparser.h"
 #include "imageviewer_frontend_qt.h"
 
-//pwan::options options;
-unsigned int debugLevel = 1;
-
 int main (int argc, char *argv[])
 {
     std::string functionName("main");
@@ -38,7 +35,7 @@ int main (int argc, char *argv[])
     for(std::vector<pwan::optionsReturn>::iterator it = parsedOpts.begin(); it != parsedOpts.end(); ++it)
     {
         if(it->option == "verbose")
-        {   if(debugLevel <= 2)
+        {   if(debug.getDebugLevel() <= 2)
             {   debug.setDebugLevel(2);}}
         else if(it->option == "debug")
             debug.setDebugLevel(3);
