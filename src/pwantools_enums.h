@@ -3,7 +3,7 @@
 
 namespace pwan
 {
-    enum p_returnValue { P_OK, P_ERROR, P_NO_ARGUMENTS };
+    enum p_returnValue { P_OK, P_ERROR, P_NO_ARGUMENTS, P_NOT_FOUND };
 }
 
 #endif

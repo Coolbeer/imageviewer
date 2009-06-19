@@ -3,8 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "pwantools_enums.h"
+#include "pwandebug.h"
 
 namespace pwan
 {
@@ -17,26 +19,30 @@ namespace pwan
     };
     struct optBlob
     {
-        std::string                                 shortOpt;
-        std::string                                 longOpt;
-        std::string                                 description;
-        std::string                                 validParams;
-        e_clpFlag                                   flag;
+        std::string                                     shortOpt;
+        std::string                                     longOpt;
+        std::string                                     description;
+        std::string                                     validParams;
+        e_clpFlag                                       flag;
     };
 
-    class t_cmdlineParser
+    class t_cmdlineParser : public pwan::debug
     {
         public:
-            t_cmdlineParser(void);
-            void setAllowedOption(const std::string &shortOpt, const std::string &longOpt, const std::string &description, e_clpFlag flag = NO_PARAMETER);
-            p_returnValue setValidParameter(const std::string &longOpt, const std::string &validParams);
-            std::string makeHelp(void);
-            p_returnValue checkCmdLine(int argc, char **argv);
-            std::vector<optionsReturn> returnFoundOptions(void);
-       private:
-            std::vector<optionsReturn> setOptions;
-            std::vector<optBlob> allowedOptions;
-            int defaultOpt;
+                                                        t_cmdlineParser(void);
+            void                                        setAllowedOption(const std::string &shortOpt, const std::string &longOpt, const std::string &description, const e_clpFlag &flag = NO_PARAMETER);
+            p_returnValue                               setValidParameter(const std::string &longOpt, const std::string &validParams);
+            std::string                                 makeHelp(void);
+            p_returnValue                               checkCmdLine(const int &argc, char **argv);
+            std::vector<optionsReturn>                  returnFoundOptions(void);
+            p_returnValue                               get(const std::string &name, std::string &returnValue);
+            p_returnValue                               set(const std::string &name, const std::string &value);
+        private:
+            std::vector<optionsReturn>                  setOptions;
+            static std::map<std::string, std::string>   internalData;
+            std::vector<optBlob>                        allowedOptions;
+            int                                         defaultOpt;
+            std::string                                 className;
     };
 }
 
