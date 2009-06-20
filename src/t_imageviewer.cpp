@@ -195,7 +195,25 @@ std::vector<std::string> t_imageviewer::makeimagelist(std::string path)
         for(std::vector<std::string>::iterator it = imageformats.begin(); it != imageformats.end(); ++it)
         {
             if(pwan::strings::toLower(dir_itr->path().extension()) == (*it))
-                returnValue.push_back(dir_itr->string());
+            {
+                if(!returnValue.empty())
+                {
+                    std::vector<std::string>::iterator it2;
+                    for(it2 = returnValue.begin(); it2 != returnValue.end(); ++it2)
+                    {
+                        if(strcmp(dir_itr->string().c_str(), it2->c_str()) < 0)
+                        {
+                            returnValue.insert(it2, dir_itr->string());
+                            break;
+                        }
+                    }
+                    if(it2 == returnValue.end())
+                        returnValue.push_back(dir_itr->string());
+                }
+                else
+                    returnValue.push_back(dir_itr->string());
+                break;
+            }
         }
     }
     dprint(className + "::" + functionName, "Returning a vector of " + pwan::strings::fromInt(returnValue.size()) + " elements", 3);
