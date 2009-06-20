@@ -28,6 +28,7 @@ t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
     viewerwidth = dims.width();
     viewerheight = dims.height();
     setupKeys();
+    scale = false;
     qRegisterMetaType<std::string>("std::string");
     connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
     connect(threadloadimage, SIGNAL(imagePassDone(QImage, std::string, int, int)), this, SLOT(imagedone(QImage, std::string, int, int)));
