@@ -5518,12 +5518,12 @@ if test -n "$QtCore_CFLAGS"; then
     pkg_cv_QtCore_CFLAGS="$QtCore_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtCore >= 4.2.0\"") >&5
-  ($PKG_CONFIG --exists --print-errors "QtCore >= 4.2.0") 2>&5
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtCore >= 4.5.1\"") >&5
+  ($PKG_CONFIG --exists --print-errors "QtCore >= 4.5.1") 2>&5
   ac_status=$?
   $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_QtCore_CFLAGS=`$PKG_CONFIG --cflags "QtCore >= 4.2.0" 2>/dev/null`
+  pkg_cv_QtCore_CFLAGS=`$PKG_CONFIG --cflags "QtCore >= 4.5.1" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -5534,12 +5534,12 @@ if test -n "$QtCore_LIBS"; then
     pkg_cv_QtCore_LIBS="$QtCore_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtCore >= 4.2.0\"") >&5
-  ($PKG_CONFIG --exists --print-errors "QtCore >= 4.2.0") 2>&5
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtCore >= 4.5.1\"") >&5
+  ($PKG_CONFIG --exists --print-errors "QtCore >= 4.5.1") 2>&5
   ac_status=$?
   $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_QtCore_LIBS=`$PKG_CONFIG --libs "QtCore >= 4.2.0" 2>/dev/null`
+  pkg_cv_QtCore_LIBS=`$PKG_CONFIG --libs "QtCore >= 4.5.1" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -5557,14 +5557,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        QtCore_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "QtCore >= 4.2.0" 2>&1`
+	        QtCore_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "QtCore >= 4.5.1" 2>&1`
         else
-	        QtCore_PKG_ERRORS=`$PKG_CONFIG --print-errors "QtCore >= 4.2.0" 2>&1`
+	        QtCore_PKG_ERRORS=`$PKG_CONFIG --print-errors "QtCore >= 4.5.1" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$QtCore_PKG_ERRORS" >&5
 
-	{ { $as_echo "$as_me:$LINENO: error: Package requirements (QtCore >= 4.2.0) were not met:
+	{ { $as_echo "$as_me:$LINENO: error: Package requirements (QtCore >= 4.5.1) were not met:
 
 $QtCore_PKG_ERRORS
 
@@ -5575,7 +5575,7 @@ Alternatively, you may set the environment variables QtCore_CFLAGS
 and QtCore_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 " >&5
-$as_echo "$as_me: error: Package requirements (QtCore >= 4.2.0) were not met:
+$as_echo "$as_me: error: Package requirements (QtCore >= 4.5.1) were not met:
 
 $QtCore_PKG_ERRORS
 
@@ -5630,12 +5630,12 @@ if test -n "$QtGui_CFLAGS"; then
     pkg_cv_QtGui_CFLAGS="$QtGui_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtGui >= 4.2.0\"") >&5
-  ($PKG_CONFIG --exists --print-errors "QtGui >= 4.2.0") 2>&5
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtGui >= 4.5.1\"") >&5
+  ($PKG_CONFIG --exists --print-errors "QtGui >= 4.5.1") 2>&5
   ac_status=$?
   $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_QtGui_CFLAGS=`$PKG_CONFIG --cflags "QtGui >= 4.2.0" 2>/dev/null`
+  pkg_cv_QtGui_CFLAGS=`$PKG_CONFIG --cflags "QtGui >= 4.5.1" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -5646,12 +5646,12 @@ if test -n "$QtGui_LIBS"; then
     pkg_cv_QtGui_LIBS="$QtGui_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtGui >= 4.2.0\"") >&5
-  ($PKG_CONFIG --exists --print-errors "QtGui >= 4.2.0") 2>&5
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"QtGui >= 4.5.1\"") >&5
+  ($PKG_CONFIG --exists --print-errors "QtGui >= 4.5.1") 2>&5
   ac_status=$?
   $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_QtGui_LIBS=`$PKG_CONFIG --libs "QtGui >= 4.2.0" 2>/dev/null`
+  pkg_cv_QtGui_LIBS=`$PKG_CONFIG --libs "QtGui >= 4.5.1" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -5669,14 +5669,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        QtGui_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "QtGui >= 4.2.0" 2>&1`
+	        QtGui_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "QtGui >= 4.5.1" 2>&1`
         else
-	        QtGui_PKG_ERRORS=`$PKG_CONFIG --print-errors "QtGui >= 4.2.0" 2>&1`
+	        QtGui_PKG_ERRORS=`$PKG_CONFIG --print-errors "QtGui >= 4.5.1" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$QtGui_PKG_ERRORS" >&5
 
-	{ { $as_echo "$as_me:$LINENO: error: Package requirements (QtGui >= 4.2.0) were not met:
+	{ { $as_echo "$as_me:$LINENO: error: Package requirements (QtGui >= 4.5.1) were not met:
 
 $QtGui_PKG_ERRORS
 
@@ -5687,7 +5687,7 @@ Alternatively, you may set the environment variables QtGui_CFLAGS
 and QtGui_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 " >&5
-$as_echo "$as_me: error: Package requirements (QtGui >= 4.2.0) were not met:
+$as_echo "$as_me: error: Package requirements (QtGui >= 4.5.1) were not met:
 
 $QtGui_PKG_ERRORS
 

@@ -21,11 +21,11 @@ CXXFLAGS="$CXXFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
 
 # Checks for libraries.
 
-PKG_CHECK_MODULES([QtCore], [QtCore >= 4.2.0])
+PKG_CHECK_MODULES([QtCore], [QtCore >= 4.5.1])
 AC_SUBST(QtCore_CFLAGS)
 AC_SUBST(QtCore_LIBS)
 
-PKG_CHECK_MODULES(QtGui, QtGui >= 4.2.0)
+PKG_CHECK_MODULES(QtGui, QtGui >= 4.5.1)
 AC_SUBST(QtGui_CFLAGS)
 AC_SUBST(QtGui_LIBS)
 
