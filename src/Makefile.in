@@ -182,7 +182,7 @@ ImageViewer_SOURCES = \
 	pwandebug.h \
 	t_loadimage.cpp \
 	t_loadimage.moc \
-	t_loadimage.d \
+	t_loadimage.h \
 	pwanstrings.cpp \
 	pwanstrings.h \
 	t_imageviewer.cpp \
