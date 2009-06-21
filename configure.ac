@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.61)
-AC_INIT([ImageViewer], 0.1.5)
+AC_PREREQ(2.63)
+AC_INIT([ImageViewer],[0.1.5])
 AC_CONFIG_SRCDIR([src/main.h])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror])
@@ -36,15 +36,14 @@ AC_HEADER_STDC
 AC_CHECK_HEADERS(netdb.h sys/socket.h arpa/inet.h errno.h sys/time.h dirent.h,,
     AC_MSG_ERROR(You need the glibc header files installed))
 
-AC_LANG_SAVE
-AC_LANG_CPLUSPLUS
+AC_LANG_PUSH([C++])
 AC_CHECK_HEADERS(stdexcept,,
     AC_MSG_ERROR(You need the standard <stdexcept> header file))
 
 AC_CHECK_HEADERS(vector string iostream list map fstream sstream,,
     AC_MSG_ERROR(You need to have the libstdc++ headers installed))
 
-AC_LANG_RESTORE
+AC_LANG_POP([C++])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
