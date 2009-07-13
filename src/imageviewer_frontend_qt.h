@@ -16,7 +16,6 @@ namespace pwan
             int startimageviewer(std::string filename);
             void setScaled(bool onoff);
         private:
-//            QApplication *app;
             t_imageviewer *imageviewer;
     };
 }
