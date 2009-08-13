@@ -15,7 +15,7 @@ int pwan::imageviewer_frontend_qt::startup(void)
     return qApp->exec();
 }
 
-int pwan::imageviewer_frontend_qt::startimageviewer(std::string filename)
+int pwan::imageviewer_frontend_qt::setFirstImage(std::string filename)
 {
     return imageviewer->startimageviewer(filename);  
 }

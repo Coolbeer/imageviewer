@@ -13,7 +13,7 @@ namespace pwan
             imageviewer_frontend_qt(int argc, char **argv);
             void init(void);
             int startup(void);
-            int startimageviewer(std::string filename);
+            int setFirstImage(std::string filename);
             void setScaled(bool onoff);
         private:
             t_imageviewer *imageviewer;

@@ -15,9 +15,10 @@ namespace pwan
             int         startup(void);
             void        init(void);
             void        setScaled(bool onoff);
-            int         startimageviewer(std::string imagefilename);
+            int         setFirstImage(std::string &imagefilename);
         private:
             void paintEvent(QPaintEvent *);
     };
 }
+
 #endif

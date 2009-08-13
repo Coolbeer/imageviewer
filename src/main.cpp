@@ -74,7 +74,7 @@ int main (int argc, char *argv[])
 
     if(imageFileName != "")
     {
-        if(!imageviewer.startimageviewer(imageFileName))
+        if(!imageviewer.setFirstImage(imageFileName))
         {
             debug.dprint("Could not load specified file...");
             exit(1);

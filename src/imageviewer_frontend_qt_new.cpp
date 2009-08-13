@@ -27,7 +27,7 @@ void pwan::imageviewer_frontend_qt_new::setScaled(bool onoff)
 {
 }
 
-int pwan::imageviewer_frontend_qt_new::startimageviewer(std::string imagefilename)
+int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
 {
     return 1;
 }
