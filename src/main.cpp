@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
     pwan::debug debug;
     pwan::t_cmdlineParser cmdlineParser;
     pwan::imageviewer_frontend_qt imageviewer(argc, argv);
-    //pwan::imageviewer_frontend_qt_new imageviewer(argc, argv);
+//    pwan::imageviewer_frontend_qt_new imageviewer(argc, argv);
     std::string imageFileName;
     std::string functionName("main");
     std::vector<pwan::optionsReturn> parsedOpts;

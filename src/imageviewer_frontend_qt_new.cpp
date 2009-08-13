@@ -22,3 +22,12 @@ void pwan::imageviewer_frontend_qt_new::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.fillRect(QRect(0,0,this->geometry().width(), this->geometry().height()), QColor(0,0,0));
 }
+
+void pwan::imageviewer_frontend_qt_new::setScaled(bool onoff)
+{
+}
+
+int pwan::imageviewer_frontend_qt_new::startimageviewer(std::string imagefilename)
+{
+    return 1;
+}

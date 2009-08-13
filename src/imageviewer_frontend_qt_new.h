@@ -14,6 +14,8 @@ namespace pwan
                         imageviewer_frontend_qt_new(int argc, char **argv, QWidget *parent = 0);
             int         startup(void);
             void        init(void);
+            void        setScaled(bool onoff);
+            int         startimageviewer(std::string imagefilename);
         private:
             void paintEvent(QPaintEvent *);
     };
