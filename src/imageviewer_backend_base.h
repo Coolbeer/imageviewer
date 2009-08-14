@@ -7,6 +7,7 @@ namespace pwan
     {
         public:
             virtual ~imageviewer_backend_base();
+            virtual int init(void) = 0;
     };
 }
 
