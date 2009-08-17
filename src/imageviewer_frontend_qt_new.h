@@ -5,6 +5,7 @@
 #include <QtGui/QWidget>
 
 #include "imageviewer_frontend_base.h"
+#include "imageviewer_backend_qt.h"
 
 namespace pwan
 {
@@ -18,6 +19,7 @@ namespace pwan
             int         setFirstImage(std::string &imagefilename);
         private:
             void paintEvent(QPaintEvent *);
+            pwan::imageviewer_backend_qt newuu;
     };
 }
 

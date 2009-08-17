@@ -14,6 +14,7 @@ int pwan::imageviewer_frontend_qt_new::startup(void)
 
 void pwan::imageviewer_frontend_qt_new::init(void)
 {
+    newuu.start();
     return;
 }
 
