@@ -8,10 +8,15 @@
 #include <boost/thread/mutex.hpp>
 #include <string>
 #include <vector>
-#include <QtGui/Qimage>
 
 namespace pwan
 {
+    struct imagebuffer
+    {
+        std::string filename;
+        QImage image;
+    };
+
     class imageviewer_backend_qt : public imageviewer_backend_base
     {
         public:
@@ -22,9 +27,9 @@ namespace pwan
             boost::shared_ptr<boost::thread>    m_thread;
             boost::mutex                        m_mutex;
             std::vector<std::string>            fileName;
-            QImage                              image;
             std::vector<int>                    imageslots;
             bool                                abort;
+            std::vector<boost::shared_ptr<imagebuffer>>            images;
 
     };
 }

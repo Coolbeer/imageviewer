@@ -1,4 +1,6 @@
 #include <QtCore/QTextCodec>
+#include <QtGui/Qimage>
+#include <boost/shared_ptr.hpp>
 
 #ifdef _WIN32
 #include "windows.h"
@@ -29,16 +31,15 @@ void pwan::imageviewer_backend_qt::do_work()
 #endif
         while(!fileName.empty())
         {
+            boost::shared_ptr<imagebuffer> image(new imagebuffer);
             boost::mutex::scoped_lock l(m_mutex);
-            image = QImage(0,0,QImage::Format_Invalid);
+            image->image = QImage(0,0,QImage::Format_Invalid);
             QTextCodec *codec = QTextCodec::codecForName("UTF-8");
             QTextCodec::setCodecForCStrings (codec);
-            image.load(QString().fromStdString(fileName.at(0)));
-/*            if(image.isNull())
-                emit imagePassDone(image, fileName.at(0), imageslots.at(0), -1);
-            else
-                emit imagePassDone(image, fileName.at(0), imageslots.at(0));
-*/
+            image->image.load(QString().fromStdString(fileName.at(0)));
+            image->filename = fileName.at(0);
+            if(!image->image.isNull())
+                images.push_back(image);            
             fileName.erase(fileName.begin());
             imageslots.erase(imageslots.begin());
         }
