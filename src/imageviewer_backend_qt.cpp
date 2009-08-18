@@ -41,10 +41,39 @@ void pwan::imageviewer_backend_qt::do_work()
             if(!image->image.isNull())
                 images.push_back(image);            
             fileName.erase(fileName.begin());
-            imageslots.erase(imageslots.begin());
         }
         boost::mutex::scoped_lock l(m_mutex);
         if (abort)
             break;
     }
+}
+
+void pwan::imageviewer_backend_qt::loadImage(std::string &filename)
+{
+    boost::mutex::scoped_lock l(m_mutex);
+    bool haveIt = false;
+    for(int i = 0; i != images.size(); ++i)
+    {
+        if(images.at(i)->filename == filename)
+        {
+            haveIt = true;
+            break;
+        }
+    }
+    if(!haveIt)
+        fileName.push_back(filename);
+}
+
+boost::shared_ptr<pwan::imagebuffer> pwan::imageviewer_backend_qt::getImage(std::string &filename)
+{
+    boost::mutex::scoped_lock l(m_mutex);
+    bool haveIt = false;
+    for(int i = 0; i != images.size(); ++i)
+    {
+        if(images.at(i)->filename == filename)
+        {
+            return images.at(i);
+        }
+    }
+    return boost::shared_ptr<imagebuffer>();
 }
