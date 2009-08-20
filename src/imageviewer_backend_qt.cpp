@@ -6,6 +6,10 @@
 #include "windows.h"
 #endif
 
+#ifdef linux
+#include "unistd.h"
+#endif
+
 #include "imageviewer_backend_qt.h"
 
 void pwan::imageviewer_backend_qt::start()
@@ -28,6 +32,9 @@ void pwan::imageviewer_backend_qt::do_work()
     {
 #ifdef _WIN32
         Sleep(200);
+#endif
+#ifdef linux
+        usleep(200);
 #endif
         while(!fileName.empty())
         {
