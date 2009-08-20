@@ -14,15 +14,6 @@
 
 namespace pwan
 {
-    struct imagebuffer
-    {
-        std::string                 filename;
-        boost::uint16_t             width;
-        boost::uint16_t             height;
-        boost::uint8_t              depth;
-        boost::shared_array<uchar>  data;
-    };
-
     class imageviewer_backend_qt : public imageviewer_backend_base
     {
         public:
@@ -38,7 +29,6 @@ namespace pwan
             bool                                                    abort;
             boost::shared_ptr<imagebuffer>                          image1;
             boost::shared_ptr<imagebuffer>                          image2;
-            //std::vector<boost::shared_ptr<imagebuffer> >            images;
     };
 }
 
