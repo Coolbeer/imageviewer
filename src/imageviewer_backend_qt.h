@@ -17,6 +17,7 @@ namespace pwan
     class imageviewer_backend_qt : public imageviewer_backend_base
     {
         public:
+                                                                    ~imageviewer_backend_qt(void);
             void                                                    start(void);
             void                                                    stop(void);
             void                                                    loadImage(std::string &filename);

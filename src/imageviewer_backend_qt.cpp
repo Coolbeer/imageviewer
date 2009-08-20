@@ -12,6 +12,11 @@
 
 #include "imageviewer_backend_qt.h"
 
+pwan::imageviewer_backend_qt::~imageviewer_backend_qt()
+{
+    stop();
+}
+
 void pwan::imageviewer_backend_qt::start()
 {
         assert(!m_thread);
