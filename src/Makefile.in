@@ -50,7 +50,10 @@ am_ImageViewer_OBJECTS = main.$(OBJEXT) pwanutils.$(OBJEXT) \
 	pwandebug.$(OBJEXT) t_loadimage.$(OBJEXT) \
 	pwanstrings.$(OBJEXT) t_imageviewer.$(OBJEXT) \
 	pwancmdlineparser.$(OBJEXT) imageviewer_frontend_qt.$(OBJEXT) \
-	imageviewer_frontend_base.$(OBJEXT)
+	imageviewer_frontend_base.$(OBJEXT) \
+	imageviewer_backend_base.$(OBJEXT) \
+	imageviewer_backend_qt.$(OBJEXT) \
+	imageviewer_frontend_qt_new.$(OBJEXT)
 ImageViewer_OBJECTS = $(am_ImageViewer_OBJECTS)
 ImageViewer_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -193,7 +196,13 @@ ImageViewer_SOURCES = \
 	imageviewer_frontend_qt.cpp \
 	imageviewer_frontend_qt.h \
 	imageviewer_frontend_base.cpp \
-	imageviewer_frontend_base.h
+	imageviewer_frontend_base.h \
+	imageviewer_backend_base.cpp \
+	imageviewer_backend_base.h \
+	imageviewer_backend_qt.cpp \
+	imageviewer_backend_qt.h \
+	imageviewer_frontend_qt_new.cpp \
+	imageviewer_frontend_qt_new.h
 
 CLEANFILES = *moc *~
 AM_CXXFLAGS = $(QtCore_CFLAGS) $(QtGui_CFLAGS) $(BOOST_CPPFLAGS)
@@ -264,8 +273,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_backend_base.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_backend_qt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_base.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt_new.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwancmdlineparser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwandebug.Po@am__quote@
@@ -468,12 +480,16 @@ uninstall-am: uninstall-binPROGRAMS
 
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
+imageviewer_frontend_qt_new.cpp:imageviewer_frontend_qt_new.moc
 
 t_imageviewer.moc: 
 	moc t_imageviewer.h -o t_imageviewer.moc
 
 t_loadimage.moc:
 	moc t_loadimage.h -o t_loadimage.moc
+
+imageviewer_frontend_qt_new.moc:
+	moc imageviewer_frontend_qt_new.h -o imageviewer_frontend_qt_new.moc
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

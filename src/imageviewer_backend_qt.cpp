@@ -1,5 +1,5 @@
 #include <QtCore/QTextCodec>
-#include <QtGui/Qimage>
+#include <QtGui/QImage>
 #include <boost/shared_ptr.hpp>
 
 #ifdef _WIN32
@@ -60,7 +60,7 @@ void pwan::imageviewer_backend_qt::loadImage(std::string &filename)
 {
     boost::mutex::scoped_lock l(m_mutex);
     bool haveIt = false;
-    for(int i = 0; i != images.size(); ++i)
+    for(uint i = 0; i != images.size(); ++i)
     {
         if(images.at(i)->filename == filename)
         {
@@ -75,8 +75,8 @@ void pwan::imageviewer_backend_qt::loadImage(std::string &filename)
 boost::shared_ptr<pwan::imagebuffer> pwan::imageviewer_backend_qt::getImage(std::string &filename)
 {
     boost::mutex::scoped_lock l(m_mutex);
-    bool haveIt = false;
-    for(int i = 0; i != images.size(); ++i)
+//    bool haveIt = false;
+    for(uint i = 0; i != images.size(); ++i)
     {
         if(images.at(i)->filename == filename)
         {

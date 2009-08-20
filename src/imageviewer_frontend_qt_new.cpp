@@ -39,6 +39,7 @@ void pwan::imageviewer_frontend_qt_new::paintEvent(QPaintEvent *)
 
 void pwan::imageviewer_frontend_qt_new::setScaled(bool onoff)
 {
+    scaled = onoff;
 }
 
 int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
@@ -50,7 +51,7 @@ int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
 
 void pwan::imageviewer_frontend_qt_new::processOneThing()
 {
-    boost::shared_ptr<imagebuffer> tmp(backend.getImage(std::string(currentimage)));
+    boost::shared_ptr<imagebuffer> tmp(backend.getImage(currentimage));
     if(tmp)
         imgbuf.push_back(tmp);
     update();

@@ -24,8 +24,9 @@ namespace pwan
             void                                                paintEvent(QPaintEvent *);
             pwan::imageviewer_backend_qt                        backend;
             QTimer                                              *timer;
-            std::vector<boost::shared_ptr<pwan::imagebuffer>>   imgbuf;
+            std::vector<boost::shared_ptr<pwan::imagebuffer> >  imgbuf;
             std::string                                         currentimage;
+            bool                                                scaled;
 
         private slots:
             void                                                processOneThing();
