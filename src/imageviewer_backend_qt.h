@@ -4,8 +4,11 @@
 #include "imageviewer_backend_base.h"
 
 #include <boost/shared_ptr.hpp>
+#include <boost/shared_array.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
+#include <boost/cstdint.hpp>
+
 #include <string>
 #include <vector>
 
@@ -13,8 +16,11 @@ namespace pwan
 {
     struct imagebuffer
     {
-        std::string filename;
-        QImage image;
+        std::string                 filename;
+        boost::uint16_t             width;
+        boost::uint16_t             height;
+        boost::uint8_t              depth;
+        boost::shared_array<uchar>  data;
     };
 
     class imageviewer_backend_qt : public imageviewer_backend_base

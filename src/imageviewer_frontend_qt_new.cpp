@@ -26,8 +26,11 @@ void pwan::imageviewer_frontend_qt_new::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.fillRect(QRect(0,0,this->geometry().width(), this->geometry().height()), QColor(0,0,0));
     painter.setPen(Qt::white);
-    if(imgbuf)
-        painter.drawImage(QPointF(0,0), imgbuf->image, QRect(0,0,this->geometry().width(), this->geometry().height()));
+    if(!imgbuf.empty() && imgbuf.at(0))
+    {
+        QImage image(imgbuf.at(0)->data.get(), imgbuf.at(0)->width, imgbuf.at(0)->height, QImage::Format_ARGB32);
+        painter.drawImage(QPointF(0,0), image, QRect(0,0,this->geometry().width(), this->geometry().height()));
+    }
     else
     {
         painter.drawText(this->rect(), Qt::AlignCenter, "Loading Image...");
@@ -41,11 +44,15 @@ void pwan::imageviewer_frontend_qt_new::setScaled(bool onoff)
 int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
 {
     backend.loadImage(imagefilename);
+    currentimage = imagefilename;
     return 1;
 }
 
 void pwan::imageviewer_frontend_qt_new::processOneThing()
 {
-    imgbuf = backend.getImage(std::string("f:\\me.jpg"));
+    boost::shared_ptr<imagebuffer> tmp(backend.getImage(std::string(currentimage)));
+    if(tmp)
+        imgbuf.push_back(tmp);
     update();
+
 }

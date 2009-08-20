@@ -15,19 +15,20 @@ namespace pwan
     {
         Q_OBJECT
         public:
-                                                    imageviewer_frontend_qt_new(int argc, char **argv, QWidget *parent = 0);
-            int                                     startup(void);
-            void                                    init(void);
-            void                                    setScaled(bool onoff);
-            int                                     setFirstImage(std::string &imagefilename);
+                                                                imageviewer_frontend_qt_new(int argc, char **argv, QWidget *parent = 0);
+            int                                                 startup(void);
+            void                                                init(void);
+            void                                                setScaled(bool onoff);
+            int                                                 setFirstImage(std::string &imagefilename);
         private:
-            void                                    paintEvent(QPaintEvent *);
-            pwan::imageviewer_backend_qt            backend;
-            QTimer                                  *timer;
-            boost::shared_ptr<pwan::imagebuffer>    imgbuf;
+            void                                                paintEvent(QPaintEvent *);
+            pwan::imageviewer_backend_qt                        backend;
+            QTimer                                              *timer;
+            std::vector<boost::shared_ptr<pwan::imagebuffer>>   imgbuf;
+            std::string                                         currentimage;
 
         private slots:
-            void                                    processOneThing();
+            void                                                processOneThing();
 
     };
 }

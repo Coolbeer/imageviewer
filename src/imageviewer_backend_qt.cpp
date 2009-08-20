@@ -31,15 +31,23 @@ void pwan::imageviewer_backend_qt::do_work()
 #endif
         while(!fileName.empty())
         {
-            boost::shared_ptr<imagebuffer> image(new imagebuffer);
+            QImage image;
+            boost::shared_ptr<imagebuffer> buffer(new imagebuffer);
             boost::mutex::scoped_lock l(m_mutex);
-            image->image = QImage(0,0,QImage::Format_Invalid);
+            image = QImage(0,0,QImage::Format_Invalid);
             QTextCodec *codec = QTextCodec::codecForName("UTF-8");
             QTextCodec::setCodecForCStrings (codec);
-            image->image.load(QString().fromStdString(fileName.at(0)));
-            image->filename = fileName.at(0);
-            if(!image->image.isNull())
-                images.push_back(image);            
+            image.load(QString().fromStdString(fileName.at(0)));
+            if(!image.isNull())
+            {
+                buffer->filename = fileName.at(0);
+                buffer->width = image.width();
+                buffer->height = image.height();
+                buffer->depth = image.depth();
+                buffer->data.reset(new uchar[image.numBytes()]);
+                memcpy(buffer->data.get(), image.bits(), image.numBytes());
+                images.push_back(buffer);
+            }
             fileName.erase(fileName.begin());
         }
         boost::mutex::scoped_lock l(m_mutex);
@@ -75,5 +83,6 @@ boost::shared_ptr<pwan::imagebuffer> pwan::imageviewer_backend_qt::getImage(std:
             return images.at(i);
         }
     }
+
     return boost::shared_ptr<imagebuffer>();
 }
