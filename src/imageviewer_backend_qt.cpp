@@ -53,7 +53,8 @@ void pwan::imageviewer_backend_qt::do_work()
                 buffer->depth = image.depth();
                 buffer->data.reset(new uchar[image.numBytes()]);
                 memcpy(buffer->data.get(), image.bits(), image.numBytes());
-                images.push_back(buffer);
+                image2 = image1;
+                image1 = buffer;
             }
             fileName.erase(fileName.begin());
         }
@@ -67,14 +68,12 @@ void pwan::imageviewer_backend_qt::loadImage(std::string &filename)
 {
     boost::mutex::scoped_lock l(m_mutex);
     bool haveIt = false;
-    for(uint i = 0; i != images.size(); ++i)
-    {
-        if(images.at(i)->filename == filename)
-        {
+    if(image1)
+        if(image1->filename == filename)
             haveIt = true;
-            break;
-        }
-    }
+    if(image2 && haveIt == false)
+        if(image2->filename == filename)
+            haveIt = true;
     if(!haveIt)
         fileName.push_back(filename);
 }
@@ -82,14 +81,11 @@ void pwan::imageviewer_backend_qt::loadImage(std::string &filename)
 boost::shared_ptr<pwan::imagebuffer> pwan::imageviewer_backend_qt::getImage(std::string &filename)
 {
     boost::mutex::scoped_lock l(m_mutex);
-//    bool haveIt = false;
-    for(uint i = 0; i != images.size(); ++i)
-    {
-        if(images.at(i)->filename == filename)
-        {
-            return images.at(i);
-        }
-    }
-
+    if(image1)
+        if(image1->filename == filename)
+            return image1;
+    if(image2)
+        if(image2->filename == filename)
+            return image2;
     return boost::shared_ptr<imagebuffer>();
 }

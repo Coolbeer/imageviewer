@@ -36,7 +36,9 @@ namespace pwan
             boost::mutex                                            m_mutex;
             std::vector<std::string>                                fileName;
             bool                                                    abort;
-            std::vector<boost::shared_ptr<imagebuffer> >            images;
+            boost::shared_ptr<imagebuffer>                          image1;
+            boost::shared_ptr<imagebuffer>                          image2;
+            //std::vector<boost::shared_ptr<imagebuffer> >            images;
     };
 }
 
