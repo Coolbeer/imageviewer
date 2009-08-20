@@ -11,7 +11,7 @@
 
 namespace pwan
 {
-    class imageviewer_frontend_qt_new : public QApplication, public QWidget, public imageviewer_frontend_base
+    class imageviewer_frontend_qt_new : public QApplication, public imageviewer_frontend_base, public QWidget
     {
         Q_OBJECT
         public:

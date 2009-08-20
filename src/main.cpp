@@ -13,13 +13,13 @@ int main (int argc, char *argv[])
 {
     pwan::debug debug;
     pwan::t_cmdlineParser cmdlineParser;
-    pwan::imageviewer_frontend_qt imageviewer(argc, argv);
-//    pwan::imageviewer_frontend_qt_new imageviewer(argc, argv);
+    boost::shared_ptr<pwan::imageviewer_frontend_qt> imageviewer(new pwan::imageviewer_frontend_qt(argc, argv));
+//    boost::shared_ptr<pwan::imageviewer_frontend_qt_new> imageviewer(new pwan::imageviewer_frontend_qt_new(argc, argv));
     std::string imageFileName;
     std::string functionName("main");
     std::vector<pwan::optionsReturn> parsedOpts;
 
-    imageviewer.init();
+    imageviewer->init();
     //set the commandline/inifile allowed options
     cmdlineParser.setAllowedOption("v", "verbose", "Verbose output", pwan::NO_PARAMETER);
     cmdlineParser.setAllowedOption("h", "help", "This helptext", pwan::NO_PARAMETER);
@@ -54,7 +54,7 @@ int main (int argc, char *argv[])
         }
         else if(it->option == "scale")
         {
-            imageviewer.setScaled(true);
+            imageviewer->setScaled(true);
         }
     }
     debug.dprint(functionName, std::string(PACKAGE_NAME) + " v" + PACKAGE_VERSION, 3);
@@ -74,12 +74,12 @@ int main (int argc, char *argv[])
 
     if(imageFileName != "")
     {
-        if(!imageviewer.setFirstImage(imageFileName))
+        if(!imageviewer->setFirstImage(imageFileName))
         {
             debug.dprint("Could not load specified file...");
             exit(1);
         }
-        return imageviewer.startup();
+        return imageviewer->startup();
     }
     else
     {

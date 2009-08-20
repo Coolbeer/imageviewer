@@ -2,7 +2,7 @@
 
 #include "imageviewer_frontend_qt_new.h"
 #include "imageviewer_frontend_qt_new.moc"
-pwan::imageviewer_frontend_qt_new::imageviewer_frontend_qt_new(int argc, char **argv, QWidget *parent): QApplication(argc, argv), QWidget(parent)
+pwan::imageviewer_frontend_qt_new::imageviewer_frontend_qt_new(int argc, char **argv, QWidget *parent):  QApplication(argc, argv), QWidget(parent)
 {
 }
 
