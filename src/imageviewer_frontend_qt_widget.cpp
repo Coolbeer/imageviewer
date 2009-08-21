@@ -6,6 +6,7 @@
 
 pwan::imageviewer_frontend_qt_widget::imageviewer_frontend_qt_widget(QWidget *parent): QWidget(parent)
 {
+    connect(this, SIGNAL(exitprogram()), this, SLOT(close()));
 }
 
 void pwan::imageviewer_frontend_qt_widget::paintEvent(QPaintEvent *)
@@ -32,10 +33,10 @@ void pwan::imageviewer_frontend_qt_widget::keyPressEvent(QKeyEvent *keyevent)
     {
         case QUIT:
             emit exitprogram();
+            break;
         default:
             break;
     }
-
 }
 
 void pwan::imageviewer_frontend_qt_widget::setupKey(int whatkey, p_img_keyevent whatevent)
