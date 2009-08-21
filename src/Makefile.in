@@ -53,7 +53,8 @@ am_ImageViewer_OBJECTS = main.$(OBJEXT) pwanutils.$(OBJEXT) \
 	imageviewer_frontend_base.$(OBJEXT) \
 	imageviewer_backend_base.$(OBJEXT) \
 	imageviewer_backend_qt.$(OBJEXT) \
-	imageviewer_frontend_qt_new.$(OBJEXT)
+	imageviewer_frontend_qt_new.$(OBJEXT) \
+	imageviewer_frontend_qt_widget.$(OBJEXT)
 ImageViewer_OBJECTS = $(am_ImageViewer_OBJECTS)
 ImageViewer_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -202,7 +203,9 @@ ImageViewer_SOURCES = \
 	imageviewer_backend_qt.cpp \
 	imageviewer_backend_qt.h \
 	imageviewer_frontend_qt_new.cpp \
-	imageviewer_frontend_qt_new.h
+	imageviewer_frontend_qt_new.h \
+	imageviewer_frontend_qt_widget.cpp \
+	imageviewer_frontend_qt_widget.h
 
 CLEANFILES = *moc *~
 AM_CXXFLAGS = $(QtCore_CFLAGS) $(QtGui_CFLAGS) $(BOOST_CPPFLAGS)
@@ -278,6 +281,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_base.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt_new.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt_widget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwancmdlineparser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pwandebug.Po@am__quote@
@@ -481,6 +485,7 @@ uninstall-am: uninstall-binPROGRAMS
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
 imageviewer_frontend_qt_new.cpp:imageviewer_frontend_qt_new.moc
+imageviewer_frontend_qt_widget.cpp:imageviewer_frontend_qt_widget.moc
 
 t_imageviewer.moc: 
 	moc t_imageviewer.h -o t_imageviewer.moc
@@ -490,6 +495,9 @@ t_loadimage.moc:
 
 imageviewer_frontend_qt_new.moc:
 	moc imageviewer_frontend_qt_new.h -o imageviewer_frontend_qt_new.moc
+
+imageviewer_frontend_qt_widget.moc:
+	moc imageviewer_frontend_qt_widget.h -o imageviewer_frontend_qt_widget.moc
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

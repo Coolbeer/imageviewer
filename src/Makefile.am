@@ -25,11 +25,14 @@ ImageViewer_SOURCES = \
 	imageviewer_backend_qt.cpp \
 	imageviewer_backend_qt.h \
 	imageviewer_frontend_qt_new.cpp \
-	imageviewer_frontend_qt_new.h
+	imageviewer_frontend_qt_new.h \
+	imageviewer_frontend_qt_widget.cpp \
+	imageviewer_frontend_qt_widget.h
 
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
 imageviewer_frontend_qt_new.cpp:imageviewer_frontend_qt_new.moc
+imageviewer_frontend_qt_widget.cpp:imageviewer_frontend_qt_widget.moc
 
 t_imageviewer.moc: 
 	moc t_imageviewer.h -o t_imageviewer.moc
@@ -39,6 +42,9 @@ t_loadimage.moc:
 
 imageviewer_frontend_qt_new.moc:
 	moc imageviewer_frontend_qt_new.h -o imageviewer_frontend_qt_new.moc
+
+imageviewer_frontend_qt_widget.moc:
+	moc imageviewer_frontend_qt_widget.h -o imageviewer_frontend_qt_widget.moc
 
 CLEANFILES = *moc *~
 

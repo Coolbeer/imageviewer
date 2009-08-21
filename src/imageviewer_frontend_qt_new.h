@@ -5,31 +5,35 @@
 #include <QtGui/QWidget>
 #include <QtCore/QTimer>
 
-
 #include "imageviewer_frontend_base.h"
 #include "imageviewer_backend_qt.h"
 
 namespace pwan
 {
-    class imageviewer_frontend_qt_new : public QApplication, public imageviewer_frontend_base, public QWidget
+    class imageviewer_frontend_qt_widget;
+
+    class imageviewer_frontend_qt_new : public QApplication, public imageviewer_frontend_base
     {
         Q_OBJECT
-        public:
-                                                                imageviewer_frontend_qt_new(int argc, char **argv, QWidget *parent = 0);
-            int                                                 startup(void);
-            void                                                init(void);
-            void                                                setScaled(bool onoff);
-            int                                                 setFirstImage(std::string &imagefilename);
-        private:
-            void                                                paintEvent(QPaintEvent *);
-            pwan::imageviewer_backend_qt                        backend;
-            QTimer                                              *timer;
-            std::vector<boost::shared_ptr<pwan::imagebuffer> >  imgbuf;
-            std::string                                         currentimage;
-            bool                                                scaled;
 
+        public:
+                                                                        imageviewer_frontend_qt_new(int argc, char **argv);
+            int                                                         startup(void);
+            void                                                        init(void);
+            void                                                        setScaled(bool onoff);
+            int                                                         setFirstImage(std::string &imagefilename);
+        private:
+            pwan::imageviewer_backend_qt                                backend;
+            boost::shared_ptr<pwan::imageviewer_frontend_qt_widget>     myWidget;
+            std::vector<boost::shared_ptr<pwan::imagebuffer> >          imgbuf;
+            std::string                                                 currentimage;
+            QTimer                                                      *timer;
+            bool                                                        scaled;
+            void                                                        setupKeys(void);
         private slots:
-            void                                                processOneThing();
+            void                                                        processOneThing();
+        signals:
+            void                                                        exitprogram(void);
 
     };
 }
