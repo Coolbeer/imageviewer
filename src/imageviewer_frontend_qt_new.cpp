@@ -15,6 +15,8 @@ int pwan::imageviewer_frontend_qt_new::startup(void)
     timer = new QTimer(qApp);
     QObject::connect(timer, SIGNAL(timeout()), qApp, SLOT(processOneThing()));
     timer->start(10);
+    myWidget->resize(800,600);
+    myWidget->move(100,100);
     myWidget->show();
     return qApp->exec();
 }
