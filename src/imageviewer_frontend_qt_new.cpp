@@ -1,4 +1,5 @@
 #include <QtGui/QPainter>
+#include <QtGui/QImageReader>
 
 #include "imageviewer_frontend_qt_new.h"
 #include "imageviewer_frontend_qt_new.moc"
@@ -32,6 +33,13 @@ void pwan::imageviewer_frontend_qt_new::setScaled(bool onoff)
 
 int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
 {
+    QImageReader imagereader;
+    std::vector<std::string> imageformats;
+    QList<QByteArray> imgformats = imagereader.supportedImageFormats();
+    for (int teller = 0; teller != imgformats.size(); ++teller)
+        imageformats.push_back("." + QString(imgformats.at(teller)).toStdString());
+
+    backend.makeimagelist(imagefilename, imageformats);
     backend.loadImage(imagefilename);
     currentimage = imagefilename;
     return 1;
@@ -58,6 +66,11 @@ void pwan::imageviewer_frontend_qt_new::setupKeys()
 
 void pwan::imageviewer_frontend_qt_new::processOneThing()
 {
+    for(unsigned int i = 0; i != images.size(); ++i)
+    {
+        if(currentimage == images.at(i)->filename)
+            return;
+    }
     boost::shared_ptr<imagebuffer> tmp(backend.getImage(currentimage));
     if(tmp)
     {

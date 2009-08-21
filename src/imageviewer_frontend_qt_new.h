@@ -33,6 +33,7 @@ namespace pwan
             pwan::imageviewer_backend_qt                                backend;
             boost::shared_ptr<pwan::imageviewer_frontend_qt_widget>     myWidget;
             std::vector<boost::shared_ptr<pwan::imagebuffer_qt> >       images;
+            std::vector<std::string>                                    imagelist;
             std::string                                                 currentimage;
             QTimer                                                      *timer;
             bool                                                        scaled;

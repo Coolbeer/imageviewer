@@ -17,8 +17,8 @@ namespace pwan
 
         public:
                                                                 imageviewer_frontend_qt_widget(QWidget *parent = 0);
-        void                                                    setupKey(int, p_img_keyevent);
-        void                                                    setImage(boost::shared_ptr<pwan::imagebuffer_qt> newImg);
+            void                                                setupKey(int, p_img_keyevent);
+            void                                                setImage(boost::shared_ptr<pwan::imagebuffer_qt> newImg);
         private:
             void                                                paintEvent(QPaintEvent *);
             void                                                keyPressEvent(QKeyEvent *keyevent);
