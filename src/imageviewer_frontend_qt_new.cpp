@@ -49,7 +49,7 @@ int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
         if(imagefilename == imagelist.at(i))
         {
             imageindex = i;
-            if(i != imagelist.size())
+            if(i < imagelist.size()-1)
                 backend.loadImage(imagelist.at(i+1));
             return 1;
         }
@@ -98,5 +98,6 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
 
 void pwan::imageviewer_frontend_qt_new::nextimage()
 {
-    ++imageindex;
+    if(imageindex < imagelist.size()-1)
+        ++imageindex;
 }
