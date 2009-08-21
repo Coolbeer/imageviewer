@@ -6,7 +6,7 @@
 
 pwan::imageviewer_frontend_qt_new::imageviewer_frontend_qt_new(int argc, char **argv): QApplication(argc, argv)
 {
-    myWidget.reset(new imageviewer_frontend_qt_widget);
+    myWidget = boost::shared_ptr<pwan::imageviewer_frontend_qt_widget>(new imageviewer_frontend_qt_widget());
 }
 
 int pwan::imageviewer_frontend_qt_new::startup(void)
