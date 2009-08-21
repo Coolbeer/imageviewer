@@ -13,8 +13,9 @@ pwan::imageviewer_frontend_qt_new::imageviewer_frontend_qt_new(int argc, char **
 int pwan::imageviewer_frontend_qt_new::startup(void)
 {
     timer = new QTimer(qApp);
-    QObject::connect(timer, SIGNAL(timeout()), qApp, SLOT(processOneThing()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(processOneThing()));
     timer->start(10);
+    connect(myWidget.get(), SIGNAL(nextimage()), this, SLOT(nextimage()));
     myWidget->resize(800,600);
     myWidget->move(100,100);
     myWidget->show();
@@ -41,10 +42,17 @@ int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
     for (int teller = 0; teller != imgformats.size(); ++teller)
         imageformats.push_back("." + QString(imgformats.at(teller)).toStdString());
 
-    backend.makeimagelist(imagefilename, imageformats);
+    imagelist = backend.makeimagelist(imagefilename, imageformats);
     backend.loadImage(imagefilename);
-    currentimage = imagefilename;
-    return 1;
+    for(unsigned int i = 0; i != imagelist.size(); ++i)
+    {
+        if(imagefilename == imagelist.at(i))
+        {
+            imageindex = i;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void pwan::imageviewer_frontend_qt_new::setupKeys()
@@ -70,10 +78,10 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
 {
     for(unsigned int i = 0; i != images.size(); ++i)
     {
-        if(currentimage == images.at(i)->filename)
+        if(imagelist.at(imageindex) == images.at(i)->filename)
             return;
     }
-    boost::shared_ptr<imagebuffer> tmp(backend.getImage(currentimage));
+    boost::shared_ptr<imagebuffer> tmp(backend.getImage(imagelist.at(imageindex)));
     if(tmp)
     {
         boost::shared_ptr<imagebuffer_qt> image(new imagebuffer_qt);
@@ -84,4 +92,9 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
         myWidget->setImage(image);
         myWidget->update();
     }
+}
+
+void pwan::imageviewer_frontend_qt_new::nextimage()
+{
+    ++imageindex;
 }

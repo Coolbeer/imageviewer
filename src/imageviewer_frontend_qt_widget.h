@@ -26,6 +26,7 @@ namespace pwan
             boost::shared_ptr<pwan::imagebuffer_qt>             imgbuf;
         signals:
             void                                                exitprogram(void);
+            void                                                nextimage(void);
 
     };
 }

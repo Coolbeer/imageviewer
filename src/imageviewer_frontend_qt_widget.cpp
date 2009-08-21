@@ -37,6 +37,9 @@ void pwan::imageviewer_frontend_qt_widget::keyPressEvent(QKeyEvent *keyevent)
             setWindowState(windowState() ^ Qt::WindowFullScreen);
             update(); 
             break;
+        case NEXTIMAGE:
+            emit nextimage();
+            update();
         default:
             break;
     }

@@ -93,5 +93,6 @@ boost::shared_ptr<pwan::imagebuffer> pwan::imageviewer_backend_qt::getImage(std:
     if(image2)
         if(image2->filename == filename)
             return image2;
+    fileName.push_back(filename);
     return boost::shared_ptr<imagebuffer>();
 }

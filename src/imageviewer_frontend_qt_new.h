@@ -16,7 +16,6 @@ namespace pwan
     {
         std::string                         filename;
         boost::shared_ptr<QImage>           image;
-
     };
 
     class imageviewer_frontend_qt_new : public QApplication, public imageviewer_frontend_base
@@ -30,16 +29,18 @@ namespace pwan
             void                                                        setScaled(bool onoff);
             int                                                         setFirstImage(std::string &imagefilename);
         private:
+            void                                                        setupKeys(void);
             pwan::imageviewer_backend_qt                                backend;
             boost::shared_ptr<pwan::imageviewer_frontend_qt_widget>     myWidget;
             std::vector<boost::shared_ptr<pwan::imagebuffer_qt> >       images;
             std::vector<std::string>                                    imagelist;
-            std::string                                                 currentimage;
             QTimer                                                      *timer;
             bool                                                        scaled;
-            void                                                        setupKeys(void);
+            unsigned int                                                imageindex;
         private slots:
-            void                                                        processOneThing();
+            void                                                        processOneThing(void);
+        public slots:
+            void                                                        nextimage(void);
         signals:
             void                                                        exitprogram(void);
     };
