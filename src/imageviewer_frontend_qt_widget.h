@@ -9,7 +9,7 @@
 
 namespace pwan
 {
-    struct imagebuffer;
+    struct imagebuffer_qt;
 
     class imageviewer_frontend_qt_widget : public QWidget
     {
@@ -18,12 +18,12 @@ namespace pwan
         public:
                                                                 imageviewer_frontend_qt_widget(QWidget *parent = 0);
         void                                                    setupKey(int, p_img_keyevent);
-        void                                                    setImage(boost::shared_ptr<pwan::imagebuffer> newImg);
+        void                                                    setImage(boost::shared_ptr<pwan::imagebuffer_qt> newImg);
         private:
             void                                                paintEvent(QPaintEvent *);
             void                                                keyPressEvent(QKeyEvent *keyevent);
             std::map<int, p_img_keyevent>                       programKeys;
-            boost::shared_ptr<pwan::imagebuffer>                imgbuf;
+            boost::shared_ptr<pwan::imagebuffer_qt>             imgbuf;
         signals:
             void                                                exitprogram(void);
 

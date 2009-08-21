@@ -1,8 +1,8 @@
 #include <QtGui/QPainter>
 
-#include "imageviewer_backend_base.h"
 #include "imageviewer_frontend_qt_widget.h"
 #include "imageviewer_frontend_qt_widget.moc"
+#include "imageviewer_frontend_qt_new.h"
 
 pwan::imageviewer_frontend_qt_widget::imageviewer_frontend_qt_widget(QWidget *parent): QWidget(parent)
 {
@@ -14,10 +14,9 @@ void pwan::imageviewer_frontend_qt_widget::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.fillRect(QRect(0,0,this->geometry().width(), this->geometry().height()), QColor(0,0,0));
     painter.setPen(Qt::white);
-    if(imgbuf)
+    if(!imgbuf->image->isNull())
     {
-        QImage image(imgbuf->data.get(), imgbuf->width, imgbuf->height, QImage::Format_ARGB32);
-        painter.drawImage(QPointF(0,0), image, QRect(0,0,this->geometry().width(), this->geometry().height()));
+        painter.drawImage(QPointF(0,0), (*imgbuf->image), QRect(0,0,this->geometry().width(), this->geometry().height()));
     }
     else
     {
@@ -34,6 +33,10 @@ void pwan::imageviewer_frontend_qt_widget::keyPressEvent(QKeyEvent *keyevent)
         case QUIT:
             emit exitprogram();
             break;
+        case FULLSCREEN:
+            setWindowState(windowState() ^ Qt::WindowFullScreen);
+            update(); 
+            break;
         default:
             break;
     }
@@ -44,7 +47,7 @@ void pwan::imageviewer_frontend_qt_widget::setupKey(int whatkey, p_img_keyevent 
     programKeys[whatkey] = whatevent;
 }
 
-void pwan::imageviewer_frontend_qt_widget::setImage(boost::shared_ptr<pwan::imagebuffer> newImg)
+void pwan::imageviewer_frontend_qt_widget::setImage(boost::shared_ptr<pwan::imagebuffer_qt> newImg)
 {
     imgbuf = newImg;
 }

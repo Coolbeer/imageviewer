@@ -13,6 +13,7 @@ namespace pwan
         boost::uint16_t                     width;
         boost::uint16_t                     height;
         boost::uint8_t                      depth;
+        boost::uint32_t                     noOfBytes;
         boost::shared_array<unsigned char>  data;
     };
 

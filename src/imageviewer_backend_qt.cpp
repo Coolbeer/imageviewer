@@ -57,6 +57,7 @@ void pwan::imageviewer_backend_qt::do_work()
                 buffer->height = image.height();
                 buffer->depth = image.depth();
                 buffer->data.reset(new uchar[image.numBytes()]);
+                buffer->noOfBytes = image.numBytes();
                 memcpy(buffer->data.get(), image.bits(), image.numBytes());
                 image2 = image1;
                 image1 = buffer;

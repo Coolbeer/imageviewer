@@ -61,8 +61,12 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
     boost::shared_ptr<imagebuffer> tmp(backend.getImage(currentimage));
     if(tmp)
     {
-        imgbuf.push_back(tmp);
-        myWidget->setImage(tmp);
+        boost::shared_ptr<imagebuffer_qt> image(new imagebuffer_qt);
+        image->image = boost::shared_ptr<QImage>(new QImage(tmp->width, tmp->height, QImage::Format_ARGB32));
+        memcpy(image->image->bits(), tmp->data.get(), tmp->noOfBytes);
+        image->filename = tmp->filename;
+        images.push_back(image);
+        myWidget->setImage(image);
         myWidget->update();
     }
 }

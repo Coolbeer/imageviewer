@@ -2,5 +2,4 @@
 
 pwan::imageviewer_frontend_base::~imageviewer_frontend_base(void)
 {
-
 }
