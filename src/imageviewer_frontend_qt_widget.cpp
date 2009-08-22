@@ -16,7 +16,21 @@ void pwan::imageviewer_frontend_qt_widget::paintEvent(QPaintEvent *)
     painter.setPen(Qt::white);
     if(imgbuf && !imgbuf->image->isNull())
     {
+        QRect textbox;
+        QRect text;
+        QString imagefile;
         painter.drawImage(QPointF(0,0), (*imgbuf->image), QRect(0,0,this->geometry().width(), this->geometry().height()));
+
+        painter.setPen(Qt::black);
+        painter.setBrush(QColor(255, 255, 255, 190));
+        imagefile = QString::fromStdString(imgbuf->filename);
+        textbox = painter.boundingRect(this->rect(), Qt::AlignBottom | Qt::AlignLeft, imagefile);
+        text = textbox;
+        textbox.setWidth(textbox.width() + 10);
+        text.setLeft(text.left() +5);
+        text.setRight(text.right() +5);
+        painter.drawRect(textbox);
+        painter.drawText(text, Qt::AlignBottom | Qt::AlignLeft, imagefile);
     }
     else
     {
