@@ -16,6 +16,7 @@ int pwan::imageviewer_frontend_qt_new::startup(void)
     connect(timer, SIGNAL(timeout()), this, SLOT(processOneThing()));
     timer->start(10);
     connect(myWidget.get(), SIGNAL(nextimage()), this, SLOT(nextimage()));
+    connect(myWidget.get(), SIGNAL(previmage()), this, SLOT(previmage()));
     myWidget->resize(800,600);
     myWidget->move(100,100);
     myWidget->show();
@@ -81,7 +82,11 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
     for(unsigned int i = 0; i != images.size(); ++i)
     {
         if(imagelist.at(imageindex) == images.at(i)->filename)
+        {
+            myWidget->setImage(images.at(i));
+            myWidget->update();
             return;
+        }
     }
     boost::shared_ptr<imagebuffer> tmp(backend.getImage(imagelist.at(imageindex)));
     if(tmp)
@@ -100,4 +105,10 @@ void pwan::imageviewer_frontend_qt_new::nextimage()
 {
     if(imageindex < imagelist.size()-1)
         ++imageindex;
+}
+
+void pwan::imageviewer_frontend_qt_new::previmage()
+{
+    if(imageindex != 0)
+        --imageindex;
 }

@@ -41,6 +41,7 @@ namespace pwan
             void                                                        processOneThing(void);
         public slots:
             void                                                        nextimage(void);
+            void                                                        previmage(void);
         signals:
             void                                                        exitprogram(void);
     };

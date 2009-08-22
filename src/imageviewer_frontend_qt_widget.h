@@ -27,6 +27,7 @@ namespace pwan
         signals:
             void                                                exitprogram(void);
             void                                                nextimage(void);
+            void                                                previmage(void);
 
     };
 }

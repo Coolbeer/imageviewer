@@ -39,7 +39,9 @@ void pwan::imageviewer_frontend_qt_widget::keyPressEvent(QKeyEvent *keyevent)
             break;
         case NEXTIMAGE:
             emit nextimage();
-            update();
+            break;
+        case PREVIMAGE:
+            emit previmage();
         default:
             break;
     }
