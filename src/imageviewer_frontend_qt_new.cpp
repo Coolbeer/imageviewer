@@ -13,7 +13,7 @@ pwan::imageviewer_frontend_qt_new::imageviewer_frontend_qt_new(int argc, char **
 int pwan::imageviewer_frontend_qt_new::startup(void)
 {
     timer = new QTimer(qApp);
-    timer->start(10);
+    timer->start(200);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(processOneThing()));
     connect(myWidget.get(), SIGNAL(nextimage()), this, SLOT(nextimage()));
@@ -110,11 +110,17 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
 void pwan::imageviewer_frontend_qt_new::nextimage()
 {
     if(imageindex < images.size()-1)
+    {
         ++imageindex;
+        myWidget->setImage(images.at(imageindex));
+    }
 }
 
 void pwan::imageviewer_frontend_qt_new::previmage()
 {
     if(imageindex != 0)
+    {
         --imageindex;
+        myWidget->setImage(images.at(imageindex));
+    }
 }
