@@ -14,7 +14,7 @@ void pwan::imageviewer_frontend_qt_widget::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.fillRect(QRect(0,0,this->geometry().width(), this->geometry().height()), QColor(0,0,0));
     painter.setPen(Qt::white);
-    if(imgbuf && !imgbuf->image->isNull())
+    if(imgbuf && imgbuf->image && !imgbuf->image->isNull())
     {
         QRect textbox;
         QRect text;
