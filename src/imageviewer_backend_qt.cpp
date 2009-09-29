@@ -1,14 +1,8 @@
 #include <QtCore/QTextCodec>
 #include <QtGui/QImage>
 #include <boost/shared_ptr.hpp>
-
-#ifdef _WIN32
-#include "windows.h"
-#endif
-
-#ifdef linux
-#include "unistd.h"
-#endif
+#include <boost/asio.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "imageviewer_backend_qt.h"
 
@@ -35,12 +29,9 @@ void pwan::imageviewer_backend_qt::do_work()
 {
     while(!abort)
     {
-#ifdef _WIN32
-        Sleep(200);
-#endif
-#ifdef linux
-        usleep(200);
-#endif
+        boost::asio::io_service io;
+        boost::asio::deadline_timer t(io, boost::posix_time::millisec(20));
+        t.wait();
         while(!fileName.empty())
         {
             QImage image;
