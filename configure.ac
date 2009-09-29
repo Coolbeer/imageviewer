@@ -5,6 +5,7 @@ AC_PREREQ(2.63)
 AC_INIT([ImageViewer],[0.1.5])
 AC_CONFIG_SRCDIR([src/main.h])
 AC_CONFIG_HEADER([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 
 # Checks for programs.
@@ -15,6 +16,7 @@ AX_BOOST_THREAD
 AX_BOOST_FILESYSTEM
 AC_PROG_CXXCPP
 AC_PROG_INSTALL
+AC_PROG_LIBTOOL
 
 CFLAGS="$CFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
 CXXFLAGS="$CXXFLAGS -Wall -Werror -Wextra -pedantic -Wno-long-long"
@@ -49,6 +51,4 @@ AC_LANG_POP([C++])
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile
-                 src/Makefile])
-AC_OUTPUT
+AC_OUTPUT(Makefile src/Makefile src/pwantools/Makefile)

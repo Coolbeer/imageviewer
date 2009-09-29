@@ -4,7 +4,7 @@
 #include <QtGui/QPaintEvent>
 #include <QtGui/QWidget>
 
-#include "pwandebug.h"
+#include "pwantools/pwandebug.h"
 #include "../config.h"
 
 class t_loadimage;

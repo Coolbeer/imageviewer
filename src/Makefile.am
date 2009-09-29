@@ -2,20 +2,12 @@ bin_PROGRAMS = ImageViewer
 ImageViewer_SOURCES = \
 	main.h \
 	main.cpp \
-	pwanutils.h \
-	pwanutils.cpp \
-	pwandebug.cpp \
-	pwandebug.h \
 	t_loadimage.cpp \
 	t_loadimage.moc \
 	t_loadimage.h \
-	pwanstrings.cpp \
-	pwanstrings.h \
 	t_imageviewer.cpp \
 	t_imageviewer.moc \
 	t_imageviewer.h \
-	pwancmdlineparser.cpp \
-	pwancmdlineparser.h \
 	imageviewer_frontend_qt.cpp \
 	imageviewer_frontend_qt.h \
 	imageviewer_frontend_base.cpp \
@@ -28,6 +20,7 @@ ImageViewer_SOURCES = \
 	imageviewer_frontend_qt_new.h \
 	imageviewer_frontend_qt_widget.cpp \
 	imageviewer_frontend_qt_widget.h
+
 
 t_loadimage.cpp:t_loadimage.moc
 t_imageviewer.cpp:t_imageviewer.moc
@@ -47,6 +40,8 @@ imageviewer_frontend_qt_widget.moc:
 	moc imageviewer_frontend_qt_widget.h -o imageviewer_frontend_qt_widget.moc
 
 CLEANFILES = *moc *~
+SUBDIRS = pwantools
+LDADD = pwantools/libpwantools.a
 
 AM_CXXFLAGS = $(QtCore_CFLAGS) $(QtGui_CFLAGS) $(BOOST_CPPFLAGS)
 AM_LDFLAGS = $(QtCore_LIBS) $(QtGui_LIBS) $(BOOST_THREAD_LIB) $(BOOST_LDFLAGS) $(BOOST_FILESYSTEM_LIB)

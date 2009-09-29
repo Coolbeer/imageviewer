@@ -1,9 +1,9 @@
 #include <string>
 
 #include "main.h"
-#include "pwandebug.h"
-#include "pwanstrings.h"
-#include "pwancmdlineparser.h"
+#include "pwantools/pwandebug.h"
+#include "pwantools/pwanstrings.h"
+#include "pwantools/pwancmdlineparser.h"
 #include "imageviewer_frontend_qt.h"
 #include "imageviewer_frontend_qt_new.h"
 

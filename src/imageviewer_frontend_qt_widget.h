@@ -5,7 +5,7 @@
 #include <QtGui/QKeyEvent>
 #include <boost/shared_ptr.hpp>
 #include <map>
-#include "pwantools_enums.h"
+#include "pwantools/pwantools_enums.h"
 
 namespace pwan
 {

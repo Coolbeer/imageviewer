@@ -1,7 +1,7 @@
 #ifndef IMAGEVIEWER_FRONTEND_BASE_H
 #define IMAGEVIEWER_FRONTEND_BASE_H
 
-#include "pwantools_enums.h"
+#include "pwantools/pwantools_enums.h"
 
 namespace pwan
 {

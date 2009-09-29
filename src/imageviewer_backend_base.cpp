@@ -1,7 +1,7 @@
 #include <boost/filesystem.hpp>
 
 #include "imageviewer_backend_base.h"
-#include "pwanstrings.h"
+#include "pwantools/pwanstrings.h"
 #include "string.h"
 
 pwan::imageviewer_backend_base::~imageviewer_backend_base()

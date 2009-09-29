@@ -4,12 +4,12 @@
 #include <boost/filesystem.hpp>
 #include <iostream>
 
-#include "pwanutils.h"
+#include "pwantools/pwanutils.h"
 #include "t_imageviewer.moc"
 #include "t_imageviewer.h"
 #include "t_loadimage.h"
-#include "pwandebug.h"
-#include "pwanstrings.h"
+#include "pwantools/pwandebug.h"
+#include "pwantools/pwanstrings.h"
 
 t_imageviewer::t_imageviewer(QWidget *parent) : QWidget(parent)
 {
