@@ -29,9 +29,6 @@ void pwan::imageviewer_backend_qt::do_work()
 {
     while(!abort)
     {
-        boost::asio::io_service io;
-        boost::asio::deadline_timer t(io, boost::posix_time::millisec(20));
-        t.wait();
         while(!fileName.empty())
         {
             QImage image;
@@ -58,6 +55,9 @@ void pwan::imageviewer_backend_qt::do_work()
         boost::mutex::scoped_lock l(m_mutex);
         if (abort)
             break;
+        boost::asio::io_service io;
+        boost::asio::deadline_timer t(io, boost::posix_time::millisec(20));
+        t.wait();
     }
 }
 
