@@ -37,6 +37,13 @@ void pwan::imageviewer_frontend_qt_widget::paintEvent(QPaintEvent *)
         painter.drawText(this->rect(), Qt::AlignCenter, "Loading Image...");
     }
 }
+std::string pwan::imageviewer_frontend_qt_widget::curImage(void)
+{
+    if(imgbuf && imgbuf->image)
+        return imgbuf->filename;
+    else
+        return "";
+}
 
 void pwan::imageviewer_frontend_qt_widget::keyPressEvent(QKeyEvent *keyevent)
 {
@@ -49,7 +56,7 @@ void pwan::imageviewer_frontend_qt_widget::keyPressEvent(QKeyEvent *keyevent)
             break;
         case FULLSCREEN:
             setWindowState(windowState() ^ Qt::WindowFullScreen);
-            update(); 
+            update();
             break;
         case NEXTIMAGE:
             emit nextimage();
