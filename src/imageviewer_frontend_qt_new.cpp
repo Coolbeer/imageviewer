@@ -92,19 +92,22 @@ void pwan::imageviewer_frontend_qt_new::setupKeys()
 
 void pwan::imageviewer_frontend_qt_new::processOneThing()
 {
-    myWidget->setImage(images.at(imageindex));
-    myWidget->update();
-    if(!images.at(imageindex)->image)
+    if(images.at(imageindex)->filename != myWidget->curImage())
     {
-        boost::shared_ptr<imagebuffer> tmp(backend.getImage(images.at(imageindex)->filename));
-        if(tmp)
+        myWidget->setImage(images.at(imageindex));
+        if(!images.at(imageindex)->image)
         {
-            images.at(imageindex)->image = boost::shared_ptr<QImage>(new QImage(tmp->width, tmp->height, QImage::Format_ARGB32));
-            memcpy(images.at(imageindex)->image->bits(), tmp->data.get(), tmp->noOfBytes);
-            myWidget->setImage(images.at(imageindex));
-            myWidget->update();
+            boost::shared_ptr<imagebuffer> tmp(backend.getImage(images.at(imageindex)->filename));
+            if(tmp)
+            {
+                images.at(imageindex)->image = boost::shared_ptr<QImage>(new QImage(tmp->width, tmp->height, QImage::Format_ARGB32));
+                memcpy(images.at(imageindex)->image->bits(), tmp->data.get(), tmp->noOfBytes);
+                myWidget->setImage(images.at(imageindex));
+                myWidget->update();
+            }
         }
     }
+    myWidget->update();
 }
 
 void pwan::imageviewer_frontend_qt_new::nextimage()
