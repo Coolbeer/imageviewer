@@ -33,11 +33,13 @@ void pwan::imageviewer_backend_qt::do_work()
         {
             QImage image;
             boost::shared_ptr<imagebuffer> buffer(new imagebuffer);
-            boost::mutex::scoped_lock l(m_mutex);
             image = QImage(0,0,QImage::Format_Invalid);
             QTextCodec *codec = QTextCodec::codecForName("UTF-8");
             QTextCodec::setCodecForCStrings (codec);
+
+            m_mutex.lock();
             image.load(QString().fromStdString(fileName.at(0)));
+            m_mutex.unlock();
             if(!image.isNull())
             {
                 buffer->filename = fileName.at(0);
@@ -46,15 +48,20 @@ void pwan::imageviewer_backend_qt::do_work()
                 buffer->depth = image.depth();
                 buffer->data.reset(new uchar[image.numBytes()]);
                 buffer->noOfBytes = image.numBytes();
+                m_mutex.lock();
                 memcpy(buffer->data.get(), image.bits(), image.numBytes());
                 image2 = image1;
                 image1 = buffer;
+                m_mutex.unlock();
             }
+            m_mutex.lock();
             fileName.erase(fileName.begin());
+            m_mutex.unlock();
         }
-        boost::mutex::scoped_lock l(m_mutex);
+        m_mutex.lock();
         if (abort)
             break;
+        m_mutex.unlock();
         boost::asio::io_service io;
         boost::asio::deadline_timer t(io, boost::posix_time::millisec(20));
         t.wait();
