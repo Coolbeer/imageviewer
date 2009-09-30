@@ -2,7 +2,6 @@
 #include <QtGui/QImageReader>
 #include <QtGui/QPainter>
 #include <boost/filesystem.hpp>
-#include <iostream>
 
 #include "pwantools/pwanutils.h"
 #include "t_imageviewer.moc"

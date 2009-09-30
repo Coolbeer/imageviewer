@@ -2,8 +2,6 @@
 #include "../config.h"
 #include "pwanstrings.h"
 
-#include <iostream>
-
 std::map<std::string, std::string> pwan::t_cmdlineParser::internalData;
 
 pwan::t_cmdlineParser::t_cmdlineParser(void)
@@ -210,7 +208,7 @@ pwan::p_returnValue pwan::t_cmdlineParser::get(const std::string &name, std::str
     else
     {
         dprint(className + "::" + functionName, "Not found(" + name +")", 3);
-        return P_NOT_FOUND;       
+        return P_NOT_FOUND;
     }
 }
 

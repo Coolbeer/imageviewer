@@ -1031,7 +1031,9 @@ AC_SUBST([am__tar])
 AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
+m4_include([m4/ax_boost_asio.m4])
 m4_include([m4/ax_boost_base.m4])
+m4_include([m4/ax_boost_date_time.m4])
 m4_include([m4/ax_boost_filesystem.m4])
 m4_include([m4/ax_boost_thread.m4])
 m4_include([m4/libtool.m4])

@@ -86,7 +86,7 @@ NM="/usr/bin/nm -B"
 LN_S="ln -s"
 
 # What is the maximum length of a command?
-max_cmd_len=3458764513820540925
+max_cmd_len=1572864
 
 # Object file suffix (normally "o").
 objext=o
@@ -237,7 +237,7 @@ hardcode_into_libs=yes
 sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-linux-gnu/4.3.2 /usr/lib64 /lib64 /usr/x86_64-pc-linux-gnu/lib"
 
 # Run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/lib /usr/lib32/opengl/nvidia/lib /usr/lib64/opengl/nvidia/lib /lib /usr/lib /lib64 /usr/lib64 /usr/local/lib64 /lib32 /usr/lib32 /usr/local/lib32 /usr/x86_64-pc-linux-gnu/lib /usr/lib/gcc/x86_64-pc-linux-gnu/4.3.2 /usr/lib/gcc/x86_64-pc-linux-gnu/4.3.2/32 /usr/lib64/nspr /usr/lib64/nss /usr/lib/qt4 /usr/lib64/qt4 /usr/lib32/qt4 /usr/kde/3.5/lib32 /usr/kde/3.5/lib64 /usr/kde/3.5/lib /usr/qt/3/lib /usr/qt/3/lib64 /usr/qt/3/lib32 /usr/games/lib /usr/games/lib64 /usr/games/lib32 /opt/flash-libcompat /usr/lib32/libstdc++-v3/ "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/lib //usr/lib32/opengl/nvidia/lib //usr/lib64/opengl/nvidia/lib /lib /usr/lib /lib64 /usr/lib64 /usr/local/lib64 /lib32 /usr/lib32 /usr/local/lib32 /usr/x86_64-pc-linux-gnu/lib /usr/lib/gcc/x86_64-pc-linux-gnu/4.3.2 /usr/lib/gcc/x86_64-pc-linux-gnu/4.3.2/32 /usr/lib64/nspr /usr/lib64/nss /usr/lib/qt4 /usr/lib64/qt4 /usr/lib32/qt4 /usr/kde/3.5/lib32 /usr/kde/3.5/lib64 /usr/kde/3.5/lib /usr/qt/3/lib /usr/qt/3/lib64 /usr/qt/3/lib32 /usr/games/lib /usr/games/lib64 /usr/games/lib32 /opt/flash-libcompat /usr/lib32/libstdc++-v3/ "
 
 # Whether dlopen is supported.
 dlopen_support=unknown

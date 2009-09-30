@@ -107,7 +107,7 @@ void pwan::imageviewer_frontend_qt_new::processOneThing()
             }
         }
     }
-    myWidget->update();
+//    myWidget->update();
 }
 
 void pwan::imageviewer_frontend_qt_new::nextimage()
@@ -117,6 +117,7 @@ void pwan::imageviewer_frontend_qt_new::nextimage()
         ++imageindex;
         myWidget->setImage(images.at(imageindex));
     }
+    myWidget->update();
 }
 
 void pwan::imageviewer_frontend_qt_new::previmage()
@@ -126,4 +127,5 @@ void pwan::imageviewer_frontend_qt_new::previmage()
         --imageindex;
         myWidget->setImage(images.at(imageindex));
     }
+    myWidget->update();
 }

@@ -10,11 +10,12 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 
 # Checks for programs.
 AC_PROG_CXX
-AC_PROG_CC
+AC_PROG_CXXCPP
 AX_BOOST_BASE([1.37.0])
 AX_BOOST_THREAD
 AX_BOOST_FILESYSTEM
-AC_PROG_CXXCPP
+AX_BOOST_ASIO
+AX_BOOST_DATE_TIME
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 
@@ -34,16 +35,18 @@ AC_SUBST(QtGui_LIBS)
 
 # Checks for header files.
 
-AC_HEADER_STDC
-AC_CHECK_HEADERS(netdb.h sys/socket.h arpa/inet.h errno.h sys/time.h dirent.h,,
-    AC_MSG_ERROR(You need the glibc header files installed))
-
 AC_LANG_PUSH([C++])
-AC_CHECK_HEADERS(stdexcept,,
-    AC_MSG_ERROR(You need the standard <stdexcept> header file))
 
-AC_CHECK_HEADERS(vector string iostream list map fstream sstream,,
-    AC_MSG_ERROR(You need to have the libstdc++ headers installed))
+AC_CHECK_HEADER([stdexcept],,   [stdexcept not found.])
+AC_CHECK_HEADER([vector],,      [vector not found.])
+AC_CHECK_HEADER([string],,      [string not found.])
+AC_CHECK_HEADER([iostream],,    [iostream not found.])
+AC_CHECK_HEADER([map],,         [map not found.])
+AC_CHECK_HEADER([fstream],,     [fstream not found.])
+AC_CHECK_HEADER([string.h],,    [string.h not found.])
+AC_CHECK_HEADER([cctype],,      [cctype not found.])
+AC_CHECK_HEADER([sys/stat.h],,  [sys/stat.h not found.])
+AC_CHECK_HEADER([stdlib.h],,    [stdlib.h not found.])
 
 AC_LANG_POP([C++])
 
@@ -51,4 +54,6 @@ AC_LANG_POP([C++])
 
 # Checks for library functions.
 
-AC_OUTPUT(Makefile src/Makefile src/pwantools/Makefile)
+AC_CONFIG_FILES([Makefile src/Makefile src/pwantools/Makefile])
+
+AC_OUTPUT
