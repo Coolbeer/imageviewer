@@ -19,8 +19,15 @@ void pwan::imageviewer_frontend_qt_widget::paintEvent(QPaintEvent *)
         QRect textbox;
         QRect text;
         QString imagefile;
-        painter.drawImage(QPointF(0,0), (*imgbuf->image), QRect(0,0,this->geometry().width(), this->geometry().height()));
+        int xoffset = 0;
+        int yoffset = 0;
 
+        if(imgbuf->image->width() <= this->geometry().width())
+            xoffset = (this->geometry().width()/2) - (imgbuf->image->width()/2);
+        if(imgbuf->image->height() <= this->geometry().height())
+            yoffset = (this->geometry().height()/2) - (imgbuf->image->height()/2);
+
+        painter.drawImage(QPoint(xoffset,yoffset), (*imgbuf->image), QRect(0,0,imgbuf->image->width(), imgbuf->image->height()));
         painter.setPen(Qt::black);
         painter.setBrush(QColor(255, 255, 255, 190));
         imagefile = QString::fromStdString(imgbuf->filename);
