@@ -61,7 +61,6 @@ int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
             backend.loadImage(imagefilename);
             if(i < imagelist.size()-1)
                 backend.loadImage(imagelist.at(i+1));
-            break;
         }
     }
     if(haveIt)
