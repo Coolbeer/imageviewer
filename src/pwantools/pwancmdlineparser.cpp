@@ -1,5 +1,5 @@
 #include "pwancmdlineparser.h"
-#include "../config.h"
+#include "../../config.h"
 #include "pwanstrings.h"
 
 std::map<std::string, std::string> pwan::t_cmdlineParser::internalData;
