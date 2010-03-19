@@ -11,8 +11,9 @@ namespace pwan
             virtual                         ~imageviewer_frontend_base();
             virtual int                     startup(void) = 0;
             virtual void                    init(void) = 0;
-            virtual void                    setScaled(bool onoff) = 0;
+            virtual void                    setScaled(bool onoff);
         private:
+            bool                            scaled;
     };
 }
 

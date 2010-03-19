@@ -26,7 +26,6 @@ namespace pwan
                                                                         imageviewer_frontend_qt_new(int argc, char **argv);
             int                                                         startup(void);
             void                                                        init(void);
-            void                                                        setScaled(bool onoff);
             int                                                         setFirstImage(std::string &imagefilename);
         private:
             void                                                        setupKeys(void);
@@ -34,7 +33,6 @@ namespace pwan
             boost::shared_ptr<pwan::imageviewer_frontend_qt_widget>     myWidget;
             std::vector<boost::shared_ptr<pwan::imagebuffer_qt> >       images;
             QTimer                                                      *timer;
-            bool                                                        scaled;
             unsigned int                                                imageindex;
         private slots:
             void                                                        processOneThing(void);

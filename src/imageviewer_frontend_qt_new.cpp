@@ -33,11 +33,6 @@ void pwan::imageviewer_frontend_qt_new::init(void)
     return;
 }
 
-void pwan::imageviewer_frontend_qt_new::setScaled(bool onoff)
-{
-    scaled = onoff;
-}
-
 int pwan::imageviewer_frontend_qt_new::setFirstImage(std::string &imagefilename)
 {
     QImageReader imagereader;
