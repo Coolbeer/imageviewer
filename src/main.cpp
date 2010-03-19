@@ -4,19 +4,18 @@
 #include "pwantools/pwandebug.h"
 #include "pwantools/pwanstrings.h"
 #include "pwantools/pwancmdlineparser.h"
-#include "imageviewer_frontend_qt.h"
 #include "imageviewer_frontend_qt_new.h"
 
 #include "../config.h"
 
 int main (int argc, char *argv[])
 {
-    pwan::debug debug;
-    pwan::t_cmdlineParser cmdlineParser;
-//    boost::shared_ptr<pwan::imageviewer_frontend_qt> imageviewer(new pwan::imageviewer_frontend_qt(argc, argv));
-    boost::shared_ptr<pwan::imageviewer_frontend_qt_new> imageviewer(new pwan::imageviewer_frontend_qt_new(argc, argv));
     std::string imageFileName;
     std::string functionName("main");
+
+    pwan::debug debug;
+    pwan::t_cmdlineParser cmdlineParser;
+    boost::shared_ptr<pwan::imageviewer_frontend_qt_new> imageviewer(new pwan::imageviewer_frontend_qt_new(argc, argv));
     std::vector<pwan::optionsReturn> parsedOpts;
 
     imageviewer->init();

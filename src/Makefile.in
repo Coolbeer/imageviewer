@@ -53,8 +53,7 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_ImageViewer_OBJECTS = main.$(OBJEXT) t_loadimage.$(OBJEXT) \
-	t_imageviewer.$(OBJEXT) imageviewer_frontend_qt.$(OBJEXT) \
+am_ImageViewer_OBJECTS = main.$(OBJEXT) \
 	imageviewer_frontend_base.$(OBJEXT) \
 	imageviewer_backend_base.$(OBJEXT) \
 	imageviewer_backend_qt.$(OBJEXT) \
@@ -228,14 +227,6 @@ top_srcdir = @top_srcdir@
 ImageViewer_SOURCES = \
 	main.h \
 	main.cpp \
-	t_loadimage.cpp \
-	t_loadimage.moc \
-	t_loadimage.h \
-	t_imageviewer.cpp \
-	t_imageviewer.moc \
-	t_imageviewer.h \
-	imageviewer_frontend_qt.cpp \
-	imageviewer_frontend_qt.h \
 	imageviewer_frontend_base.cpp \
 	imageviewer_frontend_base.h \
 	imageviewer_backend_base.cpp \
@@ -326,12 +317,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_backend_base.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_backend_qt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_base.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt_new.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageviewer_frontend_qt_widget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_imageviewer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t_loadimage.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -656,16 +644,8 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall-binPROGRAMS
 
 
-t_loadimage.cpp:t_loadimage.moc
-t_imageviewer.cpp:t_imageviewer.moc
 imageviewer_frontend_qt_new.cpp:imageviewer_frontend_qt_new.moc
 imageviewer_frontend_qt_widget.cpp:imageviewer_frontend_qt_widget.moc
-
-t_imageviewer.moc: 
-	moc t_imageviewer.h -o t_imageviewer.moc
-
-t_loadimage.moc:
-	moc t_loadimage.h -o t_loadimage.moc
 
 imageviewer_frontend_qt_new.moc:
 	moc imageviewer_frontend_qt_new.h -o imageviewer_frontend_qt_new.moc
